@@ -11,7 +11,7 @@ import { updateHeader } from '../header/reducers/header.reducer';
 import ApprovalModal from '../modals/ApprovalModal';
 import { IApprovalModalContent } from '../modals/interfaces/modal.interface';
 import { IGigCardItemModal } from '../shared.interface';
-import { lowerCase, replaceSpacesWithDash, showErrorToast, showSuccessToast } from '../utils/utils.service';
+import { lowerCase, replaceSpacesWithDash, showErrorToast, showSuccessToast } from '../utils/util.service';
 
 const GigCardItem: FC<IGigsProps> = ({ gig: gigData }): ReactElement => {
   const gig = gigData as ISellerGig;
