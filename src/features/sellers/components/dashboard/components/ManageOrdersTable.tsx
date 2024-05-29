@@ -65,7 +65,46 @@ const ManageOrdersTable: FC<IOrderTableProps> = ({ type, orders, orderTypes }): 
                     {type === 'active' && <th className="p-3 text-center">Cancel</th>}
                   </tr>
                 ))}
-              </thead></div>;
+              </thead>
+              <tbody className="flex-1 sm:flex-none">
+                {orders.map((order: IOrderDocument) => (
+                  <tr key={uuidv4()} className="bg-white border-b border-grey flex flex-col flex-nowrap sm:table-row mb-2 sm:mb-0 ">
+                    <td></td>
+                    <td className="flex justify-start gap-3 px-3 py-3 sm:justify-center md:justify-start">
+                      <div className="flex flex-wrap gap-2 self-center">
+                        <img className="h-6 w-6 lg:h-8 lg:w-8 rounded-full object-cover" src={order.buyerImage} alt="" />
+                        <span className="font-bold flex self-center">{order.buyerUsername}</span>
+                      </div>
+                    </td>
+                    <td className="p-3 text-left lg:text-center w-[300px]">
+                      <div className="grid">
+                        <Link
+                          to={`/orders/${order.orderId}/activities`}
+                          onClick={() => dispatch(updateHeader('home'))}
+                          className="truncate text-sm font-normal hover:text-sky-500"
+                        >
+                          {order.offer.gigTitle}
+                        </Link>
+                      </div>
+                    </td>
+                    <td className="p-3 text-left lg:text-center">
+                      {type === 'cancelled'
+                        ? TimeAgo.dayMonthYear(`${order.approvedAt}`)
+                        : TimeAgo.dayMonthYear(`${order.offer.newDeliveryDate}`)}
+                    </td>
+                    {type === 'completed' && order.events.orderDelivered && (
+                      <td className="p-3 text-left lg:text-center">{TimeAgo.dayMonthYear(`${order.events.orderDelivered}`)}</td>
+                    )}
+                    <td className="p-3 text-left lg:text-center">${order.price}</td>
+                    <td className="px-3 py-1 lg:p-3 text-left lg:text-center">
+                      <span
+                        className={`rounded bg-transparent text-black p-0 text-xs font-bold uppercase sm:text-white sm:px-[5px] sm:py-[4px] status ${lowerCase(
+                          order.status.replace(/ /g, '')
+                        )}`}
+                      >
+                        {order.status}
+                      </span>
+                    </td>
 };
 
 export default ManageOrdersTable;
