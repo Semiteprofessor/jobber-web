@@ -13,6 +13,7 @@ import BuyerDashboard from './features/buyer/components/Dashboard';
 import CurrentSellerProfile from './features/sellers/components/profile/CurrentSellerProfile';
 import SellerProfile from './features/sellers/components/profile/SellerProfile';
 import Seller from './features/sellers/components/dashboard/Seller';
+import SellerDashboard from './features/sellers/components/dashboard/SellerDashboard';
 
 const Layout = ({ backgroundColor = '#fff', children }: { backgroundColor: string; children: ReactNode }): JSX.Element => (
   <div style={{ backgroundColor }} className="flex flex-grow">
