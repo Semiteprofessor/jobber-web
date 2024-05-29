@@ -65,7 +65,49 @@ const ManageOrders: FC = (): ReactElement => {
                   </span>
                 )}
               </a>
-            </li></div>;
+            </li>
+            <li className="inline-block py-3 uppercase" onClick={() => setType(SELLER_GIG_STATUS.CANCELLED)}>
+              <a
+                href="#activeorders"
+                className={`px-4 py-3 text-xs text-[#555555] no-underline sm:text-sm md:text-base ${
+                  type === SELLER_GIG_STATUS.CANCELLED ? 'pb-[15px] outline outline-1 outline-[#e8e8e8] sm:rounded-t-lg' : ''
+                }`}
+              >
+                Cancelled
+                {orderTypes(SELLER_GIG_STATUS.CANCELLED, ordersRef) > 0 && (
+                  <span className="ml-1 rounded-[5px] bg-sky-500 px-[5px] py-[1px] text-xs font-medium text-white">
+                    {shortenLargeNumbers(orderTypes(SELLER_GIG_STATUS.CANCELLED, ordersRef))}
+                  </span>
+                )}
+              </a>
+            </li>
+          </ul>
+        </div>
+
+        {type === SELLER_GIG_STATUS.ACTIVE && (
+          <ManageOrdersTable
+            type="active"
+            orders={sellerOrderList(SELLER_GIG_STATUS.IN_PROGRESS, ordersRef)}
+            orderTypes={orderTypes(SELLER_GIG_STATUS.IN_PROGRESS, ordersRef)}
+          />
+        )}
+        {type === SELLER_GIG_STATUS.COMPLETED && (
+          <ManageOrdersTable
+            type="completed"
+            orders={sellerOrderList(SELLER_GIG_STATUS.COMPLETED, ordersRef)}
+            orderTypes={orderTypes(SELLER_GIG_STATUS.COMPLETED, ordersRef)}
+          />
+        )}
+        {type === SELLER_GIG_STATUS.CANCELLED && (
+          <ManageOrdersTable
+            type="cancelled"
+            orders={sellerOrderList(SELLER_GIG_STATUS.CANCELLED, ordersRef)}
+            orderTypes={orderTypes(SELLER_GIG_STATUS.CANCELLED, ordersRef)}
+          />
+        )}
+      </div>
+    </div>
+  );
 };
 
 export default ManageOrders;
