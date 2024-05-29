@@ -2,7 +2,7 @@ import { findIndex } from 'lodash';
 import { FC, ReactElement, useEffect, useMemo, useState } from 'react';
 import { useOutletContext } from 'react-router-dom';
 import { IOrderDocument } from 'src/features/order/interfaces/order.interface';
-import { orderTypes, sellerOrderList, shortenLargeNumbers } from 'src/shared/utils/utils.service';
+import { orderTypes, sellerOrderList, shortenLargeNumbers } from 'src/shared/utils/util.service';
 import { socket } from 'src/sockets/socket.service';
 
 import { SellerContextType } from '../../interfaces/seller.interface';
