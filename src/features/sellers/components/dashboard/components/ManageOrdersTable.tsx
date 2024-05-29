@@ -105,6 +105,39 @@ const ManageOrdersTable: FC<IOrderTableProps> = ({ type, orders, orderTypes }): 
                         {order.status}
                       </span>
                     </td>
+                    {type === 'active' && (
+                      <td className="px-3 py-1 lg:p-3 text-left lg:text-center">
+                        <Button
+                          className="rounded bg-red-500 px-6 py-3 text-center text-sm font-bold text-white focus:outline-none md:px-4 md:py-2 md:text-base"
+                          label="Cancel Order"
+                          onClick={() => {
+                            setApprovalModalContent({
+                              header: 'Order Cancellation',
+                              body: 'Are you sure you want to cancel this order?',
+                              btnText: 'Yes, Cancel',
+                              btnColor: 'bg-red-500 hover:bg-red-400'
+                            });
+                            setShowCancelModal(true);
+                            selectedOrder.current = order;
+                          }}
+                        />
+                      </td>
+                    )}
+                  </tr>
+                ))}
+              </tbody>
+            </>
+          ) : (
+            <tbody>
+              <tr>
+                <td className="w-full px-4 py-2 text-sm">No {type} orders to show.</td>
+              </tr>
+            </tbody>
+          )}
+        </table>
+      </div>
+    </>
+  );
 };
 
 export default ManageOrdersTable;
