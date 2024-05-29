@@ -31,8 +31,48 @@ const ActiveOrderTable: FC<IActiveOrderProps> = ({ activeOrders }): ReactElement
                   </th>
                 </tr>
               ))}
-            </thead></div>
-  )
+            </thead>
+            <tbody className="flex-1 sm:flex-none">
+              {activeOrders.map((order: IOrderDocument) => (
+                <tr
+                  key={uuidv4()}
+                  className="border-grey mb-2 flex flex-col flex-nowrap border-b bg-white sm:mb-0 sm:table-row lg:border-none"
+                >
+                  <td className="flex justify-start gap-3 px-3 py-2">
+                    <img className="h-6 w-10 object-cover lg:h-8 lg:w-11" src={order.gigCoverImage} alt="" />
+                    <div className="flex flex-wrap gap-2 self-center ">
+                      <img className="h-6 w-6 rounded-full object-cover lg:h-8 lg:w-8" src={order.buyerImage} alt="" />
+                      <span className="flex self-center font-bold">{order.buyerUsername}</span>
+                    </div>
+                  </td>
+                  <td className="p-3 text-left lg:text-center">${order.price}</td>
+                  <td className="p-3 text-left lg:text-center">{TimeAgo.dayMonthYear(`${order.offer.newDeliveryDate}`)}</td>
+                  <td className="p-3 text-left lg:text-center">
+                    <span className="rounded bg-green-500 px-[5px] py-[4px] text-xs font-bold uppercase text-white">In Progress</span>
+                  </td>
+                  <td className="px-3 py-1 text-left lg:p-3 lg:text-center">
+                    <Link
+                      to={`/orders/${order.orderId}/activities`}
+                      className="text-sky-500 hover:text-sky-500 hover:underline"
+                      onClick={() => dispatch(updateHeader('home'))}
+                    >
+                      View
+                    </Link>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </>
+        ) : (
+          <tbody>
+            <tr>
+              <td className="w-full px-4 py-2 text-sm">No active orders to show.</td>
+            </tr>
+          </tbody>
+        )}
+      </table>
+    </div>
+  );
 }
 
 export default ActiveOrderTable
