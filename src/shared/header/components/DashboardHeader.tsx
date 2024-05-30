@@ -10,7 +10,7 @@ import { socket, socketService } from 'src/sockets/socket.service';
 import { useAppSelector } from 'src/store/store';
 import { IReduxState } from 'src/store/store.interface';
 
-import DashboardHeaderSideBar from './mobile/DashboardHeaderSideBar';
+import DashboardHeaderSideBar from './mobile/DashboardHeaderSidebar';
 import SettingsDropdown from './SettingsDropdown';
 
 const DashboardHeader: FC = (): ReactElement => {

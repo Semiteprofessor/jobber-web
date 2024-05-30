@@ -1,6 +1,6 @@
 import { FC, MouseEvent, ReactElement } from 'react';
 import { Link, NavigateFunction, useNavigate } from 'react-router-dom';
-import { applicationLogout, lowerCase } from 'src/shared/utils/utils.service';
+import { applicationLogout, lowerCase } from 'src/shared/utils/util.service';
 import { useAppDispatch, useAppSelector } from 'src/store/store';
 import { IReduxState } from 'src/store/store.interface';
 

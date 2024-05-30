@@ -12,6 +12,7 @@ import AddSeller from './features/sellers/components/add/AddSeller';
 import BuyerDashboard from './features/buyer/components/Dashboard';
 import CurrentSellerProfile from './features/sellers/components/profile/CurrentSellerProfile';
 import SellerProfile from './features/sellers/components/profile/SellerProfile';
+import Seller from './features/sellers/components/dashboard/Seller';
 
 const Layout = ({ backgroundColor = '#fff', children }: { backgroundColor: string; children: ReactNode }): JSX.Element => (
   <div style={{ backgroundColor }} className="flex flex-grow">
@@ -143,11 +144,11 @@ const AppRouter: FC = () => {
       path: '/:username/:sellerId',
       element: (
         <Suspense>
-          <ProtectedRoute>
+          {/* <ProtectedRoute> */}
             <Layout backgroundColor="#ffffff">
               <Seller />
             </Layout>
-          </ProtectedRoute>
+          {/* </ProtectedRoute> */}
         </Suspense>
       ),
       children: [
