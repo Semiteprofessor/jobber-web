@@ -4,7 +4,7 @@ import { LazyLoadImage } from 'react-lazy-load-image-component';
 import { Link, NavigateFunction, useNavigate } from 'react-router-dom';
 import { IGigsProps, ISellerGig } from 'src/features/gigs/interfaces/gig.interface';
 import { useDeleteGigMutation, useUpdateActiveGigMutation } from 'src/features/gigs/services/gigs.service';
-import { rating } from 'src/shared/utils/utils.service';
+import { rating } from 'src/shared/utils/util.service';
 import { useAppDispatch } from 'src/store/store';
 
 import { updateHeader } from '../header/reducers/header.reducer';
