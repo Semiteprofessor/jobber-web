@@ -85,6 +85,35 @@ const DashboardMain: FC = (): ReactElement => {
           </div>
         </StickyBox>
       </div>
+      <div className="w-full py-4 xl:w-[65%]">
+        <div className="border-grey border bg-white">
+          <ul className="flex w-full cursor-pointer list-none flex-col px-6 md:flex-row">
+            <li
+              onClick={() => setType('active')}
+              className={`mr-9 w-full py-3 text-xs font-bold md:w-auto md:py-5 md:text-sm ${
+                type === 'active' ? 'text-sky-500 md:border-b-2 md:border-sky-500' : ''
+              }`}
+            >
+              ACTIVE GIGS
+            </li>
+            <li
+              onClick={() => setType('paused')}
+              className={`mr-9 w-full py-3 text-xs font-bold md:w-auto md:py-5 md:text-sm ${
+                type === 'paused' ? 'text-sky-500 md:border-b-2 md:border-sky-500' : ''
+              }`}
+            >
+              PAUSED
+            </li>
+            <li
+              onClick={() => setType('orders')}
+              className={`mr-9 w-full py-3 text-xs font-bold md:w-auto md:py-5 md:text-sm ${
+                type === 'orders' ? 'text-sky-500 md:border-b-2 md:border-sky-500' : ''
+              }`}
+            >
+              ACTIVE ORDERS
+            </li>
+          </ul>
+        </div>
 </div>;
 };
 
