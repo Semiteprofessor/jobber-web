@@ -26,6 +26,32 @@ const GigCardItem: FC<IGigsProps> = ({ gig: gigData }): ReactElement => {
   const [updateActiveGig] = useUpdateActiveGigMutation();
   const [deleteGig] = useDeleteGigMutation();
 
+  const navigateToEditGig = (gigId: string): void => {
+    setGigCardItemModal({ ...gigCardItemModal, overlay: false });
+    dispatch(updateHeader('home'));
+    navigate(`/manage_gigs/edit/${gigId}`, { state: gig });
+  };
+
+  const onToggleGig = async (active: boolean): Promise<void> => {
+    try {
+      await updateActiveGig({ gigId: `${gig.id}`, active }).unwrap();
+      setGigCardItemModal({ ...gigCardItemModal, overlay: false });
+      showSuccessToast('Gig status updated successfully.');
+    } catch (error) {
+      showErrorToast('Error setting gig status.');
+    }
+  };
+
+  const onDeleteGig = async (): Promise<void> => {
+    try {
+      await deleteGig({ gigId: `${gig.id}`, sellerId: `${gig.sellerId}` }).unwrap();
+      setGigCardItemModal({ deleteApproval: false, overlay: false });
+      showSuccessToast('Gig deleted successfully.');
+    } catch (error) {
+      showErrorToast('Error deleting gig.');
+    }
+  };
+
   return <div>GigCardItem</div>;
 };
 
