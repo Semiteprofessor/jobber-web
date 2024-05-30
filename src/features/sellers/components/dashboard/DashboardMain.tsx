@@ -48,7 +48,44 @@ const DashboardMain: FC = (): ReactElement => {
                   <></>
                 )}
               </div>
-            </div></div>;
+            </div>
+            <div className="border-grey mb-2 mt-3 border-b" />
+            <ul className="mb-0 list-none px-2 pt-1.5">
+              <li className="mb-4 flex flex-col justify-between text-xs sm:mb-2 sm:flex-row sm:text-sm">
+                <div className="col-span-3 ml-3 flex pb-0 sm:pb-3">
+                  <FaMapMarkerAlt className="mr-2 mt-1" />
+                  <div className="mr-3">From</div>
+                </div>
+                <div className="ml-8 mr-4 font-bold sm:ml-0">{seller?.country}</div>
+              </li>
+              <li className="mb-4 flex flex-col justify-between text-xs sm:mb-2 sm:flex-row sm:text-sm">
+                <div className="col-span-3 ml-3 flex pb-0 sm:pb-3">
+                  <FaUserAlt className="mr-2 mt-1" />
+                  <div className="mr-3">Member since</div>
+                </div>
+                <div className="ml-8 mr-4 font-bold sm:ml-0">{TimeAgo.formatDateToMonthAndYear(`${seller?.createdAt || new Date()}`)}</div>
+              </li>
+              <li className="mb-4 flex flex-col justify-between text-xs sm:mb-2 sm:flex-row sm:text-sm">
+                <div className="col-span-3 ml-3 flex pb-0 sm:pb-3">
+                  <FaRegClock className="mr-2 mt-1" />
+                  <div className="mr-3">Avg. Response Time</div>
+                </div>
+                <div className="ml-8 mr-4 font-bold sm:ml-0">
+                  {seller?.responseTime} hour{seller?.responseTime === 1 ? '' : 's'}
+                </div>
+              </li>
+              <li className="mb-4 flex flex-col justify-between text-xs sm:mb-2 sm:flex-row sm:text-sm">
+                <div className="col-span-3 ml-3 flex pb-0 sm:pb-3">
+                  <FaRegClock className="mr-2 mt-1" />
+                  <div className="mr-3">Last Delivery</div>
+                </div>
+                <div className="ml-8 mr-4 font-bold sm:ml-0">{TimeAgo.dateInDays(`${seller?.recentDelivery}`)}</div>
+              </li>
+            </ul>
+          </div>
+        </StickyBox>
+      </div>
+</div>;
 };
 
 export default DashboardMain;
