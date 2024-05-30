@@ -52,7 +52,41 @@ const GigCardItem: FC<IGigsProps> = ({ gig: gigData }): ReactElement => {
     }
   };
 
-  return <div>GigCardItem</div>;
+  return (
+    <>
+      {gigCardItemModal.deleteApproval && (
+        <ApprovalModal
+          approvalModalContent={approvalModalContent}
+          onClick={onDeleteGig}
+          onClose={() => setGigCardItemModal({ ...gigCardItemModal, deleteApproval: false })}
+        />
+      )}
+      <div className="relative">
+        {gigCardItemModal.overlay && (
+          <div className="border-grey absolute bottom-0 top-0 mb-8 w-full cursor-pointer border bg-white">
+            <div
+              onClick={() => setGigCardItemModal({ ...gigCardItemModal, overlay: false })}
+              className="absolute -right-[12px] -top-[12px] flex h-8 w-8 cursor-pointer items-center justify-center rounded-full border border-sky-500 bg-white text-sm font-bold leading-[0] text-sky-500"
+            >
+              X
+            </div>
+            <ul className="list-none pl-0">
+              <li>
+                <div onClick={() => navigateToEditGig(`${gig.id}`)} className="my-1 flex w-full cursor-pointer gap-4 px-4 pt-3">
+                  <FaPencilAlt size={13} className="flex self-center" />
+                  <span className="">Edit</span>
+                </div>
+              </li>
+              <li>
+                <div onClick={() => onToggleGig(!gig.active)} className="my-1 flex w-full cursor-pointer gap-4 px-4 pt-3">
+                  {!gig.active ? (
+                    <FaPlayCircle size={13} className="flex self-center" />
+                  ) : (
+                    <FaPauseCircle size={13} className="flex self-center" />
+                  )}
+                  <span>{!gig.active ? 'Activate' : 'Pause'}</span>
+                </div>
+              </li></div>;
 };
 
 export default GigCardItem;
