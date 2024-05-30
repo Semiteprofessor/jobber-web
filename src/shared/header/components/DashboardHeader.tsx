@@ -5,7 +5,7 @@ import { FaBars, FaTimes } from 'react-icons/fa';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 import { Link } from 'react-router-dom';
 import Button from 'src/shared/button/Button';
-import { lowerCase } from 'src/shared/utils/utils.service';
+import { lowerCase } from 'src/shared/utils/util.service';
 import { socket, socketService } from 'src/sockets/socket.service';
 import { useAppSelector } from 'src/store/store';
 import { IReduxState } from 'src/store/store.interface';
