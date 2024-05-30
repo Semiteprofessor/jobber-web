@@ -7,8 +7,8 @@ import { ISellerGig } from 'src/features/gigs/interfaces/gig.interface';
 import { SellerContextType } from 'src/features/sellers/interfaces/seller.interface';
 import GigCardItem from 'src/shared/gigs/GigCardItem';
 import StarRating from 'src/shared/rating/StarRating';
-import { TimeAgo } from 'src/shared/utils/timeago.utils';
-import { rating, sellerOrderList } from 'src/shared/utils/utils.service';
+import { TimeAgo } from 'src/shared/utils/timeago.util';
+import { rating, sellerOrderList } from 'src/shared/utils/util.service';
 import { v4 as uuidv4 } from 'uuid';
 
 import ActiveOrderTable from './ActiveOrderTable';
