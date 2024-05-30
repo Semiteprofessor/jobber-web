@@ -118,7 +118,27 @@ const GigCardItem: FC<IGigsProps> = ({ gig: gigData }): ReactElement => {
               className="w-full"
               placeholderSrc="https://placehold.co/330x220?text=Profile+Image"
             />
-          </Link></div>;
+          </Link>
+          <div className="px-2">
+            <Link
+              onClick={() => dispatch(updateHeader('home'))}
+              to={`/gig/${lowerCase(`${gig.username}`)}/${title}/${gig.sellerId}/${gig.id}/view`}
+            >
+              <p className="line-clamp-2 text-[#404145] hover:text-sky-500">{gig.basicDescription}</p>
+            </Link>
+          </div>
+          <div className="flex gap-2 px-2 text-orange-400">
+            {parseInt(`${gig.ratingsCount}`) > 0 ? <FaStar color="orange" className="mt-1" /> : <FaRegStar className="mt-1" />}(
+            {rating(parseInt(`${gig.ratingSum}`) / parseInt(`${gig.ratingsCount}`))})
+          </div>
+          <div className="flex justify-between px-2 pb-2">
+            <FaEllipsisH size={14} className="self-center" onClick={() => setGigCardItemModal({ ...gigCardItemModal, overlay: true })} />
+            <strong className="text-base font-normal">${gig.price}</strong>
+          </div>
+        </div>
+      </div>
+    </>
+  );
 };
 
 export default GigCardItem;
