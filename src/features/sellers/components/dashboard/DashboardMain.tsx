@@ -18,7 +18,37 @@ const DashboardMain: FC = (): ReactElement => {
   const { gigs, pausedGigs, orders, seller } = useOutletContext<SellerContextType>();
   const activeGigs: ISellerGig[] = filter(gigs, (gig: ISellerGig) => gig.active === true);
 
-  return <div>DashboardMain</div>;
+  return (
+    <div className="flex flex-wrap gap-x-4">
+      <div className="order-firsts w-full py-4 xl:w-1/3">
+        <StickyBox offsetTop={20} offsetBottom={20}>
+          <div className="border-grey border bg-white py-2">
+            <div className="flex flex-col gap-y-3 pt-2">
+              <img
+                className="flex h-20 w-20 self-center rounded-full object-cover md:h-24 md:w-24 lg:h-28 lg:w-28"
+                src={seller?.profilePicture}
+                alt="Seller image"
+              />
+              <div className="flex flex-col self-center">
+                <div className="flex cursor-pointer self-center">
+                  <span className="text-base font-bold">{seller?.username}</span>
+                </div>
+                <span className="flex self-center px-4 text-center text-xs md:text-sm">{seller?.oneliner}</span>
+                {seller?.ratingSum && seller?.ratingsCount ? (
+                  <div className="flex w-full justify-center gap-x-1 self-center">
+                    <div className="mt-1 w-20 gap-x-2">
+                      <StarRating value={rating(seller?.ratingSum / seller?.ratingsCount)} size={14} />
+                    </div>
+                    <div className="ml-2 mt-[2px] flex gap-1 text-sm">
+                      <span className="text-orange-400">{rating(seller?.ratingSum / seller?.ratingsCount)}</span>
+                      <span>{seller?.ratingsCount}</span>
+                    </div>
+                  </div>
+                ) : (
+                  <></>
+                )}
+              </div>
+            </div></div>;
 };
 
 export default DashboardMain;
