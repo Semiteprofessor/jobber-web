@@ -114,7 +114,30 @@ const DashboardMain: FC = (): ReactElement => {
             </li>
           </ul>
         </div>
-</div>;
+        <div className="my-3">
+          {type === 'active' && (
+            <div className="grid gap-x-6 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+              {activeGigs.map((gig: ISellerGig) => (
+                <Fragment key={uuidv4()}>
+                  <GigCardItem gig={gig} />
+                </Fragment>
+              ))}
+            </div>
+          )}
+          {type === 'paused' && (
+            <div className="grid gap-x-6 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+              {pausedGigs.map((gig: ISellerGig) => (
+                <Fragment key={uuidv4()}>
+                  <GigCardItem gig={gig} />
+                </Fragment>
+              ))}
+            </div>
+          )}
+          {type === 'orders' && <ActiveOrderTable activeOrders={sellerOrderList('in progress', orders)} />}
+        </div>
+      </div>
+    </div>
+  );
 };
 
 export default DashboardMain;
