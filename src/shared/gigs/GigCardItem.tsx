@@ -86,7 +86,39 @@ const GigCardItem: FC<IGigsProps> = ({ gig: gigData }): ReactElement => {
                   )}
                   <span>{!gig.active ? 'Activate' : 'Pause'}</span>
                 </div>
-              </li></div>;
+              </li>
+              <li>
+                <div
+                  onClick={() => {
+                    setApprovalModalContent({
+                      header: 'Delete this Gig',
+                      body: 'Are you sure you want to permanently delete this gig?',
+                      btnText: 'Delete',
+                      btnColor: 'bg-red-500'
+                    });
+                    setGigCardItemModal({ ...gigCardItemModal, deleteApproval: true });
+                  }}
+                  className="my-1 flex w-full cursor-pointer gap-4 px-4 pt-3"
+                >
+                  <FaTrashAlt size={13} className="flex self-center" />
+                  <span className="">Delete</span>
+                </div>
+              </li>
+            </ul>
+          </div>
+        )}
+        <div className="border-grey mb-8 flex cursor-pointer flex-col gap-2 border">
+          <Link
+            onClick={() => dispatch(updateHeader('home'))}
+            to={`/gig/${lowerCase(`${gig.username}`)}/${title}/${gig.sellerId}/${gig.id}/view`}
+          >
+            <LazyLoadImage
+              src={gig.coverImage}
+              alt="Gig cover image"
+              className="w-full"
+              placeholderSrc="https://placehold.co/330x220?text=Profile+Image"
+            />
+          </Link></div>;
 };
 
 export default GigCardItem;
