@@ -79,7 +79,36 @@ const DashboardHeaderSideBar: FC<IHeaderSideBarProps> = ({ setOpenSidebar }): Re
             className="cursor-pointer text-base font-medium text-gray-400"
           >
             <Link to="/">Switch to Buying</Link>
-          </div></div>;
+          </div>
+          <div
+            onClick={(event: MouseEvent) => {
+              event.stopPropagation();
+              if (setOpenSidebar) {
+                setOpenSidebar(false);
+                dispatch(updateHeader('home'));
+                dispatch(updateCategoryContainer(true));
+              }
+            }}
+            className="cursor-pointer text-base font-medium text-gray-400"
+          >
+            <Link to={`/${lowerCase(`${seller?.username}`)}/edit`}>Settings</Link>
+          </div>
+          <div
+            onClick={(event: MouseEvent) => {
+              event.stopPropagation();
+              if (setOpenSidebar) {
+                setOpenSidebar(false);
+                onLogout();
+              }
+            }}
+            className="cursor-pointer text-base font-medium text-gray-400"
+          >
+            Logout
+          </div>
+        </div>
+      </div>
+    </div>
+  );
 };
 
-export default DashboardHeaderSidebar;
+export default DashboardHeaderSideBar;
