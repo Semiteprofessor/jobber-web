@@ -14,6 +14,7 @@ import CurrentSellerProfile from './features/sellers/components/profile/CurrentS
 import SellerProfile from './features/sellers/components/profile/SellerProfile';
 import Seller from './features/sellers/components/dashboard/Seller';
 import SellerDashboard from './features/sellers/components/dashboard/SellerDashboard';
+import ManageOrders from './features/sellers/components/dashboard/ManageOrders';
 
 const Layout = ({ backgroundColor = '#fff', children }: { backgroundColor: string; children: ReactNode }): JSX.Element => (
   <div style={{ backgroundColor }} className="flex flex-grow">

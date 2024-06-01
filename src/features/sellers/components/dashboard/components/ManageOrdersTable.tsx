@@ -6,8 +6,8 @@ import Button from 'src/shared/button/Button';
 import { updateHeader } from 'src/shared/header/reducers/header.reducer';
 import ApprovalModal from 'src/shared/modals/ApprovalModal';
 import { IApprovalModalContent } from 'src/shared/modals/interfaces/modal.interface';
-import { TimeAgo } from 'src/shared/utils/timeago.utils';
-import { lowerCase, showErrorToast, showSuccessToast } from 'src/shared/utils/utils.service';
+import { TimeAgo } from 'src/shared/utils/timeago.util';
+import { lowerCase, showErrorToast, showSuccessToast } from 'src/shared/utils/util.service';
 import { useAppDispatch } from 'src/store/store';
 import { v4 as uuidv4 } from 'uuid';
 
