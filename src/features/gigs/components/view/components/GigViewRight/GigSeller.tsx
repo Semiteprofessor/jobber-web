@@ -10,7 +10,7 @@ import ApprovalModal from 'src/shared/modals/ApprovalModal';
 import { IApprovalModalContent } from 'src/shared/modals/interfaces/modal.interface';
 import StarRating from 'src/shared/rating/StarRating';
 import { TimeAgo } from 'src/shared/utils/timeago.util';
-import { lowerCase, rating, shortenLargeNumbers } from 'src/shared/utils/utils.service';
+import { lowerCase, rating, shortenLargeNumbers } from 'src/shared/utils/util.service';
 import { useAppSelector } from 'src/store/store';
 import { IReduxState } from 'src/store/store.interface';
 import { v4 as uuidv4 } from 'uuid';
