@@ -34,7 +34,36 @@ const GigSeller: FC = (): ReactElement => {
     profilePicture: `${buyer.profilePicture}`
   };
 
-  return <div>GigSeller</div>;
+  return <>{showModal && <ApprovalModal approvalModalContent={approvalModalContent} hideCancel={true} onClick={() => setShowModal(false)} />}
+      <div className="border-grey mb-8 border">
+        <div className="flex border-b px-4 py-2">
+          <h4 className="font-bold">About The Seller</h4>
+        </div>
+        <div className="mb-0 px-4 pt-2">
+          <div className="flex flex-col gap-y-3 md:flex-row md:gap-x-2">
+            <img className="flex h-24 w-24 self-center rounded-full object-cover" src={gig.profilePicture} alt="" />
+            <div className="flex flex-col self-center">
+              <Link
+                to={`/seller_profile/${lowerCase(`${gig.username}`)}/${gig.sellerId}/view`}
+                className="flex cursor-pointer self-center no-underline hover:underline md:block md:self-start"
+              >
+                <span className="text-base font-bold md:mb-5">{gig.username}</span>
+              </Link>
+              <span className="flex self-center text-sm md:block md:self-start">{seller.oneliner}</span>
+              <div className="flex w-full justify-center pt-1 md:justify-start">
+                <div className={`flex w-full justify-center md:justify-start ${seller.ratingsCount === 0 ? 'gap-x-[5.8rem]' : 'gap-x-5'}`}>
+                  <div className="flex w-full justify-center gap-x-1 md:justify-start">
+                    <div className="mt-1 w-20 gap-x-2">
+                      <StarRating value={rating(parseInt(`${gig.ratingSum}`) / parseInt(`${gig.ratingsCount}`))} size={14} />
+                    </div>
+                    <div className="ml-2 mt-[1px] flex gap-1 text-sm">
+                      <span className="">({shortenLargeNumbers(gig?.ratingsCount)})</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div></>;
 };
 
 export default GigSeller;
