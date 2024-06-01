@@ -41,6 +41,34 @@ const ChatBox: FC<IChatBoxProps> = ({ seller, buyer, gigId, onClose }): ReactEle
   const scrollRef: RefObject<HTMLDivElement> = useChatScrollToBottom(chatMessages);
   const [saveChatMessage] = useSaveChatMessageMutation();
 
+  const sendMessage = async (event: FormEvent): Promise<void> => {
+    event.preventDefault();
+    if (!message) {
+      return;
+    }
+    try {
+      const messageBody: IMessageDocument = {
+        conversationId: conversationIdRef.current,
+        hasConversationId: conversationData && conversationData.conversations && conversationData.conversations.length > 0,
+        body: message,
+        gigId,
+        sellerId: seller._id,
+        buyerId: buyer._id,
+        senderUsername: authUser.username === seller.username ? seller.username : buyer.username,
+        senderPicture: authUser.username === seller.username ? seller.profilePicture : buyer.profilePicture,
+        receiverUsername: authUser.username !== seller.username ? seller.username : buyer.username,
+        receiverPicture: authUser.username !== seller.username ? seller.profilePicture : buyer.profilePicture,
+        isRead: false,
+        hasOffer: false
+      };
+      const response: IResponse = await saveChatMessage(messageBody).unwrap();
+      setMessage('');
+      conversationIdRef.current = `${response.conversationId}`;
+    } catch (error) {
+      showErrorToast('Error sending message.');
+    }
+  };
+
   return <div>ChatBox</div>;
 };
 
