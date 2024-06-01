@@ -91,6 +91,32 @@ const ChatBox: FC<IChatBoxProps> = ({ seller, buyer, gigId, onClose }): ReactEle
               </div>
             </div>
           </div>
+          <div className="h-[500px] overflow-y-scroll md:h-full">
+            <div className="my-2 flex h-[280px] flex-col overflow-y-scroll px-4 md:h-[72%]" ref={scrollRef}>
+              {chatMessages.map((msg: IMessageDocument) => (
+                <div
+                  key={uuidv4()}
+                  className={`my-2 flex max-w-[300px] gap-y-6 text-sm ${
+                    msg.senderUsername !== buyer.username ? 'flex-row-reverse self-end' : ''
+                  }`}
+                >
+                  <img
+                    src={buyer.profilePicture}
+                    className={`h-8 w-8 rounded-full object-cover ${msg.senderUsername !== buyer.username ? 'hidden' : ''}`}
+                    alt="profile image"
+                  />
+                  <p
+                    className={`ml-2 max-w-[200px] rounded-[10px] bg-[#e4e6eb] px-4 py-2 text-start text-sm font-normal md:max-w-[220px] ${
+                      msg.senderUsername !== buyer.username ? 'max-w-[200px] rounded-[10px] bg-sky-500 text-white' : ''
+                    }`}
+                  >
+                    {msg.body}
+                  </p>
+                </div>
+              ))}
+            </div>
+          </div>
+
 </div>;
 };
 
