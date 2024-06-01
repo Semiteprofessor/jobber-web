@@ -63,6 +63,34 @@ const GigSeller: FC = (): ReactElement => {
                 </div>
               </div>
             </div>
+          </div>
+          <hr className="border-grey my-3" />
+          <div className="grid grid-cols-1 gap-y-4 lg:grid-cols-2">
+            <div className="flex flex-col">
+              <span className="">From</span>
+              <span className="font-bold">{seller.country}</span>
+            </div>
+            <div className="flex flex-col">
+              <span className="">Member since</span>
+              <span className="font-bold">{TimeAgo.formatDateToMonthAndYear(`${seller.createdAt}`)}</span>
+            </div>
+            <div className="flex flex-col">
+              <span className="">Avg. resp time</span>
+              <span className="font-bold">
+                {seller.responseTime} hour{`${seller.responseTime > 1 ? 's' : ''}`}{' '}
+              </span>
+            </div>
+            <div className="flex flex-col">
+              <span className="">Languages</span>
+              <div className="flex flex-wrap">
+                {seller?.languages &&
+                  seller?.languages.map((language: ILanguage, index: number) => (
+                    <span className="font-bold" key={uuidv4()}>
+                      {`${language.language}${index !== seller.languages.length - 1 ? ',' : ''}`}&nbsp;
+                    </span>
+                  ))}
+              </div>
+            </div>
           </div></>;
 };
 
