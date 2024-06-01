@@ -9,13 +9,31 @@ import Button from 'src/shared/button/Button';
 import ApprovalModal from 'src/shared/modals/ApprovalModal';
 import { IApprovalModalContent } from 'src/shared/modals/interfaces/modal.interface';
 import StarRating from 'src/shared/rating/StarRating';
-import { TimeAgo } from 'src/shared/utils/timeago.utils';
+import { TimeAgo } from 'src/shared/utils/timeago.util';
 import { lowerCase, rating, shortenLargeNumbers } from 'src/shared/utils/utils.service';
 import { useAppSelector } from 'src/store/store';
 import { IReduxState } from 'src/store/store.interface';
 import { v4 as uuidv4 } from 'uuid';
 
-const GigSeller = () => {
+const GigSeller: FC = (): ReactElement => {
+  const authUser = useAppSelector((state: IReduxState) => state.authUser);
+  const buyer = useAppSelector((state: IReduxState) => state.buyer);
+  const { gig, seller } = useContext(GigContext);
+  const [approvalModalContent, setApprovalModalContent] = useState<IApprovalModalContent>();
+  const [showModal, setShowModal] = useState<boolean>(false);
+  const [showChatBox, setShowChatBox] = useState<boolean>(false);
+  const chatSeller: IChatSellerProps = {
+    username: `${seller.username}`,
+    _id: `${seller._id}`,
+    profilePicture: `${seller.profilePicture}`,
+    responseTime: parseInt(`${seller.responseTime}`)
+  };
+  const chatBuyer: IChatBuyerProps = {
+    username: `${buyer.username}`,
+    _id: `${buyer._id}`,
+    profilePicture: `${buyer.profilePicture}`
+  };
+
   return <div>GigSeller</div>;
 };
 
