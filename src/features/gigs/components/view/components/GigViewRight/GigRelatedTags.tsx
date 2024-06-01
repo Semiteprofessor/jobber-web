@@ -1,7 +1,7 @@
 import { FC, ReactElement, useContext } from 'react';
 import { createSearchParams, Link } from 'react-router-dom';
 import { GigContext } from 'src/features/gigs/context/GigContext';
-import { replaceSpacesWithDash } from 'src/shared/utils/utils.service';
+import { replaceSpacesWithDash } from 'src/shared/utils/util.service';
 import { v4 as uuidv4 } from 'uuid';
 
 const GigRelatedTags: FC = (): ReactElement => {
