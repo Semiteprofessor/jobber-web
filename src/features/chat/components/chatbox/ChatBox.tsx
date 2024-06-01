@@ -117,7 +117,24 @@ const ChatBox: FC<IChatBoxProps> = ({ seller, buyer, gigId, onClose }): ReactEle
             </div>
           </div>
 
-</div>;
+          <form onSubmit={sendMessage} className="absolute bottom-0 left-0 right-0 mb-1 flex px-2 ">
+            <TextInput
+              type="text"
+              name="message"
+              value={message}
+              placeholder="Enter your message..."
+              className="border-grey mb-0 w-full rounded-l-lg border p-2 text-sm font-normal text-gray-600 focus:outline-none"
+              onChange={(event: ChangeEvent) => setMessage((event.target as HTMLInputElement).value)}
+            />
+            <Button
+              className="rounded-r-lg bg-sky-500 px-6 text-center text-sm font-bold text-white hover:bg-sky-400 focus:outline-none md:px-3 md:text-base"
+              label={<FaPaperPlane className="self-center" />}
+            />
+          </form>
+        </div>
+      )}
+    </>
+  );
 };
 
 export default ChatBox;
