@@ -31,7 +31,34 @@ const ManageEarningsTable: FC<IOrderTableProps> = ({ type, orders, orderTypes })
                   <th className="p-3 text-left md:text-center">Amount</th>
                 </tr>
               ))}
-            </thead></div>;
+            </thead>
+            <tbody className="flex-1 sm:flex-none">
+              {orders.map((order: IOrderDocument) => (
+                <tr key={uuidv4()} className="bg-white border-b border-grey flex flex-col flex-nowrap sm:table-row mb-2 sm:mb-0 ">
+                  <td className="p-3 text-left md:text-center">{TimeAgo.dayMonthYear(`${order.events.orderDelivered}`)}</td>
+                  <td className="p-3 text-left md:text-center">Earning</td>
+                  <td className="p-3 text-left md:text-center">order</td>
+                  <td className="p-3 text-left md:text-center lowercase">{order.buyerUsername}</td>
+                  <td className="p-3 text-left md:text-center">
+                    <Link onClick={() => dispatch(updateHeader('home'))} to={`/orders/${order.orderId}/activities`} className="underline">
+                      {order.orderId}
+                    </Link>
+                  </td>
+                  <td className="px-3 text-left md:text-center text-sky-500 font-bold">US ${0.8 * order.price}</td>
+                </tr>
+              ))}
+            </tbody>
+          </>
+        ) : (
+          <tbody>
+            <tr>
+              <td className="w-full px-4 py-2 text-sm">No {type} orders to show.</td>
+            </tr>
+          </tbody>
+        )}
+      </table>
+    </div>
+  );
 };
 
 export default ManageEarningsTable;
