@@ -69,7 +69,29 @@ const ChatBox: FC<IChatBoxProps> = ({ seller, buyer, gigId, onClose }): ReactEle
     }
   };
 
-  return <div>ChatBox</div>;
+  return (
+    <>
+      {isMessageLoading && !chatMessages ? (
+        <ChatBoxSkeleton />
+      ) : (
+        <div className="border-grey fixed bottom-0 left-2 right-2 h-[400px] max-h-[500px] w-auto border bg-white md:left-8 md:h-96 md:max-h-[500px] md:w-96">
+          <div className="border-grey flex items-center space-x-4 border-b px-5 py-2">
+            <img
+              src={authUser.username !== seller.username ? seller.profilePicture : buyer.profilePicture}
+              className="h-10 w-10 rounded-full"
+              alt="profile image"
+            />
+            <div className="w-full font-medium text-[#777d74]">
+              <div className="flex w-full cursor-pointer justify-between text-sm font-bold text-[#777d74] md:text-base">
+                <span>{authUser.username !== seller.username ? seller.username : buyer.username}</span>
+                <FaTimes className="flex self-center" onClick={onClose} />
+              </div>
+              <div className="text-xs text-gray-500">
+                Avg. response time: {seller.responseTime} hour{seller.responseTime === 1 ? '' : 's'}
+              </div>
+            </div>
+          </div>
+</div>;
 };
 
 export default ChatBox;
