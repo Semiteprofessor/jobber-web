@@ -13,7 +13,34 @@ import { IChatBoxProps, IConversationDocument, IMessageDocument } from '../../in
 import { useGetConversationQuery, useGetMessagesQuery, useSaveChatMessageMutation } from '../../services/chat.service';
 import ChatBoxSkeleton from './ChatBoxSkeleton';
 
-const ChatBox = () => {
+const ChatBox: FC<IChatBoxProps> = ({ seller, buyer, gigId, onClose }): ReactElement => {
+  const authUser = useAppSelector((state: IReduxState) => state.authUser);
+  const [message, setMessage] = useState<string>('');
+  const conversationIdRef = useRef<string>(`${generateRandomNumber(15)}`);
+  const { data: conversationData, isSuccess: isConversationSuccess } = useGetConversationQuery({
+    senderUsername: `${seller.username}`,
+    receiverUsername: `${buyer.username}`
+  });
+  const {
+    data: messageData,
+    isLoading: isMessageLoading,
+    isSuccess: isMessageSuccess
+  } = useGetMessagesQuery(
+    { senderUsername: `${seller.username}`, receiverUsername: `${buyer.username}` },
+    { refetchOnMountOrArgChange: true }
+  );
+  let chatMessages: IMessageDocument[] = [];
+
+  if (isConversationSuccess && conversationData.conversations && conversationData.conversations.length) {
+    conversationIdRef.current = (conversationData.conversations[0] as IConversationDocument).conversationId;
+  }
+  if (isMessageSuccess) {
+    chatMessages = messageData.messages as IMessageDocument[];
+  }
+
+  const scrollRef: RefObject<HTMLDivElement> = useChatScrollToBottom(chatMessages);
+  const [saveChatMessage] = useSaveChatMessageMutation();
+
   return <div>ChatBox</div>;
 };
 
