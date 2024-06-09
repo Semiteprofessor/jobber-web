@@ -18,6 +18,7 @@ import ManageOrders from './features/sellers/components/dashboard/ManageOrders';
 import ManageEarnings from './features/sellers/components/dashboard/ManageEarnings';
 import AddGig from './features/gigs/components/gig/AddGig';
 import EditGig from './features/gigs/components/gig/EditGig';
+import GigView from './features/gigs/components/view/GigView';
 
 const Layout = ({ backgroundColor = '#fff', children }: { backgroundColor: string; children: ReactNode }): JSX.Element => (
   <div style={{ backgroundColor }} className="flex flex-grow">
