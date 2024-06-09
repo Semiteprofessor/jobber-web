@@ -11,7 +11,74 @@ const BudgetDropdown: FC = (): ReactElement => {
   const [toggleDropdown, setToggleDropdown] = useState<boolean>(false);
   const [selectedBudget, setSelectedBudget] = useState<ISelectedBudget>({ minPrice: '', maxPrice: '' });
 
-  return <div>DeliveryTimeDropdown</div>;
+  return 
+    <div className="flex flex-col">
+      <div className="relative">
+        <Button
+          className="flex justify-between gap-5 rounded-lg border border-gray-400 px-5 py-3 font-medium"
+          label={
+            <>
+              <span>Budget</span>
+              {!toggleDropdown ? (
+                <FaChevronDown className="float-right mt-§ h-4 fill-current text-slate-900" />
+              ) : (
+                <FaChevronUp className="float-right mt-§ h-4 fill-current text-slate-900" />
+              )}
+            </>
+          }
+          onClick={() => setToggleDropdown((item: boolean) => !item)}
+        />
+        {toggleDropdown && (
+          <div className="absolute mt-2 w-96 divide-y divide-gray-100 rounded-lg border border-slate-100 bg-white drop-shadow-md sm:w-72">
+            <ul className="space-y-1 p-3 text-sm text-gray-700 dark:text-gray-200">
+              <li>
+                <div className="grid grid-cols-2 gap-4">
+                  <div>
+                    <label htmlFor="min" className="mb-2 block text-sm font-normal text-slate-900">
+                      MIN.
+                    </label>
+                    <TextInput
+                      type="number"
+                      id="min"
+                      min="0"
+                      name="minPrice"
+                      value={selectedBudget.minPrice ?? ''}
+                      className="block w-full border border-gray-300 p-2.5 text-sm text-gray-900 dark:placeholder-gray-400 dark:focus:border-black dark:focus:ring-black"
+                      placeholder="Any"
+                      onChange={(event: ChangeEvent) => {
+                        setSelectedBudget({ ...selectedBudget, minPrice: `${(event.target as HTMLInputElement).value}` });
+                      }}
+                      onKeyDown={(event: KeyboardEvent) => {
+                        if (event.key !== 'Backspace' && isNaN(parseInt(event.key))) {
+                          event.preventDefault();
+                        }
+                      }}
+                    />
+                  </div>
+                  <div>
+                    <label htmlFor="max" className="mb-2 block text-sm font-normal text-slate-900">
+                      MAX.
+                    </label>
+                    <TextInput
+                      type="number"
+                      id="max"
+                      name="maxPrice"
+                      value={selectedBudget.maxPrice ?? ''}
+                      className="block w-full border border-gray-300 p-2.5 text-sm text-gray-900 dark:placeholder-gray-400 dark:focus:border-black dark:focus:ring-black"
+                      placeholder="Any"
+                      onChange={(event: ChangeEvent) => {
+                        setSelectedBudget({ ...selectedBudget, maxPrice: `${(event.target as HTMLInputElement).value}` });
+                      }}
+                      onKeyDown={(event: KeyboardEvent) => {
+                        if (event.key !== 'Backspace' && isNaN(parseInt(event.key))) {
+                          event.preventDefault();
+                        }
+                      }}
+                    />
+                  </div>
+                </div>
+              </li>
+            </ul></div>;
 };
 
 export default DeliveryTimeDropdown;
