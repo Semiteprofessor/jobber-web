@@ -207,6 +207,18 @@ const AppRouter: FC = () => {
           </ProtectedRoute>
         </Suspense>
       )
+    },
+    {
+      path: '/categories/:category',
+      element: (
+        <Suspense>
+          <ProtectedRoute>
+            <Layout backgroundColor="#ffffff">
+              <Gigs type="categories" />
+            </Layout>
+          </ProtectedRoute>
+        </Suspense>
+      )
     }
   ];
   return useRoutes(routes);
