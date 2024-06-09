@@ -11,7 +11,6 @@ const BudgetDropdown: FC = (): ReactElement => {
   const [toggleDropdown, setToggleDropdown] = useState<boolean>(false);
   const [selectedBudget, setSelectedBudget] = useState<ISelectedBudget>({ minPrice: '', maxPrice: '' });
 
-
   return (
     <div className="flex flex-col">
       {' '}
@@ -108,8 +107,29 @@ const BudgetDropdown: FC = (): ReactElement => {
           </div>
         )}
       </div>
+      <div className="mt-2 flex h-10 gap-4 text-xs text-slate-950">
+        {selectedBudget?.minPrice && selectedBudget?.maxPrice && (
+          <Button
+            className="flex gap-4 self-center rounded-full bg-gray-200 px-5 py-1 font-bold hover:text-gray-500"
+            label={
+              <>
+                ${selectedBudget.minPrice} - ${selectedBudget.maxPrice}
+                <FaTimes className="self-center font-normal" />
+              </>
+            }
+            onClick={() => {
+              const updatedSearchParams: URLSearchParams = new URLSearchParams(searchParams.toString());
+              updatedSearchParams.delete('minPrice');
+              updatedSearchParams.delete('maxPrice');
+              setSearchParams(updatedSearchParams);
+              setToggleDropdown(false);
+              setSelectedBudget({ minPrice: '', maxPrice: '' });
+            }}
+          />
+        )}
+      </div>
     </div>
   );
-}
+};
 
-export default BudgetDropdown
+export default BudgetDropdown;
