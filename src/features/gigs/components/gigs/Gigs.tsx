@@ -76,7 +76,38 @@ const Gigs: FC<IGigsProps> = ({ type }) => {
     saveToLocalStorage('filterApplied', JSON.stringify(false));
   }
 
-  return <div>Gigs</div>;
+  return (
+    <>
+      {isLoading && !isSuccess ? (
+        <CircularPageLoader />
+      ) : (
+        <div className="container mx-auto items-center p-5">
+          {!isLoading && data && data.gigs && data?.gigs.length > 0 ? (
+            <>
+              <h3 className="mb-5 flex gap-3 text-4xl">
+                {type === 'search' && <span className="text-black">Results for</span>}
+                <strong className="text-black">{gigCategories}</strong>
+              </h3>
+              <div className="mb-4 flex gap-4">
+                <BudgetDropdown />
+                <DeliveryTimeDropdown />
+              </div>
+              <div className="my-5">
+                <div className="">
+                  <span className="font-medium text-[#74767e]">{data.total} services available</span>
+                </div>
+                {filterApplied ? (
+                  <CircularPageLoader />
+                ) : (
+                  <div className="grid gap-x-6 pt-6 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+                    {data &&
+                      data.gigs &&
+                      data?.gigs.map((gig: ISellerGig) => (
+                        <GigCardDisplayItem key={uuidv4()} gig={gig} linkTarget={true} showEditIcon={false} />
+                      ))}
+                  </div>
+                )}
+              </div>
 };
 
 export default Gigs;
