@@ -4,7 +4,7 @@ import { useSearchParams } from 'react-router-dom';
 import { ISelectedBudget } from 'src/features/gigs/interfaces/gig.interface';
 import Button from 'src/shared/button/Button';
 import TextInput from 'src/shared/inputs/TextInput';
-import { saveToLocalStorage } from 'src/shared/utils/utils.service';
+import { saveToLocalStorage } from 'src/shared/utils/util.service';
 
 const BudgetDropdown: FC = (): ReactElement => {
   const [searchParams, setSearchParams] = useSearchParams({});
