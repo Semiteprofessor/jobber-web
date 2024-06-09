@@ -108,6 +108,28 @@ const Gigs: FC<IGigsProps> = ({ type }) => {
                   </div>
                 )}
               </div>
+            </>
+          ) : (
+            <PageMessage
+              header="No services found for your search"
+              body="Try a new search or get a free quote for your project from our commnunity of freelancers."
+            />
+          )}
+          {isError && <PageMessage header="Services issue" body="A network issue occured. Try agin later." />}
+          {isSuccess && !filterApplied && data && data.gigs && data.gigs.length > 0 && (
+            <GigPaginate
+              gigs={gigs.current}
+              totalGigs={totalGigs}
+              showNumbers={true}
+              itemsPerPage={ITEMS_PER_PAGE}
+              setItemFrom={setItemFrom}
+              setPaginationType={setPaginationType}
+            />
+          )}
+        </div>
+      )}
+    </>
+  );
 };
 
 export default Gigs;
