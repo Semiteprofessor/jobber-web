@@ -13,8 +13,9 @@ const BudgetDropdown: FC = (): ReactElement => {
 
 
   return (
-    
-    <div className="flex flex-col">  <div className="relative">
+    <div className="flex flex-col">
+      {' '}
+      <div className="relative">
         <Button
           className="flex justify-between gap-5 rounded-lg border border-gray-400 px-5 py-3 font-medium"
           label={
@@ -79,8 +80,36 @@ const BudgetDropdown: FC = (): ReactElement => {
                   </div>
                 </div>
               </li>
-            </ul></div>
-  )
+            </ul>
+            <div className="my-4 flex cursor-pointer justify-evenly pt-3">
+              <div
+                className="px-4 py-2 text-sm font-medium text-slate-900"
+                onClick={() => {
+                  setSelectedBudget({ minPrice: '', maxPrice: '' });
+                  setToggleDropdown(false);
+                }}
+              >
+                Clear All
+              </div>
+              <div
+                className="rounded bg-sky-500 px-4 py-2 text-sm font-bold text-white hover:bg-sky-400"
+                onClick={() => {
+                  const updatedSearchParams: URLSearchParams = new URLSearchParams(searchParams.toString());
+                  updatedSearchParams.set('minPrice', selectedBudget.minPrice);
+                  updatedSearchParams.set('maxPrice', selectedBudget.maxPrice);
+                  setSearchParams(updatedSearchParams);
+                  setToggleDropdown(false);
+                  saveToLocalStorage('filterApplied', JSON.stringify(true));
+                }}
+              >
+                Apply
+              </div>
+            </div>
+          </div>
+        )}
+      </div>
+    </div>
+  );
 }
 
 export default BudgetDropdown
