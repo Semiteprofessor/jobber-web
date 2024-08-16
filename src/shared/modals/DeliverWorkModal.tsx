@@ -50,7 +50,32 @@ const DeliverWorkModal: FC<IModalProps> = ({ order, onClose }): ReactElement => 
     }
   };
 
-  return <div>DeliverWorkModal</div>;
+  return (
+    <ModalBg>
+      <div className="fixed bottom-0 left-0 right-0 top-0 z-[30] flex w-full items-center justify-center">
+        {isLoading && (
+          <div className="fixed bottom-0 left-0 right-0 top-0 z-[50] flex w-full items-center justify-center opacity-80">
+            <div className="absolute bottom-auto left-auto right-auto top-auto flex min-h-[280px] min-w-[500px] flex-col items-center justify-center bg-white p-4 text-[#404145]">
+              <FaCircleNotch className="animate-spin" size={40} color="#50b5ff" />
+              <span>Uploading...</span>
+            </div>
+          </div>
+        )}
+        <div className="">
+          <div className="relative bottom-auto left-auto right-auto top-auto max-h-[90vh] min-w-[500px] bg-white p-4">
+            <div className="mb-5 w-full text-left">
+              <h4 className="text-base font-bold">Deliver your work</h4>
+              <p>Images, Pdfs, Videos or Zip: Max. 1GB</p>
+            </div>
+            <div>
+              <TextAreaInput
+                className="w-full rounded-t-lg border border-[#f1f1f1] p-2.5 text-sm font-normal text-gray-600 focus:outline-none"
+                name="description"
+                placeholder="Add a response to buyer..."
+                value={description}
+                rows={4}
+                onChange={(event: ChangeEvent) => setDescription((event.target as HTMLTextAreaElement).value)}
+              /></div>;
 };
 
 export default DeliverWorkModal;
