@@ -7,7 +7,7 @@ import Button from '../button/Button';
 import TextAreaInput from '../inputs/TextAreaInput';
 import TextInput from '../inputs/TextInput';
 import { checkFile, fileType, readAsBase64 } from '../utils/image-utils.service';
-import { bytesToSize, showErrorToast, showSuccessToast } from '../utils/utils.service';
+import { bytesToSize, showErrorToast, showSuccessToast } from '../utils/util.service';
 import { IModalProps } from './interfaces/modal.interface';
 import ModalBg from './ModalBg';
 
@@ -115,6 +115,26 @@ const DeliverWorkModal: FC<IModalProps> = ({ order, onClose }): ReactElement => 
                 </div>
               )}
             </div>
+            <div className="flex justify-end gap-2">
+              <Button
+                className="rounded bg-gray-200 px-6 py-3 text-center text-sm font-bold text-black focus:outline-none md:px-4 md:py-2 md:text-base"
+                label="Cancel"
+                onClick={onClose}
+              />
+              <Button
+                disabled={!description || !selectedFile}
+                className={`cursor-pointer rounded px-6 py-3 text-center text-sm font-bold text-white focus:outline-none md:px-4 md:py-2 md:text-base ${
+                  !description || !selectedFile ? 'cursor-not-allowed bg-sky-200' : 'bg-sky-500 hover:bg-sky-400'
+                }`}
+                label="Deliver"
+                onClick={deliverWork}
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+    </ModalBg>
+  );
 };
 
 export default DeliverWorkModal;
