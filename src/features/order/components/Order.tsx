@@ -58,7 +58,28 @@ const Order: FC = (): ReactElement => {
                     </p>
                   </>
                 )}
-              </div></div>;
+              </div>
+              <div className="mb-4 ml-5 w-full justify-center self-center text-left md:mr-3 md:w-1/3 md:text-right">
+                {order && order.delivered && order.buyerUsername === authUser.username && (
+                  <Button
+                    className="rounded bg-sky-500 px-2 py-2 text-center text-sm font-bold text-white hover:bg-sky-400 focus:outline-none md:px-4 md:py-2 md:text-base"
+                    label="View Delivery"
+                    onClick={() => {
+                      if (elementRef.current) {
+                        elementRef.current.scrollIntoView({ behavior: 'smooth' });
+                      }
+                      setShowDeliveryPanel(!showDeliveryPanel);
+                    }}
+                  />
+                )}
+              </div>
+            </div>
+          )}
+          {order && Object.keys(order).length > 0 && (
+            <OrderActivities ref={elementRef} order={order} authUser={authUser} viewDeliveryBtnClicked={showDeliveryPanel} />
+          )}
+        </div>
+</div>;
 };
 
 export default Order;
