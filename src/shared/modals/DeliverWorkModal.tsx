@@ -29,6 +29,27 @@ const DeliverWorkModal: FC<IModalProps> = ({ order, onClose }): ReactElement => 
     }
   };
 
+  const deliverWork = async (): Promise<void> => {
+    try {
+      const selectedWorkFile = selectedFile as File;
+      const dataImage: string | ArrayBuffer | null = await readAsBase64(selectedWorkFile);
+      const completedWork: IDeliveredWork = {
+        message: description,
+        file: dataImage as string,
+        fileType: fileType(selectedWorkFile as File),
+        fileSize: selectedWorkFile.size,
+        fileName: selectedWorkFile.name
+      };
+      await deliverOrder({ orderId: `${order?.orderId}`, body: completedWork });
+      showSuccessToast('Order delivered successfully.');
+      if (onClose) {
+        onClose();
+      }
+    } catch (error) {
+      showErrorToast('Error deliverying order.');
+    }
+  };
+
   return <div>DeliverWorkModal</div>;
 };
 
