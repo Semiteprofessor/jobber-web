@@ -101,7 +101,33 @@ const Order: FC = (): ReactElement => {
                     </span>
                   </div>
                 </div>
-</div>;
+                <ul className="mb-0 list-none">
+                  <li className="flex justify-between px-4 pb-2 pt-2">
+                    <div className="flex gap-2 text-sm font-normal">Ordered from</div>
+                    <span className="text-sm font-bold text-green-500">{order?.sellerUsername}</span>
+                  </li>
+                  <li className="flex justify-between px-4 pb-2 pt-2">
+                    <div className="flex gap-2 text-sm font-normal">Order</div>
+                    <span className="text-sm font-bold">#{order?.orderId}</span>
+                  </li>
+                  <li className="flex justify-between px-4 pb-2 pt-2">
+                    <div className="flex gap-2 text-sm font-normal">Delivery date</div>
+                    <span className="text-sm font-bold">{TimeAgo.dayMonthYear(order?.offer?.newDeliveryDate)}</span>
+                  </li>
+                  <li className="flex justify-between px-4 pb-4 pt-2">
+                    <div className="flex gap-2 text-sm font-normal">Total price</div>
+                    <span className="text-sm font-bold">${order?.price}</span>
+                  </li>
+                </ul>
+              </div>
+            </>
+          ) : (
+            <></>
+          )}
+        </div>
+      </div>
+    </div>
+  );
 };
 
 export default Order;
