@@ -44,7 +44,26 @@ const DeliveryTimer: FC<IModalProps> = ({ order, authUser }): ReactElement => {
             </div>
           </div>
         )}
-</div>;
+        {authUser?.username === order?.sellerUsername && (
+          <div className="flex w-full cursor-pointer flex-col gap-4">
+            <Button
+              className="w-full rounded bg-green-500 px-4 py-2 text-center text-sm font-bold text-white hover:bg-green-400 focus:outline-none md:text-base"
+              label={`Deliver ${!order?.delivered ? 'Now' : 'Again'}`}
+              onClick={() => setDisplayModal({ ...displayModal, deliverWork: !displayModal.deliverWork })}
+            />
+            {!order?.delivered && (
+              <div
+                className="mb-2 text-center text-sm underline"
+                onClick={() => setDisplayModal({ ...displayModal, extendDelivery: !displayModal.extendDelivery })}
+              >
+                Extend delivery date
+              </div>
+            )}
+          </div>
+        )}
+      </div>
+    </>
+  );
 };
 
 export default DeliveryTimer;
