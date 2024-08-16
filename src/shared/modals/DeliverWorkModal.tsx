@@ -75,7 +75,46 @@ const DeliverWorkModal: FC<IModalProps> = ({ order, onClose }): ReactElement => 
                 value={description}
                 rows={4}
                 onChange={(event: ChangeEvent) => setDescription((event.target as HTMLTextAreaElement).value)}
-              /></div>;
+              />
+              {showImagePreview ? (
+                <div className="mb-5">
+                  <div className="flex rounded pb-2">
+                    <div className="flex h-[80px] w-[100px] flex-col items-center justify-center rounded border border-[#f1f1f1] p-3">
+                      <FaRegFile className="text-gray-200" size={25} />
+                      <span className="w-[100px] truncate px-3 py-1 text-xs font-bold text-black">{selectedFile?.name}</span>
+                      <p className="mb-0 text-xs">{bytesToSize(parseInt(`${selectedFile?.size}`))}</p>
+                    </div>
+                    <FaTimes
+                      onClick={() => {
+                        setSelectedFile(null);
+                        setShowImagePreview(false);
+                      }}
+                      className="absolute right-[18px] mt-[5px] cursor-pointer text-[#bdbdbd]"
+                    />
+                  </div>
+                </div>
+              ) : (
+                <div
+                  onClick={() => fileRef?.current?.click()}
+                  className="mt-2 flex w-[30%] cursor-pointer gap-2 rounded bg-[#efefef] px-[0.75rem] py-[0.3rem]"
+                >
+                  <FaPaperclip className="flex self-center" />
+                  <span className="bg-transparent text-sm">Upload work</span>
+                  <TextInput
+                    name="chatFile"
+                    ref={fileRef}
+                    type="file"
+                    style={{ display: 'none' }}
+                    onClick={() => {
+                      if (fileRef?.current) {
+                        fileRef.current.value = '';
+                      }
+                    }}
+                    onChange={handleFileChange}
+                  />
+                </div>
+              )}
+            </div>
 };
 
 export default DeliverWorkModal;
