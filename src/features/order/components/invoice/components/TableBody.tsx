@@ -15,7 +15,7 @@ const TableBody: FC = (): ReactElement => {
     <div>
       {orderInvoice &&
         Object.keys(orderInvoice).length &&
-        orderInvoice.orderService.map((order: IOrderInvoiceService, index: number) => (
+        orderInvoice?.orderService?.map((order: IOrderInvoiceService, index: number) => (
           <Fragment key={index}>
             <View style={{ width: '100%', flexDirection: 'row' }}>
               <View style={[styles.tbody, styles.tbody2]}>
@@ -37,10 +37,12 @@ const TableBody: FC = (): ReactElement => {
                 <Text>{order.quantity}</Text>
               </View>
               <View style={styles.tbody}>
-                <Text>{order.price.toFixed(2)} </Text>
+                {/* <Text>{order?.price.toFixed(2)} </Text> */}
+                <Text>{order?.price} </Text>
               </View>
               <View style={styles.tbody}>
-                <Text>{(order.price * order.quantity).toFixed(2)}</Text>
+                {/* <Text>{(order.price * order.quantity)?.toFixed(2)}</Text> */}
+                <Text>{order?.price * order?.quantity}</Text>
               </View>
             </View>
           </Fragment>

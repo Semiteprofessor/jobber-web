@@ -253,9 +253,9 @@ const AppRouter: FC = () => {
       element: (
         <Suspense>
           {/* <ProtectedRoute> */}
-            <Layout backgroundColor="#ffffff">
-              <Chat />
-            </Layout>
+          <Layout backgroundColor="#ffffff">
+            <Chat />
+          </Layout>
           {/* </ProtectedRoute> */}
         </Suspense>
       )
@@ -288,26 +288,26 @@ const AppRouter: FC = () => {
       path: '/gig/order/requirement/:gigId',
       element: (
         <Suspense>
-          <ProtectedRoute>
+          {/* <ProtectedRoute> */}
             <Layout backgroundColor="#ffffff">
               <Requirement />
+            </Layout>
+          {/* </ProtectedRoute> */}
+        </Suspense>
+      )
+    }
+    {
+      path: '/orders/:orderId/activities',
+      element: (
+        <Suspense>
+          <ProtectedRoute>
+            <Layout backgroundColor="#f5f5f5">
+              <Order />
             </Layout>
           </ProtectedRoute>
         </Suspense>
       )
     },
-    // {
-    //   path: '/orders/:orderId/activities',
-    //   element: (
-    //     <Suspense>
-    //       <ProtectedRoute>
-    //         <Layout backgroundColor="#f5f5f5">
-    //           <Order />
-    //         </Layout>
-    //       </ProtectedRoute>
-    //     </Suspense>
-    //   )
-    // },
     // {
     //   path: '/:username/edit',
     //   element: (

@@ -8,14 +8,14 @@ import Button from 'src/shared/button/Button';
 import TextAreaInput from 'src/shared/inputs/TextAreaInput';
 import { IResponse } from 'src/shared/shared.interface';
 import { TimeAgo } from 'src/shared/utils/timeago.util';
-import { deleteFromLocalStorage, generateRandomNumber, getDataFromLocalStorage, showErrorToast } from 'src/shared/utils/utils.service';
+import { deleteFromLocalStorage, generateRandomNumber, getDataFromLocalStorage, showErrorToast } from 'src/shared/utils/util.service';
 import { useAppSelector } from 'src/store/store';
 import { IReduxState } from 'src/store/store.interface';
 
 import { OrderContext } from '../context/OrderContext';
 import { IOffer, IOrderDocument, IOrderInvoice } from '../interfaces/order.interface';
 import { useCreateOrderMutation } from '../services/order.service';
-import Invoice from './Invoice/Invoice';
+import Invoice from './invoice/Invoice';
 
 const Requirement: FC = (): ReactElement => {
   const buyer = useAppSelector((state: IReduxState) => state.buyer);
@@ -26,7 +26,7 @@ const Requirement: FC = (): ReactElement => {
   const placeholder = 'https://placehold.co/330x220?text=Placeholder';
   const offer: IOffer = JSON.parse(`${searchParams.get('offer')}`);
   const order_date = `${searchParams.get('order_date')}`;
-  const serviceFee: number = offer.price < 50 ? (5.5 / 100) * offer.price + 2 : (5.5 / 100) * offer.price;
+  const serviceFee: number = offer?.price < 50 ? (5.5 / 100) * offer?.price + 2 : (5.5 / 100) * offer?.price;
   const navigate: NavigateFunction = useNavigate();
   const orderId = `JO${generateRandomNumber(11)}`;
   const invoiceId = `JI${generateRandomNumber(11)}`;
@@ -45,7 +45,7 @@ const Requirement: FC = (): ReactElement => {
       {
         service: `${gigRef?.current?.title}`,
         quantity: 1,
-        price: offer.price
+        price: offer?.price
       },
       {
         service: 'Service Fee',
@@ -60,14 +60,14 @@ const Requirement: FC = (): ReactElement => {
       const paymentIntentId = getDataFromLocalStorage('paymentIntentId');
       const order: IOrderDocument = {
         offer: {
-          gigTitle: offer.gigTitle,
-          price: offer.price,
-          description: offer.description,
-          deliveryInDays: offer.deliveryInDays,
-          oldDeliveryDate: offer.oldDeliveryDate,
-          newDeliveryDate: offer.newDeliveryDate,
+          gigTitle: offer?.gigTitle,
+          price: offer?.price,
+          description: offer?.description,
+          deliveryInDays: offer?.deliveryInDays,
+          oldDeliveryDate: offer?.oldDeliveryDate,
+          newDeliveryDate: offer?.newDeliveryDate,
           accepted: true,
-          cancelled: offer.cancelled
+          cancelled: offer?.cancelled
         },
         gigId: `${gigId}`,
         sellerId: `${gigRef?.current?.sellerId}`,
@@ -87,7 +87,7 @@ const Requirement: FC = (): ReactElement => {
         invoiceId,
         quantity: 1,
         dateOrdered: `${new Date()}`,
-        price: offer.price,
+        price: offer?.price,
         requirements: requirement,
         paymentIntent: `${paymentIntentId}`,
         events: {
@@ -155,7 +155,7 @@ const Requirement: FC = (): ReactElement => {
             </div>
             <ul className="mb-0 list-none">
               <li className="border-grey flex border-b px-4 pb-3 pt-1">
-                <div className="text-sm font-normal">{offer.gigTitle}</div>
+                <div className="text-sm font-normal">{offer?.gigTitle}</div>
               </li>
               <li className="flex justify-between px-4 pb-2 pt-4">
                 <div className="flex gap-2 text-sm font-normal">Status</div>
@@ -175,7 +175,7 @@ const Requirement: FC = (): ReactElement => {
               </li>
               <li className="flex justify-between px-4 pb-4 pt-2">
                 <div className="flex gap-2 text-sm font-normal">Price</div>
-                <span className="text-sm">${offer.price}</span>
+                <span className="text-sm">${offer?.price}</span>
               </li>
             </ul>
           </div>
