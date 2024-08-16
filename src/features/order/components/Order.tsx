@@ -79,6 +79,28 @@ const Order: FC = (): ReactElement => {
             <OrderActivities ref={elementRef} order={order} authUser={authUser} viewDeliveryBtnClicked={showDeliveryPanel} />
           )}
         </div>
+        <div className="w-full p-4 lg:w-1/3 ">
+          {Object.keys(order).length > 0 ? (
+            <>
+              {order.delivered && authUser.username === order.sellerUsername && <DeliveryTimer order={order} authUser={authUser} />}
+              {order.delivered && authUser.username === order.sellerUsername && <></>}
+              {!order.delivered && <DeliveryTimer order={order} authUser={authUser} />}
+
+              <div className="bg-white">
+                <div className="mb-2 flex flex-col border-b px-4 pb-4 pt-3 md:flex-row">
+                  <img className="h-11 w-20 object-cover" src={order?.gigCoverImage} alt="Gig Cover Image" />
+                  <div className="flex flex-col">
+                    <h4 className="mt-2 text-sm font-bold text-[#161c2d] md:mt-0 md:pl-4">{order.offer.gigTitle}</h4>
+                    <span
+                      className={`status mt-1 w-24 rounded px-[3px] py-[3px] text-xs font-bold uppercase text-white md:ml-4 ${order.status.replace(
+                        / /g,
+                        ''
+                      )}`}
+                    >
+                      {order.status}
+                    </span>
+                  </div>
+                </div>
 </div>;
 };
 
