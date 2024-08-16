@@ -22,6 +22,7 @@ import GigView from './features/gigs/components/view/GigView';
 import Gigs from './features/gigs/components/gigs/Gigs';
 import Chat from './features/chat/components/Chat';
 import Checkout from './features/order/components/Checkout';
+import Requirement from './features/order/components/Requirement';
 
 const Layout = ({ backgroundColor = '#fff', children }: { backgroundColor: string; children: ReactNode }): JSX.Element => (
   <div style={{ backgroundColor }} className="flex flex-grow">
@@ -295,38 +296,38 @@ const AppRouter: FC = () => {
         </Suspense>
       )
     },
-    {
-      path: '/orders/:orderId/activities',
-      element: (
-        <Suspense>
-          <ProtectedRoute>
-            <Layout backgroundColor="#f5f5f5">
-              <Order />
-            </Layout>
-          </ProtectedRoute>
-        </Suspense>
-      )
-    },
-    {
-      path: '/:username/edit',
-      element: (
-        <Suspense>
-          <ProtectedRoute>
-            <Layout backgroundColor="#f5f5f5">
-              <Settings />
-            </Layout>
-          </ProtectedRoute>
-        </Suspense>
-      )
-    },
-    {
-      path: '*',
-      element: (
-        <Suspense>
-          <Error />
-        </Suspense>
-      )
-    }
+    // {
+    //   path: '/orders/:orderId/activities',
+    //   element: (
+    //     <Suspense>
+    //       <ProtectedRoute>
+    //         <Layout backgroundColor="#f5f5f5">
+    //           <Order />
+    //         </Layout>
+    //       </ProtectedRoute>
+    //     </Suspense>
+    //   )
+    // },
+    // {
+    //   path: '/:username/edit',
+    //   element: (
+    //     <Suspense>
+    //       <ProtectedRoute>
+    //         <Layout backgroundColor="#f5f5f5">
+    //           <Settings />
+    //         </Layout>
+    //       </ProtectedRoute>
+    //     </Suspense>
+    //   )
+    // },
+    // {
+    //   path: '*',
+    //   element: (
+    //     <Suspense>
+    //       <Error />
+    //     </Suspense>
+    //   )
+    // }
   ];
   return useRoutes(routes);
 };
