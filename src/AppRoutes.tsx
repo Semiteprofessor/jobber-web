@@ -21,6 +21,7 @@ import EditGig from './features/gigs/components/gig/EditGig';
 import GigView from './features/gigs/components/view/GigView';
 import Gigs from './features/gigs/components/gigs/Gigs';
 import Chat from './features/chat/components/Chat';
+import Checkout from './features/order/components/Checkout';
 
 const Layout = ({ backgroundColor = '#fff', children }: { backgroundColor: string; children: ReactNode }): JSX.Element => (
   <div style={{ backgroundColor }} className="flex flex-grow">
