@@ -21,7 +21,35 @@ const styles = StyleSheet.create({
 const TableTotal: FC = (): ReactElement => {
   const { orderInvoice } = useContext(OrderContext);
 
-  return <div>TableTotal</div>;
+  return (
+    <>
+      {orderInvoice && Object.keys(orderInvoice).length && (
+        <View style={{ width: '100%', flexDirection: 'row', marginTop: 10 }}>
+          <View style={[styles.tbody, styles.total]}>
+            <Text></Text>
+          </View>
+          <View style={styles.tbody}></View>
+          <View style={styles.tbody}></View>
+          <View style={styles.tbody}></View>
+          <View style={styles.tbody}></View>
+          <View style={styles.tbody}>
+            <Text></Text>
+          </View>
+          <View style={styles.tbody}>
+            <Text>Total</Text>
+          </View>
+          <View style={styles.tbody}>
+            <Text>
+              $
+              {orderInvoice.orderService
+                .reduce((sum: number, item: IOrderInvoiceService) => sum + item.price * item.quantity, 0)
+                .toFixed(2)}
+            </Text>
+          </View>
+        </View>
+      )}
+    </>
+  );
 };
 
 export default TableTotal;
