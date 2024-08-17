@@ -148,7 +148,41 @@ const Requirement: FC = (): ReactElement => {
             </div>
           </div>
         </div>
-</div>;
+        <div className="w-full p-4 lg:w-1/3">
+          <div className="border-grey mb-8 border">
+            <div className="mb-2 flex flex-col border-b md:flex-row">
+              <img className="w-full object-cover" src={gigRef.current?.coverImage ?? placeholder} alt="Gig Cover Image" />
+            </div>
+            <ul className="mb-0 list-none">
+              <li className="border-grey flex border-b px-4 pb-3 pt-1">
+                <div className="text-sm font-normal">{offer.gigTitle}</div>
+              </li>
+              <li className="flex justify-between px-4 pb-2 pt-4">
+                <div className="flex gap-2 text-sm font-normal">Status</div>
+                <span className="rounded bg-orange-300 px-[5px] py-[2px] text-xs font-bold uppercase text-white">incomplete</span>
+              </li>
+              <li className="flex justify-between px-4 pb-2 pt-2">
+                <div className="flex gap-2 text-sm font-normal">Order</div>
+                <span className="text-sm">#{orderId}</span>
+              </li>
+              <li className="flex justify-between px-4 pb-2 pt-2">
+                <div className="flex gap-2 text-sm font-normal">Order Date</div>
+                <span className="text-sm">{TimeAgo.dayMonthYear(`${new Date()}`)}</span>
+              </li>
+              <li className="flex justify-between px-4 pb-2 pt-2">
+                <div className="flex gap-2 text-sm font-normal">Quantity</div>
+                <span className="text-sm">X 1</span>
+              </li>
+              <li className="flex justify-between px-4 pb-4 pt-2">
+                <div className="flex gap-2 text-sm font-normal">Price</div>
+                <span className="text-sm">${offer.price}</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
 };
 
 export default Requirement;
