@@ -54,6 +54,30 @@ const CheckoutForm: FC<ICheckoutProps> = ({ gigId, offer }): ReactElement => {
     });
   }, [stripe]);
 
+  const handleSubmit = async (event: FormEvent): Promise<void> => {
+    event.preventDefault();
+    if (!stripe || !elements) {
+      return;
+    }
+    setIsLoading(true);
+    const { error } = await stripe.confirmPayment({
+      elements,
+      confirmParams: {
+        return_url: `${CLIENT_ENDPOINT}/gig/order/requirement/${gigId}?${createSearchParams({
+          offer: JSON.stringify(offer),
+          order_date: `${new Date()}`
+        })}`
+      }
+    });
+
+    if (error.type === 'card_error' || error.type === 'validation_error') {
+      setMessage(`${error.message}`);
+    } else {
+      setMessage('An unexpected error occurred');
+    }
+    setIsLoading(false);
+  };
+
   return <div>CheckoutForm</div>;
 };
 
