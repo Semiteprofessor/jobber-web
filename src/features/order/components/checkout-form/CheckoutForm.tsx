@@ -78,7 +78,20 @@ const CheckoutForm: FC<ICheckoutProps> = ({ gigId, offer }): ReactElement => {
     setIsLoading(false);
   };
 
-  return <div>CheckoutForm</div>;
+  return (
+    <form id="payment-form" onSubmit={handleSubmit}>
+      {isStripeLoading && <CheckoutFormSkeleton />}
+      <PaymentElement id="payment-element" onReady={() => setIsStripeLoading(false)} />
+      <Button
+        id="submit"
+        className={`w-full rounded px-6 py-3 text-center text-sm font-bold text-white focus:outline-none md:px-4 md:py-2 md:text-base ${
+          isLoading || !stripe || !elements ? 'cursor-not-allowed bg-sky-200' : 'bg-sky-500 hover:bg-sky-400'
+        }`}
+        label={<span id="button-text">{isLoading ? <div className="spinner" id="spinner"></div> : 'Confirm & Pay'}</span>}
+      />
+      {message && <div id="payment-message">{message}</div>}
+    </form>
+  );
 };
 
 export default CheckoutForm;
