@@ -104,7 +104,51 @@ const Requirement: FC = (): ReactElement => {
     }
   };
 
-  return <div>Requirement</div>;
+  return (
+    <div className="container mx-auto lg:h-screen">
+      <div className="flex flex-wrap">
+        <div className="order-last w-full p-4 lg:order-first lg:w-2/3">
+          <div className="mb-4 flex w-full flex-col flex-wrap bg-[#d4edda] p-4">
+            <span className="text-base font-bold text-black lg:text-xl">Thank you for your purchase</span>
+            <div className="flex gap-1">
+              You can{' '}
+              <PDFDownloadLink
+                document={
+                  <OrderContext.Provider value={{ orderInvoice }}>
+                    <Invoice />
+                  </OrderContext.Provider>
+                }
+                fileName={`${orderInvoice.invoiceId}.pdf`}
+              >
+                <div className="cursor-pointer text-blue-400 underline">download your invoice</div>
+              </PDFDownloadLink>
+            </div>
+          </div>
+          <div className="border-grey border">
+            <div className="mb-3 px-4 pb-2 pt-3">
+              <span className="mb-3 text-base font-medium text-black md:text-lg lg:text-xl">
+                Any information you would like the seller to know?
+              </span>
+              <p className="text-sm">Click the button to start the order.</p>
+            </div>
+            <div className="flex flex-col px-4 pb-4">
+              <TextAreaInput
+                rows={5}
+                name="requirement"
+                value={requirement}
+                placeholder="Write a brief description..."
+                className="border-grey mb-1 w-full rounded border p-3.5 text-sm font-normal text-gray-600 focus:outline-none"
+                onChange={(event: ChangeEvent) => setRequirement((event.target as HTMLTextAreaElement).value)}
+              />
+              <Button
+                className="mt-3 rounded bg-sky-500 px-6 py-3 text-center text-sm font-bold text-white hover:bg-sky-400 focus:outline-none md:px-4 md:py-2 md:text-base"
+                label="Start Order"
+                onClick={startOrder}
+              />
+            </div>
+          </div>
+        </div>
+</div>;
 };
 
 export default Requirement;
