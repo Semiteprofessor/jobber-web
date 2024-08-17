@@ -47,11 +47,13 @@ const VerifyOTP: FC = (): ReactElement => {
       const result: IResponse = await verifyOTP(data).unwrap();
       dispatch(addAuthUser({ authInfo: result.user }));
       const buyerResponse = await dispatch(buyerApi.endpoints.getCurrentBuyerByUsername.initiate() as unknown as Action);
-      dispatch(addBuyer(buyerResponse?.data.buyer));
+      // dispatch(addBuyer(buyerResponse?.data?.buyer));
+      dispatch(addBuyer(buyerResponse));
       const sellerResponse = await dispatch(
         sellerApi.endpoints.getSellerByUsername.initiate(`${result.user?.username}`) as unknown as Action
       );
-      dispatch(addSeller(sellerResponse?.data.seller));
+      // dispatch(addSeller(sellerResponse?.data?.seller));
+      dispatch(addSeller(sellerResponse));
       dispatch(updateLogout(false));
       dispatch(updateHeader('home'));
       dispatch(updateCategoryContainer(true));
