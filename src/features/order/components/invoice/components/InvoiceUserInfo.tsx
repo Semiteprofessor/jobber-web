@@ -1,7 +1,7 @@
 import { Link, StyleSheet, Text, View } from '@react-pdf/renderer';
 import { FC, ReactElement, useContext } from 'react';
 import { OrderContext } from 'src/features/order/context/OrderContext';
-import { TimeAgo } from 'src/shared/utils/timeago.utils';
+import { TimeAgo } from 'src/shared/utils/timeago.util';
 
 const CLIENT_ENDPOINT = import.meta.env.VITE_CLIENT_ENDPOINT;
 
@@ -16,7 +16,37 @@ const styles = StyleSheet.create({
 const InvoiceUserInfo: FC = (): ReactElement => {
   const { orderInvoice } = useContext(OrderContext);
 
-  return <div>InvoiceUserInfo</div>;
+  return (
+    <>
+      {orderInvoice && Object.keys(orderInvoice).length && (
+        <>
+          <View style={styles.titleContainer}>
+            <View style={styles.spaceBetween}>
+              <View style={{ maxWidth: 200 }}>
+                <Text style={styles.title}>To </Text>
+                <Text style={styles.subTitle}>{orderInvoice.buyerUsername}</Text>
+              </View>
+              <View style={{ maxWidth: 200 }}>
+                <Text style={styles.title}>Date issued</Text>
+                <Text style={styles.subTitle}>{TimeAgo.dayMonthYear(`${orderInvoice.date}`)}</Text>
+              </View>
+            </View>
+          </View>
+          <View style={styles.titleContainer}>
+            <View style={styles.spaceBetween}>
+              <View></View>
+              <View style={{ maxWidth: 200 }}>
+                <Text style={styles.title}>Order number</Text>
+                <Link src={`${`${CLIENT_ENDPOINT}/orders/${orderInvoice.orderId}/activities`}`} style={styles.link}>
+                  {orderInvoice.orderId}
+                </Link>
+              </View>
+            </View>
+          </View>
+        </>
+      )}
+    </>
+  );
 };
 
 export default InvoiceUserInfo;
