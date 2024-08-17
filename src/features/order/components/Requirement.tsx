@@ -7,7 +7,7 @@ import { useGetGigByIdQuery } from 'src/features/gigs/services/gigs.service';
 import Button from 'src/shared/button/Button';
 import TextAreaInput from 'src/shared/inputs/TextAreaInput';
 import { IResponse } from 'src/shared/shared.interface';
-import { TimeAgo } from 'src/shared/utils/timeago.utils';
+import { TimeAgo } from 'src/shared/utils/timeago.util';
 import { deleteFromLocalStorage, generateRandomNumber, getDataFromLocalStorage, showErrorToast } from 'src/shared/utils/utils.service';
 import { useAppSelector } from 'src/store/store';
 import { IReduxState } from 'src/store/store.interface';
@@ -17,7 +17,44 @@ import { IOffer, IOrderDocument, IOrderInvoice } from '../interfaces/order.inter
 import { useCreateOrderMutation } from '../services/order.service';
 import Invoice from './Invoice/Invoice';
 
-const Requirement = () => {
+const Requirement: FC = (): ReactElement => {
+  const buyer = useAppSelector((state: IReduxState) => state.buyer);
+  const [requirement, setRequirement] = useState<string>('');
+  const { gigId } = useParams<string>();
+  const [searchParams] = useSearchParams({});
+  const gigRef = useRef<ISellerGig>();
+  const placeholder = 'https://placehold.co/330x220?text=Placeholder';
+  const offer: IOffer = JSON.parse(`${searchParams.get('offer')}`);
+  const order_date = `${searchParams.get('order_date')}`;
+  const serviceFee: number = offer.price < 50 ? (5.5 / 100) * offer.price + 2 : (5.5 / 100) * offer.price;
+  const navigate: NavigateFunction = useNavigate();
+  const orderId = `JO${generateRandomNumber(11)}`;
+  const invoiceId = `JI${generateRandomNumber(11)}`;
+  const { data, isSuccess } = useGetGigByIdQuery(`${gigId}`);
+  const [createOrder] = useCreateOrderMutation();
+
+  if (isSuccess) {
+    gigRef.current = data.gig;
+  }
+  const orderInvoice: IOrderInvoice = {
+    invoiceId,
+    orderId,
+    date: `${new Date()}`,
+    buyerUsername: `${buyer.username}`,
+    orderService: [
+      {
+        service: `${gigRef?.current?.title}`,
+        quantity: 1,
+        price: offer.price
+      },
+      {
+        service: 'Service Fee',
+        quantity: 1,
+        price: serviceFee
+      }
+    ]
+  };
+
   return <div>Requirement</div>;
 };
 
