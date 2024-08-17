@@ -5,7 +5,7 @@ import { FaCog, FaRegClock, FaRegMoneyBillAlt } from 'react-icons/fa';
 import { useLocation, useParams, useSearchParams } from 'react-router-dom';
 import { ISellerGig } from 'src/features/gigs/interfaces/gig.interface';
 import { IResponse } from 'src/shared/shared.interface';
-import { saveToLocalStorage, showErrorToast } from 'src/shared/utils/utils.service';
+import { saveToLocalStorage, showErrorToast } from 'src/shared/utils/util.service';
 
 import { IOffer } from '../interfaces/order.interface';
 import { useCreateOrderIntentMutation } from '../services/order.service';
@@ -30,7 +30,30 @@ const Checkout: FC = (): ReactElement => {
       showErrorToast('Error with checkout.');
     }
   };
-  return <div>Checkout</div>;
+  useEffect(() => {
+    createBuyerOrderIntent();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  const options = { clientSecret } as StripeElementsOptions;
+
+  return (
+    <div className="container mx-auto h-screen">
+      <div className="flex flex-wrap">
+        <div className="w-full p-4 lg:w-2/3 order-last lg:order-first">
+          <div className="border border-grey">
+            <div className="text-xl font-medium mb-3 pt-3 pb-4 px-4">
+              <span>Payment</span>
+            </div>
+            {clientSecret && (
+              <Elements options={options} key={clientSecret} stripe={stripePromise}>
+                <CheckoutForm gigId={`${gigId}`} offer={offer} />
+              </Elements>
+            )}
+            {/* <!-- CheckoutForm --> */}
+          </div>
+        </div>
+</div>;
 };
 
 export default Checkout;
