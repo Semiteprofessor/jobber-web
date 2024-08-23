@@ -2,7 +2,7 @@ import { ChangeEvent, FC, ReactElement, useState } from 'react';
 import { FaCircleNotch } from 'react-icons/fa';
 import { IReviewDocument } from 'src/features/order/interfaces/review.interface';
 import { useAddReviewMutation } from 'src/features/order/services/review.service';
-import { showErrorToast, showSuccessToast } from 'src/shared/utils/utils.service';
+import { showErrorToast, showSuccessToast } from 'src/shared/utils/util.service';
 import { useAppSelector } from 'src/store/store';
 import { IReduxState } from 'src/store/store.interface';
 

@@ -5,7 +5,7 @@ import { IOrderReviewModal } from 'src/features/order/interfaces/order.interface
 import Button from 'src/shared/button/Button';
 import ReviewModal from 'src/shared/modals/ReviewModal';
 import StarRating from 'src/shared/rating/StarRating';
-import { TimeAgo } from 'src/shared/utils/timeago.utils';
+import { TimeAgo } from 'src/shared/utils/timeago.util';
 
 const OrderReview: FC = (): ReactElement => {
   const { order, authUser } = useContext(OrderContext);
