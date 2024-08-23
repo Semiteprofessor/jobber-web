@@ -7,7 +7,7 @@ import { useUpdateDeliveryDateMutation } from 'src/features/order/services/order
 import Button from 'src/shared/button/Button';
 import ApprovalModal from 'src/shared/modals/ApprovalModal';
 import { IApprovalModalContent } from 'src/shared/modals/interfaces/modal.interface';
-import { TimeAgo } from 'src/shared/utils/timeago.utils';
+import { TimeAgo } from 'src/shared/utils/timeago.util';
 import { lowerCase, showErrorToast, showSuccessToast } from 'src/shared/utils/utils.service';
 
 const OrderExtension: FC = (): ReactElement => {
@@ -15,6 +15,23 @@ const OrderExtension: FC = (): ReactElement => {
   const [approvalModalContent, setApprovalModalContent] = useState<IApprovalModalContent>();
   const [showExtensionApprovalModal, setShowExtensionApprovalModal] = useState<boolean>(false);
   const [updateDeliveryDate] = useUpdateDeliveryDateMutation();
+
+  const onApproveHandler = async (): Promise<void> => {
+    try {
+      const extended: IExtendedDelivery = {
+        originalDate: `${order?.offer.oldDeliveryDate}`,
+        newDate: `${order?.requestExtension?.newDate}`,
+        days: parseInt(`${order?.requestExtension?.days}`),
+        reason: `${order?.requestExtension?.reason}`,
+        deliveryDateUpdate: `${new Date()}`
+      };
+      await updateDeliveryDate({ orderId: `${order?.orderId}`, type: lowerCase(`${approvalModalContent?.btnText}`), body: extended });
+      setShowExtensionApprovalModal(false);
+      showSuccessToast(`${approvalModalContent?.header} successful.`);
+    } catch (error) {
+      showErrorToast(`${approvalModalContent?.header} error.`);
+    }
+  };
 
   return <div>OrderExtension</div>;
 };
