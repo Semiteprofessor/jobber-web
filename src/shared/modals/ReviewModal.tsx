@@ -86,7 +86,26 @@ const ReviewModal: FC<IModalProps> = ({ order, type, onClose }): ReactElement =>
                 setReview((event.target as HTMLTextAreaElement).value);
               }}
             />
-          </div></div>;
+          </div>
+          <div className="flex justify-end gap-3">
+            <Button
+              className="rounded bg-gray-200 px-6 py-3 text-center text-sm font-bold text-black focus:outline-none md:px-4 md:py-2 md:text-base"
+              onClick={onClose}
+              label="Cancel"
+            />
+            <Button
+              className={`rounded px-6 py-3 text-center text-sm font-bold text-white focus:outline-none md:px-4 md:py-2 md:text-base ${
+                !review || reviewRating === 0 ? 'cursor-not-allowed bg-sky-200' : 'bg-sky-500 hover:bg-sky-400'
+              }`}
+              disabled={!review || reviewRating === 0}
+              onClick={onAddReview}
+              label="Send"
+            />
+          </div>
+        </div>
+      </div>
+    </ModalBg>
+  );
 };
 
 export default ReviewModal;
