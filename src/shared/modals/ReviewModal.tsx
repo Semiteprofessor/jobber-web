@@ -56,7 +56,37 @@ const ReviewModal: FC<IModalProps> = ({ order, type, onClose }): ReactElement =>
 
   const isLoading = status === LOADING_STATUS.LOADING;
 
-  return <div>ReviewModal</div>;
+  return (
+    <ModalBg>
+      <div className="fixed bottom-0 left-0 right-0 top-0 flex items-center justify-center">
+        {isLoading && (
+          <div className="fixed bottom-0 left-0 right-0 top-0 z-[50] flex w-full items-center justify-center opacity-80">
+            <div className="absolute bottom-auto left-auto right-auto top-auto flex min-h-[290px] min-w-[500px] flex-col items-center justify-center bg-white p-4 text-[#404145]">
+              <FaCircleNotch className="animate-spin" size={40} color="#50b5ff" />
+              <span>Adding...</span>
+            </div>
+          </div>
+        )}
+        <div className="relative bottom-auto left-auto right-auto top-auto max-h-[90vh] min-w-[500px] bg-white p-4 text-[#404145]">
+          <div className="border-grey mb-[10px] w-full border-b text-left">
+            <h4 className="pb-2 text-[17px] font-bold">{type === 'buyer-review' ? 'Review Seller' : 'Review Buyer'}</h4>
+          </div>
+
+          <div className="mb-4s relative mt-4 h-10">
+            <StarRating setReviewRating={setReviewRating} size={20} />
+          </div>
+          <div className="mb-5 text-base">
+            <TextAreaInput
+              className="border-grey mb-1 w-full rounded border p-2.5 text-sm font-normal text-gray-600 focus:outline-none"
+              name="review"
+              placeholder="What was it like working with the seller?"
+              value={review}
+              rows={4}
+              onChange={(event: ChangeEvent) => {
+                setReview((event.target as HTMLTextAreaElement).value);
+              }}
+            />
+          </div></div>;
 };
 
 export default ReviewModal;
