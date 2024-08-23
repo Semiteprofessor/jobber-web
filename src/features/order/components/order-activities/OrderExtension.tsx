@@ -65,7 +65,65 @@ const OrderExtension: FC = (): ReactElement => {
                         <span className="text-sm font-bold md:text-base">You requested for a delivery date extension</span>
                       )}
                     </div>
-                  </div></div>;
+                  </div>
+                  <div className="border-grey mt-4 flex w-full flex-col rounded border">
+                    <div className="mt-2">
+                      <div className="px-4 py-1 text-left text-sm text-gray-500">
+                        <div className="flex flex-col md:grid md:grid-cols-3">
+                          <span className="col-span-1 text-sm font-bold">Original delivery date</span>
+                          <p className="col-span-2 text-sm">{TimeAgo.dayMonthYear(order?.requestExtension.originalDate)}</p>
+                        </div>
+                        <div className="mt-5 flex flex-col md:grid md:grid-cols-3">
+                          <span className="col-span-1 text-sm font-bold">New delivery date</span>
+                          <p className="col-span-2 text-sm">{TimeAgo.dayMonthYear(order?.requestExtension.newDate)}</p>
+                        </div>
+                        <div className="mt-5 flex flex-col md:grid md:grid-cols-3">
+                          <span className="col-span-1 text-sm font-bold">Reason</span>
+                          <p className="col-span-2 text-sm">{order?.requestExtension.reason}</p>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="border-grey border-b py-1"></div>
+                    <div className="flex gap-4 px-3 py-4">
+                      {order.buyerUsername === authUser?.username && (
+                        <>
+                          <Button
+                            className="rounded bg-green-500 px-6 py-3 text-center text-sm font-bold text-white hover:bg-green-400 focus:outline-none md:px-4 md:py-2 md:text-base"
+                            label="Yes, Approve extension"
+                            onClick={() => {
+                              setApprovalModalContent({
+                                header: 'Approve Extension',
+                                body: 'Are you sure you want to approve the request for an extension?',
+                                btnText: 'Approve',
+                                btnColor: 'bg-sky-500 hover:bg-sky-400'
+                              });
+                              setShowExtensionApprovalModal(true);
+                            }}
+                          />
+                          <Button
+                            className="rounded bg-red-500 px-6 py-3 text-center text-sm font-bold text-white hover:bg-red-400 focus:outline-none md:px-4 md:py-2 md:text-base"
+                            label="No, Reject extension"
+                            onClick={() => {
+                              setApprovalModalContent({
+                                header: 'Reject Extension',
+                                body: 'Are you sure you don\'t want to reconsider this extension request?',
+                                btnText: 'Reject',
+                                btnColor: 'bg-red-500 hover:bg-red-400'
+                              });
+                              setShowExtensionApprovalModal(true);
+                            }}
+                          />
+                        </>
+                      )}
+                      {order.buyerUsername !== authUser?.username && <span>Waiting for approval for extension.</span>}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
+</div>;
 };
 
 export default OrderExtension;
