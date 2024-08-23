@@ -50,7 +50,35 @@ const OrderPlaced: FC = (): ReactElement => {
             </div>
           </div>
         )}
-  )
+        <div className="flex gap-4 pt-4">
+          <div>
+            <div className="flex h-10 w-10 items-center justify-center rounded-full bg-[#c5fce4]">
+              <FaPlaceOfWorship size={18} color="#2deb98" />
+            </div>
+          </div>
+          <div className="w-full cursor-pointer">
+            <div className="border-grey mt-2 flex items-center gap-2 border-b pb-6 text-gray-500">
+              <span className="text-base font-bold">{order?.buyerUsername === authUser?.username ? 'Your' : 'The'} order started</span>
+              <p className="text-sm font-normal italic">{TimeAgo.dayWithTime(`${order?.events.orderStarted}`)}</p>
+            </div>
+          </div>
+        </div>
+        <div className="flex gap-4 pt-4">
+          <div>
+            <div className="flex h-10 w-10 items-center justify-center rounded-full bg-[#c5fce4]">
+              <FaRegClock size={18} color="#2deb98" />
+            </div>
+          </div>
+          <div className="w-full cursor-pointer">
+            <div className="border-grey mt-2 flex items-center gap-2 border-b pb-6 text-gray-500">
+              <span className="text-base font-bold">Your delivery date was updated to</span>
+              <p className="text-sm font-normal italic">{TimeAgo.dayWithTime(`${order?.offer.newDeliveryDate}`)}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
 }
 
 export default OrderPlaced
