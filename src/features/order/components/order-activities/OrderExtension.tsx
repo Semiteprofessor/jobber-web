@@ -106,7 +106,7 @@ const OrderExtension: FC = (): ReactElement => {
                             onClick={() => {
                               setApprovalModalContent({
                                 header: 'Reject Extension',
-                                body: 'Are you sure you don\'t want to reconsider this extension request?',
+                                body: "Are you sure you don't want to reconsider this extension request?",
                                 btnText: 'Reject',
                                 btnColor: 'bg-red-500 hover:bg-red-400'
                               });
@@ -123,7 +123,51 @@ const OrderExtension: FC = (): ReactElement => {
             </div>
           </div>
         )}
-</div>;
+      {order?.offer.reason && (
+        <div className="flex rounded-[4px] bg-white px-4 py-1">
+          <div className="w-full">
+            <div className="flex gap-4">
+              <div>
+                <div className="flex h-10 w-10 items-center justify-center rounded-full bg-[#fffdcc]">
+                  <FaCheck size={18} color="#e8e123" />
+                </div>
+              </div>
+              <div className="border-grey w-full cursor-pointer border-b pb-6">
+                <div className="flex items-center justify-between font-medium text-gray-500">
+                  <div className="items-left mt-2 flex flex-col gap-2 text-gray-500 md:flex-row md:items-center">
+                    {order?.buyerUsername !== authUser?.username ? (
+                      <span className="text-sm font-bold md:text-base">{order.buyerUsername} approved delivery date extension request</span>
+                    ) : (
+                      <span className="text-sm font-bold md:text-base">You approved delivery date extension request</span>
+                    )}
+                    <p className="text-sm font-normal italic">{TimeAgo.dayWithTime(`${order?.events.deliveryDateUpdate}`)}</p>
+                  </div>
+                </div>
+                <div className="border-grey mt-4 flex w-full flex-col rounded border">
+                  <div className="mt-2">
+                    <div className="px-4 py-1 text-left text-sm text-gray-500">
+                      <div className="flex flex-col md:grid md:grid-cols-3">
+                        <span className="col-span-1 text-sm font-bold">Original delivery date</span>
+                        <p className="col-span-2 text-sm">{TimeAgo.dayMonthYear(`${order?.offer.oldDeliveryDate}`)}</p>
+                      </div>
+                      <div className="mt-5 flex flex-col md:grid md:grid-cols-3">
+                        <span className="col-span-1 text-sm font-bold">New delivery date</span>
+                        <p className="col-span-2 text-sm">{TimeAgo.dayMonthYear(`${order?.offer.newDeliveryDate}`)}</p>
+                      </div>
+                      <div className="mt-5 flex flex-col md:grid md:grid-cols-3">
+                        <span className="col-span-1 text-sm font-bold">Reason</span>
+                        <p className="col-span-2 text-sm">{order?.offer.reason}</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+    </>
+  );
 };
 
 export default OrderExtension;
