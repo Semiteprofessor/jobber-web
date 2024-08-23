@@ -65,7 +65,7 @@ const OrderDelivered: ForwardRefExoticComponent<Omit<IOrderDeliveredProps, 'ref'
       }
     };
 
-  return (
+    return (
       <>
         {orderDeliveredModal.deliveryApproval && (
           <ApprovalModal
@@ -144,7 +144,68 @@ const OrderDelivered: ForwardRefExoticComponent<Omit<IOrderDeliveredProps, 'ref'
             </div>
           </div>
         )}
-</div>;
-};
-
+        {order?.delivered && order?.deliveredWork && order?.deliveredWork.length > 0 && (
+          <div className="flex rounded-[4px] bg-white px-4 py-1">
+            <div className="w-full">
+              <div className="flex gap-4">
+                <div>
+                  <div className="flex h-10 w-10 items-center justify-center rounded-full bg-[#f4befa]">
+                    <FaCheck size={18} color="#e439f7" />
+                  </div>
+                </div>
+                <div className="border-grey w-full cursor-pointer border-b pb-6">
+                  <div className="mt-2 flex items-center gap-2 font-medium text-gray-500">
+                    <span>{order.approved && `${authUser?.username === order.buyerUsername ? 'Your' : 'The'} order was completed`}</span>
+                    {!order.approved && authUser?.username === order.buyerUsername && <span>Are you ready to approve the delivery?</span>}
+                    {!order.approved && authUser?.username !== order.buyerUsername && (
+                      <span className="italic">Waiting for order to be approved.</span>
+                    )}
+                    {order.approved && <p className="text-sm font-normal italic">{TimeAgo.dayWithTime(`${order?.approvedAt}`)}</p>}
+                  </div>
+                  {!order.approved && authUser?.username === order.buyerUsername && (
+                    <div className="my-3 flex flex-col">
+                      <div className="relative overflow-x-auto">
+                        <div className="text-left text-sm text-gray-500">
+                          <div className="border-grey flex w-full cursor-pointer flex-col items-center space-x-4 border-b md:flex-row">
+                            <div className="w-full text-sm dark:text-white">
+                              <div className="flex flex-col justify-between text-[#777d74]">
+                                <span className="text-sm md:text-[15px]">
+                                  If you have any issue to discuss with the seller before approving, you can go to
+                                  <a onClick={() => setShowChatBox(!showChatBox)} className="px-1 text-blue-500 hover:underline" href="#">
+                                    Go to Inbox
+                                  </a>
+                                  to contact the seller.
+                                </span>
+                                <div className="mt-3 flex pb-6">
+                                  <Button
+                                    className="rounded bg-green-500 px-6 py-3 text-center text-sm font-bold text-white hover:bg-green-400 focus:outline-none md:px-4 md:py-2 md:text-base"
+                                    onClick={() => {
+                                      setApprovalModalContent({
+                                        header: 'Approve Final Delivery',
+                                        body: 'Got everything you need? Great! Once you approve the delivery, your work will be marked as complete.',
+                                        btnText: 'Approve Final Delivery',
+                                        btnColor: 'bg-sky-500 hover:bg-sky-400'
+                                      });
+                                      setOrderDeliveredModal({ ...orderDeliveredModal, deliveryApproval: true });
+                                    }}
+                                    label="Yes, Approve delivery"
+                                  />
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  )}
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
+        {showChatBox && <ChatBox seller={chatSeller} buyer={chatBuyer} gigId={`${order?.gigId}`} onClose={() => setShowChatBox(false)} />}
+      </>
+    );
+  }
+);
 export default OrderDelivered;
