@@ -33,7 +33,39 @@ const OrderExtension: FC = (): ReactElement => {
     }
   };
 
-  return <div>OrderExtension</div>;
+  return (
+    <>
+      {showExtensionApprovalModal && (
+        <ApprovalModal
+          approvalModalContent={approvalModalContent}
+          hideCancel={false}
+          onClose={() => setShowExtensionApprovalModal(false)}
+          onClick={onApproveHandler}
+        />
+      )}
+      {order?.requestExtension &&
+        order.requestExtension.newDate &&
+        TimeAgo.compareDates(order.offer.oldDeliveryDate, order.offer.newDeliveryDate) === 0 && (
+          <div className="flex rounded-[4px] bg-white px-4 py-1">
+            <div className="w-full">
+              <div className="flex gap-4">
+                <div>
+                  <div className="flex h-10 w-10 items-center justify-center rounded-full bg-[#fffdcc]">
+                    <FaCheck size={18} color="#e8e123" />
+                  </div>
+                </div>
+                <div className="border-grey w-full cursor-pointer border-b pb-6">
+                  <div className="flex items-center justify-between font-medium text-gray-500">
+                    <div className="items-left mt-2 flex flex-col gap-2 text-gray-500 md:flex-row md:items-center">
+                      {order?.buyerUsername === authUser?.username ? (
+                        <span className="text-sm font-bold md:text-base">
+                          {order.sellerUsername} requested for a delivery date extension
+                        </span>
+                      ) : (
+                        <span className="text-sm font-bold md:text-base">You requested for a delivery date extension</span>
+                      )}
+                    </div>
+                  </div></div>;
 };
 
 export default OrderExtension;
