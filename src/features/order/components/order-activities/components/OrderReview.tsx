@@ -16,7 +16,39 @@ const OrderReview: FC = (): ReactElement => {
     sellerPanel: false
   });
 
-  return <div>OrderReview</div>;
+  return <>
+      {orderReviewModal.buyerReview && (
+        <ReviewModal type="buyer-review" order={order} onClose={() => setOrderReviewModal({ ...orderReviewModal, buyerReview: false })} />
+      )}
+      {orderReviewModal.sellerReview && (
+        <ReviewModal type="seller-review" order={order} onClose={() => setOrderReviewModal({ ...orderReviewModal, sellerReview: false })} />
+      )}
+      {order?.approved && authUser?.username === order.buyerUsername && order.buyerReview?.rating === 0 && (
+        <div className="flex rounded-[4px] bg-white px-4 py-3">
+          <div className="w-full">
+            <div className="flex gap-4">
+              <div>
+                <div className="flex h-10 w-10 items-center justify-center rounded-full bg-[#eb8c34]">
+                  <FaRegStar size={18} color="#fcd5b1" />
+                </div>
+              </div>
+              <div className="w-full cursor-pointer pb-6">
+                <div className="mt-2 flex items-center justify-between font-medium text-gray-500">
+                  <span>Ready to review the seller?</span>
+                </div>
+                <div className="my-3 flex">
+                  <Button
+                    onClick={() => setOrderReviewModal({ ...orderReviewModal, buyerReview: true })}
+                    className="rounded bg-green-500 px-6 py-3 text-center text-sm font-bold text-white hover:bg-green-400 focus:outline-none md:px-4 md:py-2 md:text-base"
+                    label="Leave a Review"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+</div>;
 };
 
 export default OrderReview;
