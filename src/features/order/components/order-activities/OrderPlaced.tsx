@@ -24,7 +24,32 @@ const OrderPlaced: FC = (): ReactElement => {
             </div>
           </div>
         </div>
-</div>
+        {order?.requirements !== '' && (
+          <div className="flex gap-4 pt-4">
+            <div>
+              <div className="flex h-10 w-10 items-center justify-center rounded-full bg-[#cafcfc]">
+                <FaPencilAlt size={18} color="#2debeb" />
+              </div>
+            </div>
+            <div className="w-full cursor-pointer border-grey border-b pb-6">
+              <div className="mt-2 flex items-center gap-2 text-gray-500">
+                <span className="text-base font-bold">
+                  {order?.buyerUsername === authUser?.username ? 'You' : order?.buyerUsername} submiited the requirements
+                </span>
+                <p className="text-sm font-normal italic">{TimeAgo.dayWithTime(`${order?.events.requirements}`)}</p>
+              </div>
+              <div className="mt-4 flex w-full rounded">
+                <div className="mt-2">
+                  <div className="px-4s pb-2 text-left text-sm text-gray-500">
+                    <div className="flex flex-col">
+                      <p className="col-span-2 text-sm">{order?.requirements}</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
   )
 }
 
