@@ -65,7 +65,86 @@ const OrderDelivered: ForwardRefExoticComponent<Omit<IOrderDeliveredProps, 'ref'
       }
     };
 
-  return <div>OrderDelivered</div>;
+  return (
+      <>
+        {orderDeliveredModal.deliveryApproval && (
+          <ApprovalModal
+            approvalModalContent={approvalModalContent}
+            onClose={() => setOrderDeliveredModal({ ...orderDeliveredModal, deliveryApproval: false })}
+            onClick={onDeliveryApprovalHandler}
+          />
+        )}
+        {order?.delivered && order?.deliveredWork && order?.deliveredWork.length > 0 && (
+          <div className="flex rounded-[4px] bg-white px-4 py-3">
+            <div className="w-full">
+              <div className="flex gap-4">
+                <div>
+                  <div className="flex h-10 w-10 items-center justify-center rounded-full bg-[#fcc5c5]">
+                    <FaGift size={18} color="#ed3939" />
+                  </div>
+                </div>
+                <div className="border-grey w-full cursor-pointer border-b pb-5" ref={ref}>
+                  <div className="mt-2 flex items-center justify-between font-medium text-gray-500">
+                    <div className="flex gap-2">
+                      <span>
+                        {order.buyerUsername === authUser?.username ? order.sellerUsername : 'You'} delivered{' '}
+                        {order.buyerUsername === authUser?.username ? 'your' : 'the'} order
+                      </span>
+                      <p className="flex self-center text-sm font-normal italic">
+                        {TimeAgo.dayWithTime(`${order?.events.orderDelivered}`)}
+                      </p>
+                    </div>
+                    <div onClick={() => setOrderDeliveredModal({ ...orderDeliveredModal, delivery: !orderDeliveredModal.delivery })}>
+                      {!orderDeliveredModal.delivery ? <FaChevronDown size={15} /> : <FaChevronUp size={15} />}
+                    </div>
+                  </div>
+                  {orderDeliveredModal.delivery && (
+                    <div className="my-3 flex flex-col">
+                      <div className="relative overflow-x-auto">
+                        <div className="border-grey w-full rounded  border text-left text-sm text-gray-500">
+                          <div className="border-grey border-b bg-[#fafafb] py-3 font-medium uppercase">
+                            <span className="px-5">Deliver{order?.deliveredWork.length > 1 ? 'ies' : 'y'}</span>
+                          </div>
+                          {order.deliveredWork.map((work: IDeliveredWork) => (
+                            <div
+                              key={uuidv4()}
+                              className="border-grey flex w-full cursor-pointer flex-col items-center space-x-4 border-b px-5 pt-2 last:border-none md:flex-row"
+                            >
+                              <div className="flex w-full justify-center md:w-12 md:self-start">
+                                <img className="h-10 w-10 rounded-full object-cover" src={order.sellerImage} alt="Seller Image" />
+                              </div>
+                              <div className="w-full text-sm dark:text-white">
+                                <div className="flex justify-between text-sm font-bold text-[#777d74] md:text-base">
+                                  <span>{authUser?.username === order.buyerUsername ? `${order.sellerUsername}'s message` : 'Me'}</span>
+                                </div>
+                                <div className="flex flex-col justify-between text-[#777d74]">
+                                  <span className="text-sm md:text-[15px]">{work.message}</span>
+                                  <div className="mt-3 flex flex-col">
+                                    <div className="mb-5 text-sm font-bold uppercase">Attachments</div>
+                                    <div
+                                      onClick={() => downloadOrderFile(work.file, work.fileName)}
+                                      className="border-grey relative mb-5 flex max-w-[250px] cursor-pointer items-center justify-between rounded-md border py-3 text-xs font-bold"
+                                    >
+                                      <div className="absolute h-full rounded-l border-l-8 border-[#4aa1f3]"></div>
+                                      <span className="ml-4 w-[50%] truncate whitespace-nowrap">{work.fileName}</span>
+                                      <p className="mr-1">({bytesToSize(work.fileSize)})</p>{' '}
+                                      <FaDownload size={15} color="#4aa1f3" className="mr-4" />
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    </div>
+                  )}
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
+</div>;
 };
 
 export default OrderDelivered;
