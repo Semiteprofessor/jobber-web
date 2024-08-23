@@ -6,7 +6,7 @@ import { TimeAgo } from 'src/shared/utils/timeago.util';
 
 import { OrderContext } from '../context/OrderContext';
 import { IOrderInvoice, IOrderProps } from '../interfaces/order.interface';
-import Invoice from './Invoice/Invoice';
+import Invoice from './invoice/Invoice';
 
 const OrderDetailsTable: FC<IOrderProps> = ({ order, authUser }): ReactElement => {
   const [showOrderDetailsPanel, setShowOrderDetailsPanel] = useState<boolean>(false);
