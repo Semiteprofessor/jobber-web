@@ -35,6 +35,36 @@ const OrderDelivered: ForwardRefExoticComponent<Omit<IOrderDeliveredProps, 'ref'
       profilePicture: `${order?.buyerImage}`
     };
 
+    const onDeliveryApprovalHandler = async (): Promise<void> => {
+      try {
+        const orderMessage: IOrderMessage = {
+          sellerId: `${order?.sellerId}`,
+          buyerId: `${order?.buyerId}`,
+          ongoingJobs: -1,
+          completedJobs: 1,
+          // seller will receiver 80% of original price
+          // 20% goes to the platform
+          totalEarnings: 0.8 * parseInt(`${order?.price}`),
+          purchasedGigs: `${order?.gigId}`
+        };
+        await approveOrder({ orderId: `${order?.orderId}`, body: orderMessage });
+        setOrderDeliveredModal({ ...orderDeliveredModal, deliveryApproval: false });
+        showSuccessToast('Gig approval successful.');
+      } catch (error) {
+        showErrorToast('Error approving gig delivery.');
+      }
+    };
+
+    const downloadOrderFile = async (url: string, fileName: string) => {
+      try {
+        const response: AxiosResponse = await getFileBlob(url);
+        const blobUrl = URL.createObjectURL(new Blob([response.data]));
+        downloadFile(blobUrl, fileName);
+      } catch (error) {
+        showErrorToast('Error downloading file.');
+      }
+    };
+
   return <div>OrderDelivered</div>;
 };
 
