@@ -75,7 +75,80 @@ const OrderDetailsTable: FC<IOrderProps> = ({ order, authUser }): ReactElement =
                       <div className="cursor-pointer text-blue-400 underline">Download invoice</div>
                     </PDFDownloadLink>
                   )}
-                </div></div>;
+                </div>
+                <div className="mt-4">
+                  <div className="relative overflow-x-auto">
+                    <table className="border-grey w-full border text-left text-sm text-gray-500">
+                      <thead className="bg-[#f3f3f3] text-xs uppercase text-gray-700">
+                        <tr>
+                          <th scope="col" className="px-4 py-3" style={{ width: '60%' }}>
+                            Item
+                          </th>
+                          <th scope="col" className="px-4 py-3">
+                            Qty
+                          </th>
+                          <th scope="col" className="px-4 py-3">
+                            Duration
+                          </th>
+                          <th scope="col" className="px-4 py-3">
+                            Price
+                          </th>
+                        </tr>
+                        <tr>
+                          <th style={{ width: '70%' }}></th>
+                          <th></th>
+                          <th></th>
+                          <th></th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr className="bg-white">
+                          <td scope="row" className="whitespace-wrap px-4 py-4 font-bold">
+                            {order.offer.gigTitle}
+                          </td>
+                          <td className="px-4 py-4">{order.quantity}</td>
+                          <td className="px-4 py-4">
+                            {order.offer.deliveryInDays} day{order.offer.deliveryInDays > 1 ? 's' : ''}
+                          </td>
+                          <td className="px-4 py-4">${order.price}</td>
+                        </tr>
+                        <tr className="bg-white">
+                          <th scope="row" className="whitespace-wrap px-4 py-4 font-normal">
+                            {order.offer.description}
+                          </th>
+                          <td className="px-4 py-4"></td>
+                          <td className="px-4 py-4"></td>
+                          <td className="px-4 py-4"></td>
+                        </tr>
+                      </tbody>
+                      <tfoot className="bg-[#f3f3f3]">
+                        <tr>
+                          <th scope="row" className="px-4 py-3 text-base">
+                            Service Fee
+                          </th>
+                          <td className="px-4 py-3"></td>
+                          <td className="px-4 py-3"></td>
+                          <td className="px-4 py-3 font-bold">${order.serviceFee?.toFixed(2)}</td>
+                        </tr>
+                        <tr>
+                          <th scope="row" className="px-4 py-3 text-base">
+                            Total
+                          </th>
+                          <td className="px-4 py-3"></td>
+                          <td className="px-4 py-3"></td>
+                          <td className="px-4 py-3 font-bold">${order.price + parseInt(`${order.serviceFee}`)}</td>
+                        </tr>
+                      </tfoot>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            )}
+          </div>
+        </div>
+      </div>
+    </div>
+  );
 };
 
 export default OrderDetailsTable;
