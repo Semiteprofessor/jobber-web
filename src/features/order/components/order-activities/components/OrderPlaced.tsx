@@ -1,7 +1,7 @@
 import { FC, ReactElement, useContext } from 'react';
 import { FaPencilAlt, FaPlaceOfWorship, FaRegClock, FaRegFile } from 'react-icons/fa';
 import { OrderContext } from 'src/features/order/context/OrderContext';
-import { TimeAgo } from 'src/shared/utils/timeago.utils';
+import { TimeAgo } from 'src/shared/utils/timeago.util';
 
 const OrderPlaced: FC = (): ReactElement => {
   const { order, authUser } = useContext(OrderContext);
