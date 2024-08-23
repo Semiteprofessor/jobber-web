@@ -8,7 +8,7 @@ import Button from 'src/shared/button/Button';
 import ApprovalModal from 'src/shared/modals/ApprovalModal';
 import { IApprovalModalContent } from 'src/shared/modals/interfaces/modal.interface';
 import { TimeAgo } from 'src/shared/utils/timeago.util';
-import { lowerCase, showErrorToast, showSuccessToast } from 'src/shared/utils/utils.service';
+import { lowerCase, showErrorToast, showSuccessToast } from 'src/shared/utils/util.service';
 
 const OrderExtension: FC = (): ReactElement => {
   const { order, authUser } = useContext(OrderContext);
