@@ -60,7 +60,43 @@ const ChangePassword: FC = (): ReactElement => {
             setPasswordItem({ ...passwordItem, currentPassword: (event.target as HTMLInputElement).value });
           }}
         />
-      </></div>;
+      </>
+      <>
+        <label htmlFor="newPassword" className="text-sm font-bold leading-tight tracking-normal text-gray-800">
+          New Password
+        </label>
+        <div className="relative flex gap-4">
+          <TextInput
+            id="newPassword"
+            name="newPassword"
+            type={passwordItem.passwordType}
+            value={passwordItem.newPassword}
+            className="mb-5 mt-2 flex h-10 w-full items-center rounded border border-gray-300 pl-3 text-sm font-normal text-gray-600 focus:border focus:border-sky-500/50 focus:outline-none"
+            placeholder="Enter new password"
+            onChange={(event: ChangeEvent) => {
+              setPasswordItem({ ...passwordItem, newPassword: (event.target as HTMLInputElement).value });
+            }}
+          />
+          <div className="absolute right-0  flex h-full cursor-pointer items-center pr-3 text-gray-600">
+            {passwordItem.passwordType === PASSWORD_TYPE.PASSWORD ? (
+              <FaEyeSlash className="mb-2" onClick={() => setPasswordItem({ ...passwordItem, passwordType: PASSWORD_TYPE.TEXT })} />
+            ) : (
+              <FaEye className="mb-2" onClick={() => setPasswordItem({ ...passwordItem, passwordType: PASSWORD_TYPE.PASSWORD })} />
+            )}
+          </div>
+        </div>
+        <div className="flex w-full items-center justify-center">
+          <Button
+            className={`text-md block w-full cursor-pointer rounded  px-8 py-2 text-center font-bold text-white focus:outline-none ${
+              !passwordItem.currentPassword || !passwordItem.newPassword ? 'cursor-not-allowed bg-sky-200' : 'bg-sky-500 cursor-pointer'
+            }`}
+            label="Save Changes"
+            onClick={updatePassword}
+          />
+        </div>
+      </>
+    </div>
+  );
 };
 
 export default ChangePassword;
