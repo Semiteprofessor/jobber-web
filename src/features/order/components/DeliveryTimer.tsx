@@ -1,7 +1,7 @@
 import { FC, ReactElement, useState } from 'react';
 import Button from 'src/shared/button/Button';
 import DeliverWorkModal from 'src/shared/modals/DeliverWorkModal';
-import ExtendDateModal from 'src/shared/modals/ExtendDateModal';
+import ExtendDateModal from 'src/shared/modals/EntendDateModal';
 import { IModalProps } from 'src/shared/modals/interfaces/modal.interface';
 
 import { useCountDown } from '../hooks/useCountDown';
