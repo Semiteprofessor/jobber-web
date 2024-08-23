@@ -16,7 +16,32 @@ interface IPasswordItem {
   passwordType: string;
 }
 
-const ChangePassword = () => {
+const ChangePassword: FC = (): ReactElement => {
+  const [passwordItem, setPasswordItem] = useState<IPasswordItem>({
+    currentPassword: '',
+    newPassword: '',
+    passwordType: PASSWORD_TYPE.PASSWORD
+  });
+  const [alertMessage, setAlertMessage] = useState<string>('');
+  const navigate: NavigateFunction = useNavigate();
+  const dispatch = useAppDispatch();
+  const [changePassword] = useChangePasswordMutation();
+
+  const updatePassword = async (): Promise<void> => {
+    try {
+      await changePassword({ currentPassword: passwordItem.currentPassword, newPassword: passwordItem.newPassword }).unwrap();
+      setAlertMessage('Password updated successfully.');
+      setTimeout(() => {
+        applicationLogout(dispatch, navigate);
+      }, 3000);
+    } catch (error) {
+      if (isFetchBaseQueryError(error)) {
+        setAlertMessage(error?.data?.message);
+        showErrorToast(error?.data?.message);
+      }
+    }
+  };
+
   return <div>ChangePassword</div>;
 };
 
