@@ -9,8 +9,8 @@ import { useApproveOrderMutation } from 'src/features/order/services/order.servi
 import Button from 'src/shared/button/Button';
 import ApprovalModal from 'src/shared/modals/ApprovalModal';
 import { IApprovalModalContent } from 'src/shared/modals/interfaces/modal.interface';
-import { TimeAgo } from 'src/shared/utils/timeago.utils';
-import { bytesToSize, downloadFile, getFileBlob, showErrorToast, showSuccessToast } from 'src/shared/utils/utils.service';
+import { TimeAgo } from 'src/shared/utils/timeago.util';
+import { bytesToSize, downloadFile, getFileBlob, showErrorToast, showSuccessToast } from 'src/shared/utils/util.service';
 import { v4 as uuidv4 } from 'uuid';
 
 const OrderDelivered: ForwardRefExoticComponent<Omit<IOrderDeliveredProps, 'ref'> & RefAttributes<HTMLDivElement>> = forwardRef(
