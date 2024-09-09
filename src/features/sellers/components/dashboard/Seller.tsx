@@ -20,7 +20,30 @@ const Seller: FC = (): ReactElement => {
   let orders: IOrderDocument[] = [];
   let seller: ISellerDocument | undefined = undefined;
 
-  return <div>Seller</div>;
+  if (isSuccess) {
+    seller = data?.seller as ISellerDocument;
+  }
+
+  if (isSellerGigsSuccess) {
+    gigs = sellerGigs?.gigs as ISellerGig[];
+  }
+
+  if (isSellerPausedGigsSuccess) {
+    pausedGigs = sellerPausedGigs?.gigs as ISellerGig[];
+  }
+
+  if (isSellerOrdersSuccess) {
+    orders = sellerOrders?.orders as IOrderDocument[];
+  }
+
+  return (
+    <div className="relative w-screen">
+      <DashboardHeader />
+      <div className="m-auto px-6 w-screen xl:container md:px-12 lg:px-6 relative min-h-screen">
+        <Outlet context={{ seller, gigs, pausedGigs, orders }} />
+      </div>
+    </div>
+  );
 };
 
 export default Seller;
