@@ -30,7 +30,37 @@ const SellerProfile: FC = (): ReactElement => {
     reviews = sellerReviewsData.reviews as IReviewDocument[];
   }
 
-  return <div>SellerProfile</div>;
+  const isLoading: boolean =
+    isSellerGigLoading && isSellerLoading && isGigReviewLoading && !isSellerSuccess && !isSellerGigSuccess && !isGigReviewSuccess;
+
+  return (
+    <div className="relative w-full pb-6">
+      <Breadcrumb breadCrumbItems={['Seller', `${sellerData && sellerData.seller ? sellerData.seller.username : ''}`]} />
+      {isLoading ? (
+        <CircularPageLoader />
+      ) : (
+        <div className="container mx-auto px-2 md:px-0">
+          <ProfileHeader sellerProfile={sellerData?.seller} showHeaderInfo={true} showEditIcons={false} />
+          <div className="my-4 cursor-pointer">
+            <ProfileTabs type={type} setType={setType} />
+          </div>
+
+          <div className="flex flex-wrap bg-white">
+            {type === 'Overview' && <SellerOverview sellerProfile={sellerData?.seller} showEditIcons={false} />}
+            {type === 'Active Gigs' && (
+              <div className="grid gap-x-6 pt-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
+                {gigData?.gigs &&
+                  gigData?.gigs.map((gig: ISellerGig) => (
+                    <GigCardDisplayItem key={uuidv4()} gig={gig} linkTarget={false} showEditIcon={false} />
+                  ))}
+              </div>
+            )}
+            {type === 'Ratings & Reviews' && <GigViewReviews showRatings={false} reviews={reviews} hasFetchedReviews={true} />}
+          </div>
+        </div>
+      )}
+    </div>
+  );
 };
 
 export default SellerProfile;
