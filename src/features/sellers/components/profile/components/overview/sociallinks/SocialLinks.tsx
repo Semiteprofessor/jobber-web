@@ -35,7 +35,7 @@ const SocialLinks: FC = (): ReactElement => {
         )}
         {!showSocialLinkAddForm && (
           <>
-            {sellerProfile.socialLinks.map((link: string) => (
+            {sellerProfile?.socialLinks.map((link: string) => (
               <li key={uuidv4()} className="flex justify-between mb-2">
                 {!showSocialLinkEditForm && (
                   <div className="col-span-3 ml-4 flex pb-3 text-sm md:text-base">

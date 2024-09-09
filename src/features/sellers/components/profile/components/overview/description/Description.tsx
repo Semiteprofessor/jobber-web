@@ -6,7 +6,7 @@ import TextAreaInput from 'src/shared/inputs/TextAreaInput';
 const Description: FC = (): ReactElement => {
   const { sellerProfile, setSellerProfile, showEditIcons } = useContext(SellerContext);
   const [showDescriptionEditForm, setShowDescriptionEditForm] = useState<boolean>(false);
-  const [description, setDescription] = useState<string>(sellerProfile.description ? `${sellerProfile.description}` : '');
+  const [description, setDescription] = useState<string>(sellerProfile?.description ? `${sellerProfile?.description}` : '');
 
   return (
     <div className="border-grey border bg-white">
@@ -24,7 +24,7 @@ const Description: FC = (): ReactElement => {
         )}
       </div>
       <div className="mb-0 py-1.5">
-        {!showDescriptionEditForm && <div className="px-3.5 text-sm md:text-base">{sellerProfile.description}</div>}
+        {!showDescriptionEditForm && <div className="px-3.5 text-sm md:text-base">{sellerProfile?.description}</div>}
 
         {showDescriptionEditForm && (
           <div className="flex w-full flex-col">

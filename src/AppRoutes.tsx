@@ -11,6 +11,7 @@ import ProtectedRoute from './features/ProtectedRoute';
 import AddSeller from './features/sellers/components/add/AddSeller';
 import BuyerDashboard from './features/buyer/components/Dashboard';
 import CurrentSellerProfile from './features/sellers/components/profile/CurrentSellerProfile';
+import SellerProfile from './features/sellers/components/profile/SellerProfile';
 
 const Layout = ({ backgroundColor = '#fff', children }: { backgroundColor: string; children: ReactNode }): JSX.Element => (
   <div style={{ backgroundColor }} className="flex flex-grow">
@@ -118,11 +119,11 @@ const AppRouter: FC = () => {
       path: '/seller_profile/:username/:sellerId/edit',
       element: (
         <Suspense>
-          {/* <ProtectedRoute> */}
-          <Layout backgroundColor="#ffffff">
-            <CurrentSellerProfile />
-          </Layout>
-          {/* </ProtectedRoute> */}
+          <ProtectedRoute>
+            <Layout backgroundColor="#ffffff">
+              <CurrentSellerProfile />
+            </Layout>
+          </ProtectedRoute>
         </Suspense>
       )
     },
@@ -137,6 +138,32 @@ const AppRouter: FC = () => {
           </ProtectedRoute>
         </Suspense>
       )
+    },
+    {
+      path: '/:username/:sellerId',
+      element: (
+        <Suspense>
+          <ProtectedRoute>
+            <Layout backgroundColor="#ffffff">
+              <Seller />
+            </Layout>
+          </ProtectedRoute>
+        </Suspense>
+      ),
+      children: [
+        {
+          path: 'seller_dashboard',
+          element: <SellerDashboard />
+        },
+        {
+          path: 'manage_orders',
+          element: <ManageOrders />
+        },
+        {
+          path: 'manage_earnings',
+          element: <ManageEarnings />
+        }
+      ]
     }
   ];
   return useRoutes(routes);
