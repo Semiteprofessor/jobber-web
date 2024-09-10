@@ -22,7 +22,36 @@ const GigViewReviews: FC<IGigViewReviewsProps> = ({ showRatings, reviews, hasFet
     return (100 * partialValue) / totalValue;
   };
 
-  return <div>GigViewReviews</div>;
+  return (
+    <>
+      {showRatings && gig && (
+        <>
+          <div className="mb-10">
+            <h2 className="mb-4 text-lg font-bold">Reviews</h2>
+            <div className="flex flex-col gap-y-3 pt-2 lg:flex-row lg:gap-x-6">
+              <div className="w-full">
+                {Object.entries(gig?.ratingCategories as IRatingCategories).map((rating: [string, IRatingCategoryItem]) => (
+                  <div key={uuidv4()} className="mb-8 flex flex-col gap-y-2 lg:flex-row lg:gap-x-2">
+                    <div className="w-full truncate text-sm lg:w-1/12">
+                      {ratingTypes[`${rating[0]}`]} Star{rating[0] === 'one' ? '' : 's'}
+                    </div>
+                    <div className="flex h-2.5 w-full self-center rounded-full bg-slate-200 lg:w-full">
+                      <div
+                        className="h-2.5 rounded-full bg-orange-400"
+                        style={{ width: `${percentage(rating[1].value, parseInt(`${gig?.ratingSum}`))}%` }}
+                      ></div>
+                    </div>
+                    <div className="w-full text-start text-sm lg:w-1/12 lg:text-end">({shortenLargeNumbers(rating[1].count)})</div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+          <hr className="border-grey my-3" />
+        </>
+      )}
+    </>
+  );
 };
 
 export default GigViewReviews;
