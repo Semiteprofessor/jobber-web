@@ -6,8 +6,8 @@ import { IRatingCategories, IRatingCategoryItem, IReviewDocument } from 'src/fea
 import { useGetReviewsByGigIdQuery } from 'src/features/order/services/review.service';
 import StarRating from 'src/shared/rating/StarRating';
 import { ratingTypes } from 'src/shared/utils/static-data';
-import { TimeAgo } from 'src/shared/utils/timeago.utils';
-import { rating, shortenLargeNumbers } from 'src/shared/utils/utils.service';
+import { TimeAgo } from 'src/shared/utils/timeago.util';
+import { rating, shortenLargeNumbers } from 'src/shared/utils/util.service';
 import { v4 as uuidv4 } from 'uuid';
 
 const GigViewReviews: FC<IGigViewReviewsProps> = ({ showRatings, reviews, hasFetchedReviews }): ReactElement => {
