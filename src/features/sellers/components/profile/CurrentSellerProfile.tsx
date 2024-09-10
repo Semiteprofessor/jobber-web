@@ -5,7 +5,7 @@ import GigViewReviews from 'src/features/gigs/components/view/components/GigView
 import { ISellerGig } from 'src/features/gigs/interfaces/gig.interface';
 import { useGetGigsBySellerIdQuery } from 'src/features/gigs/services/gigs.service';
 import { IReviewDocument } from 'src/features/order/interfaces/review.interface';
-import { useGetReviewsBySellerIdQuery } from 'src/features/order/services/';
+import { useGetReviewsBySellerIdQuery } from 'src/features/order/services/review.service';
 import Breadcrumb from 'src/shared/breadcrumb/Breadcrumb';
 import Button from 'src/shared/button/Button';
 import GigCardDisplayItem from 'src/shared/gigs/GigCardDisplayItem';
