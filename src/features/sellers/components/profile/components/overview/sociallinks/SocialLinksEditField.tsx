@@ -34,7 +34,28 @@ const SocialLinksEditField: FC<ISocialEditLinksProps> = ({
     }
   };
 
-  return <div>SocialLinksEditField</div>;
+  const onCancelUpdate = (): void => {
+    if (type === 'add' && setShowSocialLinksAddForm) {
+      setShowSocialLinksAddForm(false);
+    } else if (type === 'edit' && setShowSocialLinksEditForm) {
+      setShowSocialLinksEditForm(false);
+    }
+  };
+
+  return (
+    <div className="flex w-full flex-col">
+      <div className="mb-6 px-3">
+        <TextInput
+          className="border-grey w-full rounded border p-2.5 text-sm font-normal text-gray-600 focus:outline-none"
+          placeholder="Social media link"
+          type="text"
+          name="socialLink"
+          value={socialLink}
+          onChange={(event: ChangeEvent) => {
+            setSocialLink((event.target as HTMLInputElement).value);
+          }}
+        />
+      </div></div>;
 };
 
 export default SocialLinksEditField;
