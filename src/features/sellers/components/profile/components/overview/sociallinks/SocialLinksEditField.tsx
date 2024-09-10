@@ -55,7 +55,26 @@ const SocialLinksEditField: FC<ISocialEditLinksProps> = ({
             setSocialLink((event.target as HTMLInputElement).value);
           }}
         />
-      </div></div>;
+      </div>
+      <div className="z-20 my-4 mt-10 flex cursor-pointer justify-center md:z-0 md:mt-0">
+        <Button
+          disabled={!socialLink && type === 'add'}
+          className={`md:text-md rounded bg-sky-500 px-6 py-1 text-center text-sm font-bold text-white
+          hover:bg-sky-400 focus:outline-none md:py-2 ${
+            !socialLink && type === 'add' ? 'cursor-not-allowed opacity-40' : 'cursor-pointer'
+          }`}
+          label={`${type === 'add' ? 'Add' : 'Update'}`}
+          onClick={onHandleUpdate}
+        />
+        &nbsp;&nbsp;
+        <Button
+          className="md:text-md rounded bg-gray-300 px-6 py-1 text-center text-sm font-bold hover:bg-gray-200 focus:outline-none md:py-2"
+          label="Cancel"
+          onClick={onCancelUpdate}
+        />
+      </div>
+    </div>
+  );
 };
 
 export default SocialLinksEditField;
