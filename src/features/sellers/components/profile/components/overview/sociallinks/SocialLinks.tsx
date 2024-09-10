@@ -26,7 +26,53 @@ const SocialLinks: FC = (): ReactElement => {
             Add New
           </span>
         )}
-      </div></div>;
+      </div>
+      <ul className="mb-0 list-none pt-1.5">
+        {showSocialLinkAddForm && (
+          <li className="flex justify-between">
+            <SocialLinksEditField type="add" setShowSocialLinksAddForm={setShowSocialLinkAddForm} />
+          </li>
+        )}
+        {!showSocialLinkAddForm && (
+          <>
+            {sellerProfile.socialLinks.map((link: string) => (
+              <li key={uuidv4()} className="flex justify-between mb-2">
+                {!showSocialLinkEditForm && (
+                  <div className="col-span-3 ml-4 flex pb-3 text-sm md:text-base">
+                    <a href={link} target="_blank" className="mr-3 text-sky-500 no-underline hover:underline">
+                      {link}
+                    </a>
+                  </div>
+                )}
+                {showSocialLinkEditForm && selectedSocialLink === link && (
+                  <SocialLinksEditField
+                    type="edit"
+                    selectedLink={selectedSocialLink}
+                    setShowSocialLinksEditForm={setShowSocialLinkEditForm}
+                  />
+                )}
+                {!showSocialLinkEditForm && showEditIcons && (
+                  <div className="mr-4">
+                    <FaPencilAlt
+                      onClick={() => {
+                        setSelectedSocialLink(link);
+                        setShowSocialLinkAddForm(false);
+                        setShowSocialLinkEditForm(!showSocialLinkEditForm);
+                      }}
+                      size="12"
+                      className="ml-1 mt-1.5 cursor-pointer lg:ml-2.5 lg:mt-2"
+                    />
+                  </div>
+                )}
+              </li>
+            ))}
+          </>
+        )}
+
+        {!sellerProfile?.socialLinks.length && <li className="flex justify-between mb-2 ml-4">No information</li>}
+      </ul>
+    </div>
+  );
 };
 
 export default SocialLinks;
