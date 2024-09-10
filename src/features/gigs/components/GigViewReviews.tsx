@@ -50,6 +50,36 @@ const GigViewReviews: FC<IGigViewReviewsProps> = ({ showRatings, reviews, hasFet
           <hr className="border-grey my-3" />
         </>
       )}
+      <div className="flex flex-col gap-6">
+        {reviews &&
+          reviews.map((item: IReviewDocument) => (
+            <div key={uuidv4()}>
+              <div className="flex flex-col gap-y-3 md:flex-row md:gap-x-4">
+                <img
+                  className="flex self-center h-12 w-12 mt-4 rounded-full object-cover md:self-auto"
+                  src={item.reviewerImage}
+                  alt="Reviewer Image"
+                />
+                <div className="flex flex-col self-center">
+                  <div className="flex cursor-pointer self-center pt-0 no-underline md:block md:self-start md:pt-4">
+                    <span className="text-base font-bold md:mb-5">{item.reviewerUsername}</span>
+                  </div>
+                  <span className="flex self-center text-sm md:block md:self-start">{item.country}</span>
+                  <div className="flex w-full gap-x-1 self-center justify-center md:justify-start">
+                    <div className="mt-1 w-20 gap-x-2">
+                      <StarRating value={rating(item.rating)} size={14} />
+                    </div>
+                    <div className="ml-2 mt-[1px] flex gap-1 text-sm">
+                      <span className="text-orange-400">{rating(item.rating)}</span>|
+                      <span>{TimeAgo.chatMessageTransform(`${item.createdAt}`)}</span>
+                    </div>
+                  </div>
+                  <p className="mt-2 text-sm text-center md:text-base md:text-left">{item.review}</p>
+                </div>
+              </div>
+            </div>
+          ))}
+      </div>
     </>
   );
 };
