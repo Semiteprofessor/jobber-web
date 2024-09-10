@@ -22,7 +22,7 @@ const GigViewReviews: FC<IGigViewReviewsProps> = ({ showRatings, reviews, hasFet
     return (100 * partialValue) / totalValue;
   };
 
-  return <div>GigViewLeft</div>;
+  return <div>GigViewReviews</div>;
 };
 
-export default GigViewLeft;
+export default GigViewReviews;

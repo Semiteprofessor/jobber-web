@@ -1,7 +1,7 @@
 import { FC, ReactElement, useEffect, useState } from 'react';
 import equal from 'react-fast-compare';
 import { useParams } from 'react-router-dom';
-import GigViewReviews from 'src/features/gigs/components/view/components/GigViewLeft';
+import GigViewReviews from 'src/features/gigs/components/view/components/GigViewLeft/GigViewReviews';
 import { ISellerGig } from 'src/features/gigs/interfaces/gig.interface';
 import { useGetGigsBySellerIdQuery } from 'src/features/gigs/services/gigs.service';
 import { IReviewDocument } from 'src/features/order/interfaces/review.interface';
