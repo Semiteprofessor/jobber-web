@@ -56,7 +56,29 @@ const EducationFields: FC<IEducationEditProps> = ({
     }
   };
 
-  return <div>EducationFields</div>;
+  return (
+    <div className="flex w-full flex-col">
+      <div className="mb-4 px-3">
+        <div className="relative">
+          <TextInput
+            className="border-grey mb-4 w-full rounded border p-2.5 text-sm font-normal text-gray-600 focus:outline-none"
+            placeholder="University/College Name"
+            type="text"
+            name="university"
+            value={university}
+            onChange={(event: ChangeEvent) => setUniversity((event.target as HTMLInputElement).value)}
+          />
+        </div>
+        <div className="relative h-[55px]">
+          <Dropdown
+            text={country}
+            maxHeight="300"
+            showSearchInput={true}
+            mainClassNames="absolute bg-white z-50"
+            values={countriesList()}
+            setValue={setCountry}
+          />
+        </div></div>;
 };
 
 export default EducationFields;
