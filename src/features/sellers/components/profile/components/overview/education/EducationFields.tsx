@@ -4,7 +4,7 @@ import { SellerContext } from 'src/features/sellers/context/SellerContext';
 import { IEducation, IEducationEditProps } from 'src/features/sellers/interfaces/seller.interface';
 import Button from 'src/shared/button/Button';
 import TextInput from 'src/shared/inputs/TextInput';
-import { countriesList, degreeList, yearsList } from 'src/shared/utils/utils.service';
+import { countriesList, degreeList, yearsList } from 'src/shared/utils/util.service';
 
 import Dropdown from '../../../../../../../shared/dropdown/Dropdown';
 
