@@ -29,7 +29,49 @@ const Skills: FC = (): ReactElement => {
             Add New
           </span>
         )}
-      </div></div>;
+      </div>
+      <div className="mb-0 py-1.5">
+        {showSkillAddForm && <SkillField type="add" setShowSkillAddForm={setShowSkillAddForm} />}
+        {showSkillEditForm && <SkillField type="edit" selectedSkill={selectedSkill} setShowSkillEditForm={setShowSkillEditForm} />}
+        {!showSkillAddForm && (
+          <div className="flex min-h-full flex-wrap gap-x-4 gap-y-5 px-2 py-4">
+            {sellerProfile.skills.map((tag: string) => (
+              <Fragment key={uuidv4()}>
+                {!showSkillEditForm && (
+                  <div
+                    className="relative w-[130px] cursor-pointer truncate rounded-md border bg-[#edeef3] px-3 py-2 text-center"
+                    onMouseEnter={() => {
+                      setShowSkillEditIcon(true);
+                      setSelectedSkill(tag);
+                    }}
+                    onMouseLeave={() => {
+                      setShowSkillEditIcon(false);
+                      setSelectedSkill('');
+                    }}
+                  >
+                    <span className="left-0 top-0 h-full w-full text-sm font-bold text-[#55545b]">{tag}</span>
+                    {showEditIcons && showSkillEditIcon && selectedSkill === tag && (
+                      <span
+                        onClick={() => {
+                          setShowSkillAddForm(false);
+                          setShowSkillEditForm(!showSkillEditForm);
+                          setShowSkillEditIcon(false);
+                          setSelectedSkill(tag);
+                        }}
+                        className="absolute left-0 top-0 flex h-full w-full cursor-pointer justify-center bg-white px-4 py-3"
+                      >
+                        <FaPencilAlt className="" size="13" />
+                      </span>
+                    )}
+                  </div>
+                )}
+              </Fragment>
+            ))}
+          </div>
+        )}
+      </div>
+    </div>
+  );
 };
 
 export default Skills;
