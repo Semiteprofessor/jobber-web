@@ -101,6 +101,36 @@ const ExperienceFields: FC<IExperienceEditProps> = ({
       }
     }
   };
+          <div className="mb-4 mt-2 flex items-center">
+            <TextInput
+              id="default-checkbox"
+              type="checkbox"
+              name="currentlyWorkingHere"
+              className="h-4 w-4 rounded border-gray-300 bg-gray-100 text-blue-600"
+              value={`${experienceItem.currentlyWorkingHere}`}
+              checked={experienceItem.currentlyWorkingHere}
+              onChange={(event: ChangeEvent) => {
+                setEndDate((event.target as HTMLInputElement).checked ? 'Present' : 'End Year');
+                setExperienceItem({ ...experienceItem, currentlyWorkingHere: (event.target as HTMLInputElement).checked });
+              }}
+            />
+            <label htmlFor="default-checkbox" className="ml-2 text-sm font-normal">
+              I am currently working here
+            </label>
+          </div>
+          <div className="mb-5 flex items-center">
+            <TextAreaInput
+              className="border-grey focus:border-grey block w-full rounded border p-2.5 text-sm text-gray-900 focus:ring-blue-500"
+              placeholder="Write description..."
+              name="description"
+              value={experienceItem.description}
+              rows={5}
+              onChange={(event: ChangeEvent) =>
+                setExperienceItem({ ...experienceItem, description: (event.target as HTMLInputElement).value })
+              }
+            />
+          </div>
+        </div>
 </div>;
 };
 
