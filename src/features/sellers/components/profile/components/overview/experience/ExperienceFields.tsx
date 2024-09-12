@@ -64,43 +64,46 @@ const ExperienceFields: FC<IExperienceEditProps> = ({
     }
   };
 
-  return 
-  const onHandleUpdate = () => {
-    if (type === 'add') {
-      const item = {
-        title: experienceItem.title,
-        company: experienceItem.company,
-        startDate,
-        endDate,
-        description: experienceItem.description,
-        currentlyWorkingHere: experienceItem.currentlyWorkingHere
-      };
-      const clonedExperience: IExperience[] = cloneDeep(sellerProfile?.experience) as IExperience[];
-      clonedExperience.push(item);
-      if (setSellerProfile && setShowExperienceAddForm) {
-        setSellerProfile({ ...sellerProfile, experience: clonedExperience });
-        setShowExperienceAddForm(false);
-      }
-    } else {
-      const itemIndex: number = findIndex(sellerProfile?.experience, (value: IExperience) => value._id === selectedExperience?._id);
-      const clonedExperience: IExperience[] = cloneDeep(sellerProfile?.experience) as IExperience[];
-      const clonedItem: IExperience = {
-        _id: selectedExperience?._id,
-        title: experienceItem.title,
-        company: experienceItem.company,
-        startDate: `${startDate}`,
-        endDate: experienceItem.currentlyWorkingHere ? 'Present' : `${endDate}`,
-        description: experienceItem.description,
-        currentlyWorkingHere: experienceItem.currentlyWorkingHere
-      };
-      clonedExperience.splice(itemIndex, 1, clonedItem);
-      const filtered: IExperience[] = clonedExperience.filter((item: IExperience) => item.title !== '' && item.company !== '');
-      if (setSellerProfile && setShowExperienceEditForm) {
-        setSellerProfile({ ...sellerProfile, experience: filtered });
-        setShowExperienceEditForm(false);
-      }
-    }
-  };
+  return (
+    <>
+      <div className="flex w-full flex-col">
+        <div className="mb-6 px-3 md:mb-16">
+          <TextInput
+            className="border-grey mb-4 w-full rounded border p-2.5 text-sm font-normal text-gray-600 focus:outline-none"
+            placeholder="Title (E.g: CEO)"
+            type="text"
+            name="title"
+            value={experienceItem.title}
+            onChange={(event: ChangeEvent) => setExperienceItem({ ...experienceItem, title: (event.target as HTMLInputElement).value })}
+          />
+          <TextInput
+            className="border-grey mb-4 w-full rounded border p-2.5 text-sm font-normal text-gray-600 focus:outline-none"
+            placeholder="Company name"
+            type="text"
+            name="company"
+            value={experienceItem.company}
+            onChange={(event: ChangeEvent) => setExperienceItem({ ...experienceItem, company: (event.target as HTMLInputElement).value })}
+          />
+          <div className="grid h-1/5 grid-cols-2 gap-x-2 gap-y-3">
+            <div className="relative">
+              <Dropdown
+                text={startDate}
+                maxHeight="300"
+                mainClassNames="absolute bg-white"
+                values={yearsList(100)}
+                setValue={setStartDate}
+              />
+            </div>
+            <div
+              className="relative"
+              style={{
+                cursor: `${experienceItem.currentlyWorkingHere ? 'none' : 'pointer'}`,
+                pointerEvents: `${experienceItem.currentlyWorkingHere ? 'none' : 'auto'}`
+              }}
+            >
+              <Dropdown text={endDate} maxHeight="300" mainClassNames="absolute bg-white" values={yearsList(100)} setValue={setEndDate} />
+            </div>
+          </div>
           <div className="mb-4 mt-2 flex items-center">
             <TextInput
               id="default-checkbox"
@@ -131,7 +134,45 @@ const ExperienceFields: FC<IExperienceEditProps> = ({
             />
           </div>
         </div>
-</div>;
+        <div className="z-20 mx-3 my-4 mt-10 flex cursor-pointer justify-start md:z-0 md:mt-0">
+          <Button
+            disabled={
+              (startDate === 'Start Year' ||
+                endDate === 'End Year' ||
+                !experienceItem.title ||
+                !experienceItem.company ||
+                !experienceItem.description) &&
+              type === 'add'
+            }
+            className={`md:text-md rounded bg-sky-500 px-6 py-1 text-center text-sm font-bold text-white hover:bg-sky-400 focus:outline-none md:py-2 ${
+              (startDate === 'Start Year' ||
+                endDate === 'End Year' ||
+                !experienceItem.title ||
+                !experienceItem.company ||
+                !experienceItem.description) &&
+              type === 'add'
+                ? 'cursor-not-allowed opacity-40'
+                : 'cursor-pointer'
+            }`}
+            onClick={onHandleUpdate}
+            label={`${type === 'edit' ? 'Update' : 'Add'}`}
+          />
+          &nbsp;&nbsp;
+          <Button
+            onClick={() => {
+              if (type === 'add' && setShowExperienceAddForm) {
+                setShowExperienceAddForm(false);
+              } else if (type === 'edit' && setShowExperienceEditForm) {
+                setShowExperienceEditForm(false);
+              }
+            }}
+            className="md:text-md rounded bg-gray-300 px-6 py-1 text-center text-sm font-bold hover:bg-gray-200 focus:outline-none md:py-2"
+            label="Cancel"
+          />
+        </div>
+      </div>
+    </>
+  );
 };
 
 export default ExperienceFields;
