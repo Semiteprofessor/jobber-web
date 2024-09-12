@@ -78,7 +78,52 @@ const EducationFields: FC<IEducationEditProps> = ({
             values={countriesList()}
             setValue={setCountry}
           />
-        </div></div>;
+        </div>
+        <div className="mt-4 grid h-1/5 grid-cols-4 gap-x-2 gap-y-3">
+          <div className="relative">
+            <Dropdown text={title} maxHeight="300" mainClassNames="absolute bg-white z-30" values={degreeList()} setValue={setTitle} />
+          </div>
+          <div className="col-span-2">
+            <TextInput
+              className="border-grey mb-4 w-full rounded border p-2.5 text-sm font-normal text-gray-600 focus:outline-none"
+              placeholder="Major e.g: Computer Engineering"
+              type="text"
+              name="major"
+              value={major}
+              onChange={(event: ChangeEvent) => setMajor((event.target as HTMLInputElement).value)}
+            />
+          </div>
+          <div className="relative">
+            <Dropdown text={year} maxHeight="300" mainClassNames="absolute bg-white z-30" values={yearsList(100)} setValue={setYear} />
+          </div>
+        </div>
+      </div>
+      <div className="mx-3 my-4 flex cursor-pointer justify-start md:z-0 md:mt-0">
+        <Button
+          disabled={(country === 'Country' || title === 'Title' || year === 'Year' || !university || !major) && type === 'add'}
+          className={`md:text-md rounded bg-sky-500 px-6 py-1 text-center text-sm font-bold text-white hover:bg-sky-400 focus:outline-none md:py-2 ${
+            (country === 'Country' || title === 'Title' || year === 'Year' || !university || !major) && type === 'add'
+              ? 'cursor-not-allowed opacity-40'
+              : 'cursor-pointer'
+          }`}
+          onClick={onHandleUpdate}
+          label={`${type === 'edit' ? 'Update' : 'Add'}`}
+        />
+        &nbsp;&nbsp;
+        <Button
+          onClick={() => {
+            if (type === 'add' && setShowEducationAddForm) {
+              setShowEducationAddForm(false);
+            } else if (type === 'edit' && setShowEducationEditForm) {
+              setShowEducationEditForm(false);
+            }
+          }}
+          className="md:text-md rounded bg-gray-300 px-6 py-1 text-center text-sm font-bold hover:bg-gray-200 focus:outline-none md:py-2"
+          label="Cancel"
+        />
+      </div>
+    </div>
+  );
 };
 
 export default EducationFields;
