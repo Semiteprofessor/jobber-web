@@ -48,7 +48,33 @@ const CertificateEditFields: FC<ICertificateEditProps> = ({
     }
   };
 
-  return <div>CertificateEditFields</div>;
+  return (
+    <div className="flex w-full flex-col">
+      <div className="mb-16 px-3">
+        <TextInput
+          className="border-grey mb-4 w-full rounded border p-2.5 text-sm font-normal text-gray-600 focus:outline-none"
+          placeholder="Certificate or Award"
+          type="text"
+          name="name"
+          value={certificateItem.name}
+          onChange={(event: ChangeEvent) => {
+            setCertificateItem({ ...certificateItem, name: (event.target as HTMLInputElement).value });
+          }}
+        />
+        <TextInput
+          className="border-grey mb-4 w-full rounded border p-2.5 text-sm font-normal text-gray-600 focus:outline-none"
+          placeholder="Certificate From (e.g: Google)"
+          type="text"
+          name="from"
+          value={certificateItem.from}
+          onChange={(event: ChangeEvent) => {
+            setCertificateItem({ ...certificateItem, from: (event.target as HTMLInputElement).value });
+          }}
+        />
+        <div className="relative">
+          <Dropdown text={year} maxHeight="300" mainClassNames="absolute bg-white z-50" values={yearsList(100)} setValue={setYear} />
+        </div>
+      </div></div>;
 };
 
 export default CertificateEditFields;
