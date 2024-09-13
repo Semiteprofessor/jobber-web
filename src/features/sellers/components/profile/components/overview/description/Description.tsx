@@ -38,7 +38,33 @@ const Description: FC = (): ReactElement => {
                 maxLength={600}
                 onChange={(event: ChangeEvent) => setDescription((event.target as HTMLInputElement).value)}
               />
-            </div></div>;
+            </div>
+            <div className="mx-3 mb-2 flex cursor-pointer justify-start">
+              <Button
+                disabled={!description}
+                className={`md:text-md rounded bg-sky-500 px-6 py-1 text-center text-sm font-bold text-white hover:bg-sky-400 focus:outline-none md:py-2
+                ${!description ? 'cursor-not-allowed opacity-40' : 'cursor-pointer'}
+                `}
+                label="Update"
+                onClick={() => {
+                  if (setSellerProfile) {
+                    setSellerProfile({ ...sellerProfile, description });
+                    setShowDescriptionEditForm(false);
+                  }
+                }}
+              />
+              &nbsp;&nbsp;
+              <Button
+                className="md:text-md rounded bg-gray-300 px-6 py-1 text-center text-sm font-bold hover:bg-gray-200 focus:outline-none md:py-2"
+                label="Cancel"
+                onClick={() => setShowDescriptionEditForm(false)}
+              />
+            </div>
+          </div>
+        )}
+      </div>
+    </div>
+  );
 };
 
 export default Description;
