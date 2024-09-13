@@ -5,7 +5,7 @@ import { ICertificate, ICertificateEditProps } from 'src/features/sellers/interf
 import Button from 'src/shared/button/Button';
 import Dropdown from 'src/shared/dropdown/Dropdown';
 import TextInput from 'src/shared/inputs/TextInput';
-import { yearsList } from 'src/shared/utils/utils.service';
+import { yearsList } from 'src/shared/utils/util.service';
 
 const CertificateEditFields: FC<ICertificateEditProps> = ({
   type,
