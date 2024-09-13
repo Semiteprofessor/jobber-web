@@ -74,7 +74,35 @@ const CertificateEditFields: FC<ICertificateEditProps> = ({
         <div className="relative">
           <Dropdown text={year} maxHeight="300" mainClassNames="absolute bg-white z-50" values={yearsList(100)} setValue={setYear} />
         </div>
-      </div></div>;
+      </div>
+      <div className="z-20 my-4 mt-10 flex cursor-pointer justify-center md:z-0 md:mt-0">
+        <Button
+          disabled={(year === 'Year' || !certificateItem.name || !certificateItem.from) && type === 'add'}
+          className={`md:text-md rounded bg-sky-500 px-6 py-1 text-center text-sm font-bold text-white hover:bg-sky-400 focus:outline-none md:py-2
+          ${
+            (year === 'Year' || !certificateItem.name || !certificateItem.from) && type === 'add'
+              ? 'cursor-not-allowed opacity-40'
+              : 'cursor-pointer'
+          }
+          `}
+          label={`${type === 'add' ? 'Add' : 'Update'}`}
+          onClick={onHandleUpdate}
+        />
+        &nbsp;&nbsp;
+        <Button
+          className="md:text-md rounded bg-gray-300 px-6 py-1 text-center text-sm font-bold hover:bg-gray-200 focus:outline-none md:py-2"
+          label="Cancel"
+          onClick={() => {
+            if (type === 'add' && setShowCertificateAddForm) {
+              setShowCertificateAddForm(false);
+            } else if (type === 'edit' && setShowCertificateEditForm) {
+              setShowCertificateEditForm(false);
+            }
+          }}
+        />
+      </div>
+    </div>
+  );
 };
 
 export default CertificateEditFields;
