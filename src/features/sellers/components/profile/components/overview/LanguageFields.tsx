@@ -44,7 +44,26 @@ const LanguageFields: FC<ILanguageEditFieldsProps> = ({
     }
   };
 
-  return <div>LanguageFields</div>;
+  return 
+    <div className="flex w-full flex-col">
+      <div className="mb-6 grid grid-cols-1 gap-y-3 px-3 md:grid-cols-2 md:gap-x-2">
+        <div className="">
+          <TextInput
+            className="border-grey w-full rounded border p-2.5 text-sm font-normal text-gray-600 focus:outline-none"
+            placeholder="Language"
+            type="text"
+            name="language"
+            value={language}
+            onChange={(event: ChangeEvent) => {
+              setLanguage((event.target as HTMLInputElement).value);
+            }}
+          />
+        </div>
+        <div className="relative">
+          <Dropdown text={level} maxHeight="300" mainClassNames="absolute bg-white z-50" values={languageLevel()} setValue={setLevel} />
+        </div>
+      </div>
+    </div>;
 };
 
 export default LanguageFields;
