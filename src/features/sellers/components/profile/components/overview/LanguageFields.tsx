@@ -44,7 +44,7 @@ const LanguageFields: FC<ILanguageEditFieldsProps> = ({
     }
   };
 
-  return 
+  return (
     <div className="flex w-full flex-col">
       <div className="mb-6 grid grid-cols-1 gap-y-3 px-3 md:grid-cols-2 md:gap-x-2">
         <div className="">
@@ -63,7 +63,30 @@ const LanguageFields: FC<ILanguageEditFieldsProps> = ({
           <Dropdown text={level} maxHeight="300" mainClassNames="absolute bg-white z-50" values={languageLevel()} setValue={setLevel} />
         </div>
       </div>
-    </div>;
+      <div className="z-20 my-4 mt-10 flex cursor-pointer justify-center md:z-0 md:mt-0">
+        <Button
+          disabled={(level === 'Level' || !language) && type === 'add'}
+          className={`md:text-md rounded bg-sky-500 px-6 py-1 text-center text-sm font-bold text-white hover:bg-sky-400 focus:outline-none md:py-2
+            ${(level === 'Level' || !language) && type === 'add' ? 'cursor-not-allowed opacity-40' : 'cursor-pointer'}
+          `}
+          label={`${type === 'add' ? 'Add' : 'Update'}`}
+          onClick={onHandleUpdate}
+        />
+        &nbsp;&nbsp;
+        <Button
+          className="md:text-md rounded bg-gray-300 px-6 py-1 text-center text-sm font-bold hover:bg-gray-200 focus:outline-none md:py-2"
+          label="Cancel"
+          onClick={() => {
+            if (type === 'add' && setShowLanguageAddForm) {
+              setShowLanguageAddForm(false);
+            } else if (type === 'edit' && setShowLanguageEditForm) {
+              setShowLanguageEditForm(false);
+            }
+          }}
+        />
+      </div>
+    </div>
+  );
 };
 
 export default LanguageFields;
