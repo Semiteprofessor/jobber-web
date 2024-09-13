@@ -21,6 +21,33 @@ const CertificateEditFields: FC<ICertificateEditProps> = ({
   });
   const [year, setYear] = useState<string>(selectedCertificate && selectedCertificate.year ? `${selectedCertificate.year}` : 'Year');
 
+  const onHandleUpdate = (): void => {
+    setCertificateItem({ ...certificateItem, year });
+    if (type === 'add') {
+      const newItem: ICertificate = {
+        name: certificateItem.name,
+        from: certificateItem.from,
+        year
+      };
+      const clonedCertificates: ICertificate[] = cloneDeep(sellerProfile.certificates) as ICertificate[];
+      clonedCertificates.push(newItem);
+      if (setSellerProfile && setShowCertificateAddForm) {
+        setSellerProfile({ ...sellerProfile, certificates: clonedCertificates });
+        setShowCertificateAddForm(false);
+      }
+    } else {
+      const itemIndex: number = findIndex(sellerProfile?.certificates, (value: ICertificate) => value.name === selectedCertificate?.name);
+      const clonedCertificates: ICertificate[] = cloneDeep(sellerProfile?.certificates) as ICertificate[];
+      const clonedItem: ICertificate = { name: certificateItem.name, from: certificateItem.from, year, _id: selectedCertificate?._id };
+      clonedCertificates.splice(itemIndex, 1, clonedItem);
+      const filtered = filter(clonedCertificates, (item: ICertificate) => item.name !== '');
+      if (setSellerProfile && setShowCertificateEditForm) {
+        setSellerProfile({ ...sellerProfile, certificates: filtered });
+        setShowCertificateEditForm(false);
+      }
+    }
+  };
+
   return <div>CertificateEditFields</div>;
 };
 
