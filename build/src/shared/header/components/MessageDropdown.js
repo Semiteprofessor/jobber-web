@@ -1,0 +1,48 @@
+import { jsx as _jsx, jsxs as _jsxs, Fragment as _Fragment } from "react/jsx-runtime";
+import { useEffect, useState } from 'react';
+import { useAppSelector } from 'src/store/store';
+import { useNavigate } from 'react-router-dom';
+import { useGetConversationListQuery, useMarkMessagesAsReadMutation } from 'src/features/chat/services/chat.service';
+import { orderBy } from 'lodash';
+import { TimeAgo } from 'src/shared/utils/timeago.util';
+import { lowerCase, showErrorToast } from 'src/shared/utils/util.service';
+import { FaEye, FaRegEnvelope, FaRegEnvelopeOpen } from 'react-icons/fa';
+import { v4 as uuidv4 } from 'uuid';
+const MessageDropdown = ({ setIsMessageDropdownOpen }) => {
+    const seller = useAppSelector((state) => state.seller);
+    const authUser = useAppSelector((state) => state.authUser);
+    const navigate = useNavigate();
+    const [conversations, setConversations] = useState([]);
+    const { data, isSuccess } = useGetConversationListQuery(`${authUser.username}`, { refetchOnMountOrArgChange: true });
+    const [markMessagesAsRead] = useMarkMessagesAsReadMutation();
+    useEffect(() => {
+        if (isSuccess) {
+            const sortedConversations = orderBy(data.conversations, ['createdAt'], ['desc']);
+            setConversations(sortedConversations);
+        }
+    }, [isSuccess, data?.conversations]);
+    const selectInboxMessage = async (message) => {
+        try {
+            const chatUsername = (message.receiverUsername !== authUser.username ? message.receiverUsername : message.senderUsername);
+            navigate(`/inbox/${lowerCase(chatUsername)}/${message.conversationId}`);
+            if (message.receiverUsername === seller?.username && !message.isRead) {
+                await markMessagesAsRead(`${message._id}`);
+            }
+        }
+        catch (error) {
+            showErrorToast('Error occured');
+        }
+    };
+    return (_jsxs("div", { children: [_jsx("div", {}), _jsx("div", { children: conversations.length > 0 ? (_jsx(_Fragment, { children: conversations.map((data) => (_jsx("div", { onClick: () => {
+                            selectInboxMessage(data);
+                            if (setIsMessageDropdownOpen) {
+                                setIsMessageDropdownOpen(false);
+                            }
+                        }, className: "border-grey max-h-[90px] border-b pt-2 text-left hover:bg-gray-50 ", children: _jsxs("div", { className: "flex px-4", children: [_jsx("div", { className: "mt-1 flex-shrink-0", children: _jsx("img", { className: "h-11 w-11 rounded-full object-cover", src: data.receiverUsername !== authUser.username ? data.receiverPicture : data.senderPicture, alt: "" }) }), _jsxs("div", { className: "w-full pl-3 pt-1", children: [_jsxs("div", { className: "flex flex-col text-sm font-normal ", children: [_jsxs("div", { className: "font-bold leading-none flex justify-between", children: [data.receiverUsername !== authUser.username ? data.receiverUsername : data.senderUsername, !data.isRead ? _jsx(FaRegEnvelope, { className: "text-sky-400" }) : _jsx(FaRegEnvelopeOpen, { className: "text-gray-200" })] }), _jsxs("span", { className: "line-clamp-1 pt-1 font-normal leading-4", children: [data.receiverUsername === authUser?.username ? '' : 'Me: ', data.body] })] }), _jsx("div", { className: "mt-1 flex text-[11px]", children: data.createdAt && _jsx("span", { className: "font-normal text-[#b5b6ba]", children: TimeAgo.transform(data.createdAt) }) })] })] }) }, uuidv4()))) })) : (_jsx("div", { className: "flex h-full items-center justify-center", children: "No messages to show" })) }), _jsxs("div", { onClick: () => {
+                    navigate('/inbox');
+                    if (setIsMessageDropdownOpen) {
+                        setIsMessageDropdownOpen(false);
+                    }
+                }, className: "flex h-10 cursor-pointer justify-center bg-white px-4 text-sm font-medium text-sky-500", children: [_jsx(FaEye, { className: "mr-2 h-4 w-4 self-center" }), _jsx("span", { className: "self-center", children: "View all" })] })] }));
+};
+export default MessageDropdown;

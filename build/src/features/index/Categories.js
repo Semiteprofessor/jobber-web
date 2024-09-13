@@ -1,0 +1,7 @@
+import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
+import { categories } from 'src/shared/utils/static-data';
+import { v4 as uuidv4 } from 'uuid';
+const Categories = () => {
+    return (_jsx("section", { className: "container mx-auto bg-white", children: _jsxs("div", { className: "mx-auto px-4 py-8 text-center lg:px-6 lg:py-10", children: [_jsx("div", { className: "mx-auto mb-2 lg:mb-16", children: _jsxs("h2", { className: "mb-4 text-left sm:text-center text-xl lg:text-2xl font-normal tracking-tight text-sky-400", children: ["Explore ", _jsx("strong", { className: "font-extrabold", children: "Freelance" }), " Categories"] }) }), _jsx("div", { className: "gap-8 hidden sm:grid sm:grid-cols-3 md:grid-cols-4", children: categories.map((category) => (_jsxs("div", { className: "w-full py-5 cursor-pointer", children: [_jsx("img", { className: "mx-auto hidden mb-4 sm:w-8 sm:h-8 md:h-12 md:w-12 sm:flex", src: category.icon, alt: category.name }), _jsx("h3", { className: "mb-1 text-base hover:text-sky-400", children: _jsx("a", { className: "w-full", children: category.name }) })] }, uuidv4()))) }), _jsx("div", { className: "flex flex-wrap gap-x-2 gap-y-4 py-1 sm:hidden", children: categories.map((category) => (_jsx("div", { className: "cursor-pointer text-black border border-black rounded-3xl w-auto p-2 hover:bg-[#f7f9fa]", children: _jsx("h3", { className: "mb-1 text-xs font-bold ", children: category.name }) }, uuidv4()))) })] }) }));
+};
+export default Categories;

@@ -1,4 +1,4 @@
-import React, { ChangeEvent, FC, FormEvent, ReactElement, useState } from 'react';
+import { ChangeEvent, FC, FormEvent, ReactElement, useState } from 'react';
 import { FaSearch } from 'react-icons/fa';
 import { createSearchParams, NavigateFunction, useNavigate } from 'react-router-dom';
 import Button from 'src/shared/button/Button';

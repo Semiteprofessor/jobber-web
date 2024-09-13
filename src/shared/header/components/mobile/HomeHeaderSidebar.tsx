@@ -1,17 +1,18 @@
-import React, { FC, ReactElement, useState } from 'react';
 import { Transition } from '@headlessui/react';
-import { IHeaderSideBarProps, ISettings } from '../../interfaces/header.interface';
+import { FC, MouseEvent, ReactElement, useState } from 'react';
+import { FaAngleDown, FaAngleRight, FaAngleUp } from 'react-icons/fa';
+import { Link, NavigateFunction, useNavigate } from 'react-router-dom';
+import { applicationLogout, categories, lowerCase, replaceSpacesWithDash } from 'src/shared/utils/util.service';
+import { socket } from 'src/sockets/socket.service';
 import { useAppDispatch, useAppSelector } from 'src/store/store';
 import { IReduxState } from 'src/store/store.interface';
-import { Link, NavigateFunction, useNavigate } from 'react-router-dom';
-import { applicationLogout, lowerCase, replaceSpacesWithDash } from 'src/shared/utils/util.service';
-import { updateHeader } from '../../reducers/header.reducer';
-import { updateCategoryContainer } from '../../reducers/category.reducer';
-import { socket } from 'src/sockets/socket.service';
-import { FaAngleDown, FaAngleRight, FaAngleUp } from 'react-icons/fa';
 import { v4 as uuidv4 } from 'uuid';
 
-const HomeHeaderSidebar: FC<IHeaderSideBarProps> = ({ setOpenSidebar }): ReactElement => {
+import { IHeaderSideBarProps, ISettings } from '../../interfaces/header.interface';
+import { updateCategoryContainer } from '../../reducers/category.reducer';
+import { updateHeader } from '../../reducers/header.reducer';
+
+const HomeHeaderSideBar: FC<IHeaderSideBarProps> = ({ setOpenSidebar }): ReactElement => {
   const authUser = useAppSelector((state: IReduxState) => state.authUser);
   const seller = useAppSelector((state: IReduxState) => state.seller);
   const buyer = useAppSelector((state: IReduxState) => state.buyer);
@@ -26,6 +27,7 @@ const HomeHeaderSidebar: FC<IHeaderSideBarProps> = ({ setOpenSidebar }): ReactEl
     { id: 3, name: 'Profile', url: `/seller_profile/${lowerCase(`${seller?.username}`)}/${seller?._id}/edit`, show: isSeller },
     { id: 4, name: 'Settings', url: `/${lowerCase(`${seller?.username}`)}/edit`, show: true }
   ];
+
   const toggleDropdown = (event: MouseEvent): void => {
     event.stopPropagation();
     setIsDropdownOpen(!isDropdownOpen);
@@ -221,4 +223,4 @@ const HomeHeaderSidebar: FC<IHeaderSideBarProps> = ({ setOpenSidebar }): ReactEl
   );
 };
 
-export default HomeHeaderSidebar;
+export default HomeHeaderSideBar;

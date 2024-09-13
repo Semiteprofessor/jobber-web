@@ -1,4 +1,4 @@
-import React, { FC, ReactElement } from 'react';
+import { FC, ReactElement } from 'react';
 import { IHeaderSideBarProps } from '../../interfaces/header.interface';
 import { useAppDispatch } from 'src/store/store';
 import HeaderSearchInput from '../HeaderSearchInput';
