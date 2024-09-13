@@ -5,7 +5,7 @@ import { ILanguage, ILanguageEditFieldsProps } from 'src/features/sellers/interf
 import Button from 'src/shared/button/Button';
 import Dropdown from 'src/shared/dropdown/Dropdown';
 import TextInput from 'src/shared/inputs/TextInput';
-import { languageLevel, showErrorToast } from 'src/shared/utils/utils.service';
+import { languageLevel, showErrorToast } from 'src/shared/utils/util.service';
 
 const LanguageFields: FC<ILanguageEditFieldsProps> = ({
   type,

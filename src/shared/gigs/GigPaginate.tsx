@@ -1,4 +1,4 @@
-import React, { FC, ReactElement } from 'react';
+import { FC, ReactElement } from 'react';
 import { FaArrowLeft, FaArrowRight } from 'react-icons/fa';
 import { IGigPaginateProps, ISellerGig } from 'src/features/gigs/interfaces/gig.interface';
 import { v4 as uuidv4 } from 'uuid';
