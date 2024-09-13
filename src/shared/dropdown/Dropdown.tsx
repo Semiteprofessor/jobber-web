@@ -37,7 +37,25 @@ const Dropdown: FC<IDropdownProps> = ({
     }
   };
 
-  return <div>Dropdown</div>;
+  return 
+    <div className={`w-full divide-y divide-gray-100 rounded border ${mainClassNames}`} style={style}>
+      {(!showSearchInput || showSearchInput) && !toggleDropdown && (
+        <Button
+          className="bg-teal flex w-full justify-between rounded px-3 py-2 text-white"
+          label={
+            <>
+              <span className="truncate text-slate-900">{text}</span>
+              {!toggleDropdown ? (
+                <FaChevronDown className="float-right mt-1 h-4 fill-current text-slate-900" />
+              ) : (
+                <FaChevronUp className="float-right mt-1 h-4 fill-current text-slate-900" />
+              )}
+            </>
+          }
+          onClick={() => setToggleDropdown(!toggleDropdown)}
+        />
+      )}
+    </div>;
 };
 
 export default Dropdown;
