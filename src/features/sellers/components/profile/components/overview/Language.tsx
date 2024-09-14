@@ -12,7 +12,23 @@ const Language: FC = (): ReactElement => {
   const [selectedLanguage, setSelectedLanguage] = useState<ILanguage>();
   const { sellerProfile, showEditIcons } = useContext(SellerContext);
 
-  return <div>Language</div>;
+  return 
+    <div className="border-grey border bg-white">
+      <div className="mb-1 flex justify-between border-b">
+        <h4 className="flex py-2.5 pl-3.5 text-sm font-bold text-[#161c2d] md:text-base">LANGUAGE SKILLS</h4>
+        {showEditIcons && (
+          <span
+            onClick={() => {
+              setShowLanguageAddForm(!showLanguageAddForm);
+              setShowLanguageEditForm(false);
+            }}
+            className="flex cursor-pointer items-center pr-3.5 text-sm text-[#00698c] md:text-base"
+          >
+            Add New
+          </span>
+        )}
+      </div>
+    </div>;
 };
 
 export default Language;
