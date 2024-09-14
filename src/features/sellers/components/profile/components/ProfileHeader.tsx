@@ -51,7 +51,9 @@ const ProfileHeader: FC<IProfileHeaderProps> = ({ sellerProfile, showHeaderInfo,
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [sellerProfile?.fullName, sellerProfile?.oneliner]);
 
-  return <>{showHeaderInfo && (
+  return (
+    <>
+      {showHeaderInfo && (
         <div className="relative flex h-56 flex-col gap-x-4 gap-y-3 bg-white px-6 py-4 md:h-52 md:flex-row">
           <div className="flex h-20 w-20 justify-center self-center md:h-24 md:w-24 lg:h-36 lg:w-36">
             <LazyLoadImage
@@ -163,7 +165,31 @@ const ProfileHeader: FC<IProfileHeaderProps> = ({ sellerProfile, showHeaderInfo,
                   </div>
                 </div>
               )}
-            </div></>;
+            </div>
+            <div className="flex w-full gap-x-1 self-center">
+              <div className="mt-1 w-20 gap-x-2">
+                {sellerProfile?.ratingSum && sellerProfile.ratingsCount ? (
+                  <StarRating value={rating(sellerProfile?.ratingSum / sellerProfile.ratingsCount)} size={14} />
+                ) : (
+                  <StarRating value={0} size={14} />
+                )}
+              </div>
+
+              {sellerProfile?.ratingSum && sellerProfile.ratingsCount ? (
+                <div className="ml-2 mt-[3px] flex gap-1 rounded bg-orange-400 px-1 text-xs">
+                  <span className="font-bold text-white">{rating(sellerProfile?.ratingSum / sellerProfile.ratingsCount)}</span>
+                </div>
+              ) : (
+                <div className="ml-2 mt-[3px] flex gap-1 rounded px-1 text-xs">
+                  <span className="font-bold text-white"></span>
+                </div>
+              )}
+            </div>
+          </div>
+        </div>
+      )}
+    </>
+  );
 };
 
 export default ProfileHeader;
