@@ -188,6 +188,20 @@ const ProfileHeader: FC<IProfileHeaderProps> = ({ sellerProfile, showHeaderInfo,
           </div>
         </div>
       )}
+      <div className="grid grid-cols-4 font-bold text-white">
+        {gridInfo.map((info: IGigInfo) => (
+          <div
+            key={uuidv4()}
+            style={{ backgroundColor: `${info.bgColor}` }}
+            className="col-span-4 flex items-center justify-center p-8 sm:col-span-2 md:col-span-1"
+          >
+            <div className="flex flex-col">
+              <span className="text-center text-base lg:text-xl">{info.total}</span>
+              <span className="truncate text-center text-sm lg:text-base">{info.title}</span>
+            </div>
+          </div>
+        ))}
+      </div>
     </>
   );
 };
