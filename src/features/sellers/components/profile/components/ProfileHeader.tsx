@@ -16,6 +16,41 @@ const ProfileHeader: FC<IProfileHeaderProps> = ({ sellerProfile, showHeaderInfo,
     fullname: false,
     oneliner: false
   });
+  
+  const [sellerProfileItem, setSellerProfileItem] = useState<ISellerProfileItem>({
+    fullname: `${sellerProfile?.fullName}`,
+    oneliner: `${sellerProfile?.oneliner}`
+  });
+  const gridInfo: IGigInfo[] = [
+    {
+      total: shortenLargeNumbers(sellerProfile?.totalGigs),
+      title: 'Total Gigs',
+      bgColor: '#50b5ff'
+    },
+    {
+      total: shortenLargeNumbers(sellerProfile?.completedJobs),
+      title: 'Completed Orders',
+      bgColor: '#f7b124'
+    },
+    {
+      total: shortenLargeNumbers(sellerProfile?.ongoingJobs),
+      title: 'Ongoing Orders',
+      bgColor: '#8553ee'
+    },
+    {
+      total: shortenLargeNumbers(sellerProfile?.ratingsCount),
+      title: 'Ratings & Reviews',
+      bgColor: '#ff8b7b'
+    }
+  ];
+
+  useEffect(() => {
+    if (sellerProfile) {
+      setSellerProfileItem({ ...sellerProfile, fullname: `${sellerProfile.fullName}`, oneliner: `${sellerProfile.oneliner}` });
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [sellerProfile?.fullName, sellerProfile?.oneliner]);
+
   return <div>ProfileHeader</div>;
 };
 
