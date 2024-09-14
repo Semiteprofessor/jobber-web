@@ -62,7 +62,58 @@ const ProfileHeader: FC<IProfileHeaderProps> = ({ sellerProfile, showHeaderInfo,
               effect="blur"
               wrapperClassName="w-full h-full rounded-full object-cover"
             />
-          </div></>;
+          </div>
+          <div className="flex flex-col md:mt-10 lg:mt-6">
+            <div className="flex cursor-pointer self-center md:block md:self-start">
+              <div className="flex flex-row self-center text-base font-bold lg:text-2xl">
+                {!showItemEdit.fullname && sellerProfile?.fullName}
+                {showEditIcons && !showItemEdit.fullname && (
+                  <FaPencilAlt
+                    onClick={() => {
+                      setShowItemEdit({ ...showItemEdit, fullname: !showItemEdit.fullname });
+                    }}
+                    className="ml-1 mt-1.5 text-xs md:text-base lg:ml-2.5 lg:mt-2"
+                  />
+                )}
+              </div>
+              {showItemEdit.fullname && (
+                <div className="flex gap-x-4">
+                  <TextInput
+                    className="mt-2 flex h-7 w-full items-center rounded border border-gray-300 p-1.5 text-sm font-normal text-gray-600 focus:border focus:border-sky-500/50 focus:outline-none lg:h-9"
+                    placeholder="Fullname"
+                    type="text"
+                    name="fullname"
+                    value={sellerProfileItem.fullname}
+                    onChange={(event: ChangeEvent) => {
+                      setSellerProfileItem({ ...sellerProfileItem, fullname: (event.target as HTMLInputElement).value });
+                    }}
+                  />
+                  <div className="my-2 flex">
+                    <Button
+                      className="md:text-md rounded bg-sky-500 px-6 py-1 text-center text-sm font-bold text-white hover:bg-sky-400 focus:outline-none md:py-2"
+                      label="Update"
+                      onClick={() => {
+                        if (sellerProfile && setSellerProfile) {
+                          setSellerProfile({ ...sellerProfile, fullName: sellerProfileItem.fullname });
+                          setShowItemEdit({ ...showItemEdit, fullname: false });
+                        }
+                      }}
+                    />
+                    &nbsp;&nbsp;
+                    <Button
+                      className="md:text-md rounded bg-red-500 px-6 py-1 text-center text-sm font-bold text-white hover:bg-red-500 focus:outline-none md:py-2"
+                      label="Cancel"
+                      onClick={() => {
+                        if (sellerProfile && setSellerProfile) {
+                          setSellerProfile({ ...sellerProfile, fullName: `${sellerProfile.fullName}` });
+                          setShowItemEdit({ ...showItemEdit, fullname: false });
+                        }
+                      }}
+                    />
+                  </div>
+                </div>
+              )}
+            </div></>;
 };
 
 export default ProfileHeader;
