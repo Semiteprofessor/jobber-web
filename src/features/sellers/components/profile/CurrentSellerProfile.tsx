@@ -51,6 +51,12 @@ const CurrentSellerProfile: FC = (): ReactElement => {
       showErrorToast('Error updating profile.');
     }
   };
+  
+  useEffect(() => {
+    const isEqual: boolean = equal(sellerProfile, seller);
+    setShowEdit(isEqual);
+  }, [seller, sellerProfile]);
+
   return <div>CurrentSellerProfile</div>;
 };
 
