@@ -8,7 +8,7 @@ import { IProfileHeaderProps, ISellerProfileItem, IShowEditItem } from 'src/feat
 import Button from 'src/shared/button/Button';
 import TextInput from 'src/shared/inputs/TextInput';
 import StarRating from 'src/shared/rating/StarRating';
-import { lowerCase, rating, shortenLargeNumbers } from 'src/shared/utils/utils.service';
+import { lowerCase, rating, shortenLargeNumbers } from 'src/shared/utils/util.service';
 import { v4 as uuidv4 } from 'uuid';
 
 const ProfileHeader: FC<IProfileHeaderProps> = ({ sellerProfile, showHeaderInfo, showEditIcons, setSellerProfile }): ReactElement => {
@@ -16,7 +16,7 @@ const ProfileHeader: FC<IProfileHeaderProps> = ({ sellerProfile, showHeaderInfo,
     fullname: false,
     oneliner: false
   });
-  
+
   const [sellerProfileItem, setSellerProfileItem] = useState<ISellerProfileItem>({
     fullname: `${sellerProfile?.fullName}`,
     oneliner: `${sellerProfile?.oneliner}`
