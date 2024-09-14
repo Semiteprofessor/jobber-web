@@ -11,7 +11,7 @@ import Button from 'src/shared/button/Button';
 import GigCardDisplayItem from 'src/shared/gigs/GigCardDisplayItem';
 import CircularPageLoader from 'src/shared/page-loader/CircularPageLoader';
 import { IResponse } from 'src/shared/shared.interface';
-import { showErrorToast, showSuccessToast } from 'src/shared/utils/utils.service';
+import { showErrorToast, showSuccessToast } from 'src/shared/utils/util.service';
 import { useAppDispatch, useAppSelector } from 'src/store/store';
 import { IReduxState } from 'src/store/store.interface';
 import { v4 as uuidv4 } from 'uuid';
