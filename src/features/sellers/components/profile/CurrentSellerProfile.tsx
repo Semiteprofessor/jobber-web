@@ -57,13 +57,12 @@ const CurrentSellerProfile: FC = (): ReactElement => {
     setShowEdit(isEqual);
   }, [seller, sellerProfile]);
 
-  return(
-
-      <div className="relative w-full pb-6">
+  return (
+    <div className="relative w-full pb-6">
       <Breadcrumb breadCrumbItems={['Seller', `${seller.username}`]} />
       {isLoading || isDataLoading ? (
         <CircularPageLoader />
-    ) : (
+      ) : (
         <div className="container mx-auto px-2 md:px-0">
           <div className="my-2 flex h-8 justify-end md:h-10">
             {!showEdit && (
@@ -85,8 +84,30 @@ const CurrentSellerProfile: FC = (): ReactElement => {
                 />
               </div>
             )}
-          </div></div>;
-    ) 
+          </div>
+          <ProfileHeader sellerProfile={sellerProfile} setSellerProfile={setSellerProfile} showHeaderInfo={true} showEditIcons={true} />
+          <div className="my-4 cursor-pointer">
+            <ProfileTabs type={type} setType={setType} />
+          </div>
+
+          <div className="flex flex-wrap bg-white">
+            {type === 'Overview' && (
+              <SellerOverview sellerProfile={sellerProfile} setSellerProfile={setSellerProfile} showEditIcons={true} />
+            )}
+            {type === 'Active Gigs' && (
+              <div className="grid gap-x-6 pt-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
+                {data?.gigs &&
+                  data?.gigs.map((gig: ISellerGig) => (
+                    <GigCardDisplayItem key={uuidv4()} gig={gig} linkTarget={false} showEditIcon={true} />
+                  ))}
+              </div>
+            )}
+            {type === 'Ratings & Reviews' && <GigViewReviews showRatings={false} reviews={reviews} hasFetchedReviews={true} />}
+          </div>
+        </div>
+      )}
+    </div>
+  );
 };
 
 export default CurrentSellerProfile;
