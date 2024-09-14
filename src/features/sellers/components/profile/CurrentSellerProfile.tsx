@@ -23,7 +23,34 @@ import ProfileHeader from './components/ProfileHeader';
 import ProfileTabs from './components/ProfileTabs';
 import SellerOverview from './components/SellerOverview';
 
-const CurrentSellerProfile = () => {
+const CurrentSellerProfile: FC = (): ReactElement => {
+  const seller = useAppSelector((state: IReduxState) => state.seller);
+  const [sellerProfile, setSellerProfile] = useState<ISellerDocument>(seller);
+  const [showEdit, setShowEdit] = useState<boolean>(true);
+  const [type, setType] = useState<string>('Overview');
+  const { sellerId } = useParams();
+  const dispatch = useAppDispatch();
+  const { data, isSuccess: isSellerGigSuccess, isLoading: isSellerGigLoading } = useGetGigsBySellerIdQuery(`${sellerId}`);
+  const { data: sellerData, isSuccess: isGigReviewSuccess, isLoading: isGigReviewLoading } = useGetReviewsBySellerIdQuery(`${sellerId}`);
+  const [updateSeller, { isLoading }] = useUpdateSellerMutation();
+  let reviews: IReviewDocument[] = [];
+  if (isGigReviewSuccess) {
+    reviews = sellerData.reviews as IReviewDocument[];
+  }
+
+  const isDataLoading: boolean = isSellerGigLoading && isGigReviewLoading && !isSellerGigSuccess && !isGigReviewSuccess;
+
+  const onUpdateSeller = async (): Promise<void> => {
+    try {
+      const response: IResponse = await updateSeller({ sellerId: `${sellerId}`, seller: sellerProfile }).unwrap();
+      dispatch(addSeller(response.seller));
+      setSellerProfile(response.seller as ISellerDocument);
+      setShowEdit(false);
+      showSuccessToast('Seller profile updated successfully.');
+    } catch (error) {
+      showErrorToast('Error updating profile.');
+    }
+  };
   return <div>CurrentSellerProfile</div>;
 };
 
