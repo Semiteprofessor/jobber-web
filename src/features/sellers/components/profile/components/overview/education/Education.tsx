@@ -33,7 +33,44 @@ const Education: FC = (): ReactElement => {
           <li className="flex justify-between">
             <EducationFields type="add" setShowEducationAddForm={setShowEducationAddForm} />
           </li>
-        )}</div>;
+        )}
+        {!showEducationAddForm && (
+          <>
+            {sellerProfile?.education.map((education: IEducation) => (
+              <li key={uuidv4()} className="mb-1 flex justify-between">
+                {!showEducationEditForm && (
+                  <div className="col-span-3 ml-4 flex flex-col pb-3 text-sm md:text-base">
+                    <div className="mr-3 pb-2 font-bold">
+                      {education.major} {education.title}
+                    </div>
+                    <div className="mr-3 font-normal">
+                      {education.university}, {education.country}, Graduated {education.year}
+                    </div>
+                  </div>
+                )}
+                {showEducationEditForm && selectedEducation?._id === education._id && (
+                  <EducationFields type="edit" selectedEducation={selectedEducation} setShowEducationEditForm={setShowEducationEditForm} />
+                )}
+                {!showEducationEditForm && showEditIcons && (
+                  <div className="mr-4">
+                    <FaPencilAlt
+                      size="12"
+                      className="ml-1 mt-1.5 cursor-pointer lg:ml-2.5 lg:mt-2"
+                      onClick={() => {
+                        setSelectedEducation(education);
+                        setShowEducationEditForm(!showEducationEditForm);
+                        setShowEducationAddForm(false);
+                      }}
+                    />
+                  </div>
+                )}
+              </li>
+            ))}
+          </>
+        )}
+      </ul>
+    </div>
+  );
 };
 
 export default Education;
