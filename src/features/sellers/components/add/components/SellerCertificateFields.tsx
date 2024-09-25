@@ -18,6 +18,23 @@ const SellerCertificateFields: FC<ICertificateProps> = ({ certificatesFields, se
     }
   };
 
+  const removeCertificateFields = (index: number): void => {
+    if (certificatesFields && setCertificatesFields && certificatesFields.length > 1) {
+      const data: ICertificate[] = [...certificatesFields];
+      data.splice(index, 1);
+      setCertificatesFields([...data]);
+    }
+  };
+
+  const handleCertificateFieldsChange = (event: ChangeEvent, index: number): void => {
+    if (certificatesFields && setCertificatesFields) {
+      const target: HTMLInputElement = event.target as HTMLInputElement;
+      const data: ICertificate[] = [...certificatesFields];
+      data[index][target.name] = target.value;
+      setCertificatesFields([...data]);
+    }
+  };
+
   return <div>SellerCertificateFields</div>;
 };
 
