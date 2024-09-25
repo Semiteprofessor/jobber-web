@@ -52,6 +52,34 @@ const AddSeller: FC = (): ReactElement => {
       year: 'Year'
     }
   ]);
+  const [skillsFields, setSkillsFields] = useState<string[]>(['']);
+  const [languageFields, setLanguageFields] = useState<ILanguage[]>([
+    {
+      language: '',
+      level: 'Level'
+    }
+  ]);
+  const [certificateFields, setCertificateFields] = useState<ICertificate[]>([
+    {
+      name: '',
+      from: '',
+      year: 'Year'
+    }
+  ]);
+  const [socialFields, setSocialFields] = useState<string[]>(['']);
+  const [schemaValidation, personalInfoErrors, experienceErrors, educationErrors, skillsErrors, languagesErrors] = useSellerSchema({
+    personalInfo,
+    experienceFields,
+    educationFields,
+    skillsFields,
+    languageFields
+  });
+  const dispatch = useAppDispatch();
+  const navigate: NavigateFunction = useNavigate();
+  const [createSeller, { isLoading }] = useCreateSellerMutation();
+
+  const errors = [...personalInfoErrors, ...experienceErrors, ...educationErrors, ...skillsErrors, ...languagesErrors];
+
   return <div>AddSeller</div>;
 };
 
