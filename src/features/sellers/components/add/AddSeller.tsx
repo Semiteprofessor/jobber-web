@@ -125,7 +125,49 @@ const AddSeller: FC = (): ReactElement => {
     };
   }, []);
 
-  return <div>AddSeller</div>;
+  return (
+    <div className="relative w-full">
+      <Breadcrumb breadCrumbItems={['Seller', 'Create Profile']} />
+      <div className="container mx-auto my-5 overflow-hidden px-2 pb-12 md:px-0">
+        {isLoading && <CircularPageLoader />}
+        {authUser && !authUser.emailVerified && (
+          <div className="absolute left-0 top-0 z-50 flex h-full w-full justify-center bg-white/[0.8] text-sm font-bold md:text-base lg:text-xl">
+            <span className="mt-20">Please verify your email.</span>
+          </div>
+        )}
+
+        <div className="left-0 top-0 z-10 mt-4 block h-full bg-white">
+          {errors.length > 0 ? (
+            <div className="text-red-400">{`You have ${errors.length} error${errors.length > 1 ? 's' : ''}`}</div>
+          ) : (
+            <></>
+          )}
+          <PersonalInfo personalInfo={personalInfo} setPersonalInfo={setPersonalInfo} personalInfoErrors={personalInfoErrors} />
+          <SellerExperienceFields
+            experienceFields={experienceFields}
+            setExperienceFields={setExperienceFields}
+            experienceErrors={experienceErrors}
+          />
+          <SellerEducationFields
+            educationFields={educationFields}
+            setEducationFields={setEducationFields}
+            educationErrors={educationErrors}
+          />
+          <SellerSkillField skillsFields={skillsFields} setSkillsFields={setSkillsFields} skillsErrors={skillsErrors} />
+          <SellerLanguageFields languageFields={languageFields} setLanguageFields={setLanguageFields} languagesErrors={languagesErrors} />
+          <SellerCertificateFields certificatesFields={certificateFields} setCertificatesFields={setCertificateFields} />
+          <SellerSocialLinksFields socialFields={socialFields} setSocialFields={setSocialFields} />
+          <div className="flex justify-end p-6">
+            <Button
+              onClick={onCreateSeller}
+              className="rounded bg-sky-500 px-8 text-center text-sm font-bold text-white hover:bg-sky-400 focus:outline-none md:py-3 md:text-base"
+              label="Create Profile"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+  );
 };
 
 export default AddSeller;
