@@ -22,3 +22,37 @@ import SellerExperienceFields from './components/SellerExperienceFields';
 import SellerLanguageFields from './components/SellerLanguagesFields';
 import SellerSkillField from './components/SellerSkillField';
 import SellerSocialLinksFields from './components/SellerSocialLinksFields';
+
+const AddSeller: FC = (): ReactElement => {
+  const authUser = useAppSelector((state: IReduxState) => state.authUser);
+  const buyer = useAppSelector((state: IReduxState) => state.buyer);
+  const [personalInfo, setPersonalInfo] = useState<IPersonalInfoData>({
+    fullName: '',
+    profilePicture: `${authUser.profilePicture}`,
+    description: '',
+    responseTime: '',
+    oneliner: ''
+  });
+  const [experienceFields, setExperienceFields] = useState<IExperience[]>([
+    {
+      title: '',
+      company: '',
+      startDate: 'Start Year',
+      endDate: 'End Year',
+      currentlyWorkingHere: false,
+      description: ''
+    }
+  ]);
+  const [educationFields, setEducationFields] = useState<IEducation[]>([
+    {
+      country: 'Country',
+      university: '',
+      title: 'Title',
+      major: '',
+      year: 'Year'
+    }
+  ]);
+  return <div>AddSeller</div>;
+};
+
+export default AddSeller;
