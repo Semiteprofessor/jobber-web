@@ -12,7 +12,7 @@ const PersonalInfo: FC<IPersonalInfoProps> = ({ personalInfo, setPersonalInfo })
   const maxOneLinerCharacters = 70;
 
   return (
-    <div>
+    <div className="border-b border-grey p-6">
       <div className="mb-6 grid md:grid-cols-5">
         <div className="pb-2 text-base font-medium">
           Fullname<sup className="top-[-0.3em] text-base text-red-500">*</sup>
@@ -27,6 +27,33 @@ const PersonalInfo: FC<IPersonalInfoProps> = ({ personalInfo, setPersonalInfo })
               setPersonalInfo({ ...personalInfo, fullName: (event.target as HTMLInputElement).value });
             }}
           />
+        </div>
+      </div>
+      <div className="grid md:grid-cols-5 mb-6">
+        <div className="text-base font-medium pb-2 mt-6 md:mt-0">
+          Oneliner<sup className="text-red-500 text-base top-[-0.3em]">*</sup>
+        </div>
+        <div className="w-full col-span-4">
+          <TextInput
+            className="w-full rounded border border-grey p-2.5 mb-1 text-sm font-normal text-gray-600 focus:outline-none"
+            type="text"
+            name="oneliner"
+            value={personalInfo.oneliner}
+            placeholder="E.g. Expert Mobile and Web Developer"
+            onChange={(event: ChangeEvent) => {
+              const onelinerValue: string = (event.target as HTMLInputElement).value;
+              setPersonalInfo({ ...personalInfo, oneliner: onelinerValue });
+              const counter: number = maxOneLinerCharacters - onelinerValue.length;
+              setAllowedInfoLength({ ...allowedInfoLength, oneliner: `${counter}/70` });
+            }}
+            onKeyDown={(event: KeyboardEvent) => {
+              const currentTextLength = (event.target as HTMLInputElement).value.length;
+              if (currentTextLength === maxOneLinerCharacters && event.key !== 'Backspace') {
+                event.preventDefault();
+              }
+            }}
+          />
+          <span className="flex justify-end text-[#95979d] text-xs">{allowedInfoLength.oneliner} Characters</span>
         </div>
       </div>
     </div>
