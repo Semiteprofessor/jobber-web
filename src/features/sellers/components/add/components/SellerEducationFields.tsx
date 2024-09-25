@@ -74,6 +74,32 @@ const SellerEducationFields: FC<IEducationProps> = ({ educationFields, setEducat
               }}
             />
           </div>
+          <div className="mt-4 grid h-1/5 grid-cols-4 gap-x-2 gap-y-3">
+            <div className="relative">
+              <Dropdown
+                text={input.title}
+                maxHeight="300"
+                mainClassNames="absolute bg-white z-30"
+                values={degreeList()}
+                onClick={(item: string) => {
+                  const data: IEducation[] = [...educationFields];
+                  data[index]['title'] = `${item}`;
+                  if (setEducationFields) {
+                    setEducationFields(data);
+                  }
+                }}
+              />
+            </div>
+            <div className="col-span-2">
+              <TextInput
+                className="border-grey w-full rounded border p-2.5 text-sm font-normal text-gray-600 focus:outline-none"
+                placeholder="Major e.g: Computer Engineering"
+                type="text"
+                name="major"
+                value={input.major}
+                onChange={(event: ChangeEvent) => handleEducationFieldsChange(event, index)}
+              />
+            </div>
     </div>
   );
 };
