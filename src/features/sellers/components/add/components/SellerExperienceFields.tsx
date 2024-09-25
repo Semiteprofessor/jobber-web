@@ -36,6 +36,34 @@ const SellerExperienceFields: FC<IExperienceProps> = ({ experienceFields, setExp
     }
   };
 
+  const removeExperienceFields = (index: number): void => {
+    if (experienceFields && experienceFields.length > 1 && setExperienceFields) {
+      const data: IExperience[] = [...experienceFields];
+      data.splice(index, 1);
+      setExperienceFields([...data]);
+    }
+  };
+
+  const updatePresentEndDate = (data: IExperience[], index: number): void => {
+    if (setExperienceFields) {
+      if (!data[index]['currentlyWorkingHere']) {
+        if (data[index]['endDate'] === 'Present') {
+          data[index]['endDate'] = 'End Year';
+          setExperienceFields(data);
+        } else {
+          data[index]['endDate'] = `${data[index]['endDate'] ?? 'End Year'}`;
+          setExperienceFields([...data]);
+        }
+      } else {
+        if (setExperienceFields && experienceFields) {
+          const data: IExperience[] = [...experienceFields];
+          data[index]['endDate'] = 'Present';
+          setExperienceFields([...data]);
+        }
+      }
+    }
+  };
+
   return <div>SellerExperienceFields</div>;
 };
 
