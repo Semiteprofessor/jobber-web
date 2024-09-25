@@ -28,7 +28,26 @@ const SellerEducationFields: FC<IEducationProps> = ({ educationFields, setEducat
     }
   };
 
-  return <div>SellerEducationFields</div>;
+  const removeEducationFields = (index: number): void => {
+    if (setEducationFields && educationFields && educationFields.length > 1) {
+      const data: IEducation[] = [...educationFields];
+      data.splice(index, 1);
+      setEducationFields([...data]);
+    }
+  };
+
+  return (
+    <div className="border-grey flex w-full flex-col border-b px-6 pb-3 pt-6">
+      <div className="flex justify-between">
+        <h2 className="pb-4 text-xl font-bold">Education</h2>
+        <Button
+          className="md:text-md h-7 rounded bg-sky-500 px-6 text-center text-sm font-bold text-white hover:bg-sky-400 focus:outline-none md:px-8"
+          label="Add More"
+          onClick={() => addEducationFields()}
+        />
+      </div>
+    </div>
+  );
 };
 
 export default SellerEducationFields;
