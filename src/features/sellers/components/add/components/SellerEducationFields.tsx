@@ -46,6 +46,34 @@ const SellerEducationFields: FC<IEducationProps> = ({ educationFields, setEducat
           onClick={() => addEducationFields()}
         />
       </div>
+      {educationFields?.map((input: IEducation, index: number) => (
+        <div key={index}>
+          <div className="relative">
+            <TextInput
+              className="border-grey mb-4 w-full rounded border p-2.5 text-sm font-normal text-gray-600 focus:outline-none"
+              placeholder="University/College Name"
+              type="text"
+              name="university"
+              value={input.university}
+              onChange={(event: ChangeEvent) => handleEducationFieldsChange(event, index)}
+            />
+          </div>
+          <div className="relative h-[55px]">
+            <Dropdown
+              text={input.country}
+              maxHeight="300"
+              showSearchInput={true}
+              mainClassNames="absolute bg-white z-40"
+              values={countriesList()}
+              onClick={(item: string) => {
+                const data: IEducation[] = [...educationFields];
+                data[index]['country'] = `${item}`;
+                if (setEducationFields) {
+                  setEducationFields(data);
+                }
+              }}
+            />
+          </div>
     </div>
   );
 };
