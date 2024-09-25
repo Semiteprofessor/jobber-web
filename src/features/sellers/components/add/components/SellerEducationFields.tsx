@@ -100,6 +100,33 @@ const SellerEducationFields: FC<IEducationProps> = ({ educationFields, setEducat
                 onChange={(event: ChangeEvent) => handleEducationFieldsChange(event, index)}
               />
             </div>
+            <div className="relative">
+              <Dropdown
+                text={input.year}
+                maxHeight="300"
+                mainClassNames="absolute bg-white z-30"
+                values={yearsList(100)}
+                onClick={(item: string) => {
+                  const data: IEducation[] = [...educationFields];
+                  data[index]['year'] = `${item}`;
+                  if (setEducationFields) {
+                    setEducationFields(data);
+                  }
+                }}
+              />
+            </div>
+            <div className="mb-2">
+              {educationFields.length > 1 && index > 0 && (
+                <Button
+                  className="md:text-md h-7 rounded bg-red-500 px-6 text-center text-sm font-bold text-white hover:bg-red-400 focus:outline-none md:px-8"
+                  onClick={() => removeEducationFields(index)}
+                  label="Delete"
+                />
+              )}
+            </div>
+          </div>
+        </div>
+      ))}
     </div>
   );
 };
