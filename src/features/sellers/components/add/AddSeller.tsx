@@ -80,6 +80,51 @@ const AddSeller: FC = (): ReactElement => {
 
   const errors = [...personalInfoErrors, ...experienceErrors, ...educationErrors, ...skillsErrors, ...languagesErrors];
 
+  const onCreateSeller = async (event: FormEvent): Promise<void> => {
+    event.preventDefault();
+    try {
+      const isValid: boolean = await schemaValidation();
+      if (isValid) {
+        const skills: string[] = filter(skillsFields, (skill: string) => skill !== '') as string[];
+        const socialLinks: string[] = filter(socialFields, (item: string) => item !== '') as string[];
+        const certificates: ICertificate[] = filter(
+          certificateFields,
+          (item: ICertificate) => item.name !== '' && item.from !== '' && item.year !== ''
+        ) as ICertificate[];
+        const sellerData: ISellerDocument = {
+          email: `${authUser.email}`,
+          profilePublicId: `${authUser.profilePublicId}`,
+          profilePicture: `${authUser.profilePicture}`,
+          fullName: personalInfo.fullName,
+          description: personalInfo.description,
+          country: `${authUser.country}`,
+          skills,
+          oneliner: personalInfo.oneliner,
+          languages: languageFields,
+          responseTime: parseInt(personalInfo.responseTime, 10),
+          experience: experienceFields,
+          education: educationFields,
+          socialLinks,
+          certificates
+        };
+        const updateBuyer: IBuyerDocument = { ...buyer, isSeller: true };
+        const response: IResponse = await createSeller(sellerData).unwrap();
+        dispatch(addSeller(response.seller));
+        dispatch(addBuyer(updateBuyer));
+        navigate(`/seller_profile/${lowerCase(`${authUser.username}`)}/${response.seller?._id}/edit`);
+      }
+    } catch (error) {
+      showErrorToast('Error creating seller profile.');
+    }
+  };
+
+  useEffect(() => {
+    return () => {
+      // delete becomeASeller from localStorage when user leaves this page
+      deleteFromLocalStorage('becomeASeller');
+    };
+  }, []);
+
   return <div>AddSeller</div>;
 };
 
