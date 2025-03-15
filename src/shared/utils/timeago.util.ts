@@ -23,4 +23,26 @@ export class TimeAgo {
       return format(date, 'd MMMM, yyyy');
     }
   }
+  static formatDateToMonthAndYear(value: string): string {
+    if (!value) {
+      return '';
+    }
+    const date: Date = new Date(value);
+    return format(date, 'MMMM, yyyy');
+  }
+
+  static dayMonthYear(value: string): string {
+    const date: Date = new Date(value);
+    return format(date, 'd MMMM, yyyy');
+  }
+
+  static dayWithTime(value: string): string {
+    const date: Date = new Date(value);
+    return `${format(date, 'd MMM')} at ${format(date, 'HH:mm')}`;
+  }
+
+  static timeFormat(value: string): string {
+    const date: Date = new Date(value);
+    return format(date, 'HH:mm a');
+  }
 }
