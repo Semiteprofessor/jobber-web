@@ -7,6 +7,9 @@ import { useGetNotificationsByIdQuery, useMarkUnreadNotificationMutation } from 
 import { showErrorToast } from 'src/shared/utils/util.service';
 import { IOrderNotifcation } from 'src/features/order/interfaces/order.interface';
 import { orderBy } from 'lodash';
+import { v4 as uuidv4 } from 'uuid';
+import { TimeAgo } from 'src/shared/utils/timeago.utils';
+import { FaRegEnvelope, FaRegEnvelopeOpen } from 'react-icons/fa';
 
 const NotificationDropdown: FC<IHomeHeaderProps> = ({ setIsNotificationDropdownOpen }): ReactElement => {
   const authUser = useAppSelector((state: IReduxState) => state.authUser);
