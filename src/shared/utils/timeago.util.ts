@@ -1,3 +1,5 @@
+import { differenceInCalendarDays, format, getISOWeek, isSameDay, subDays } from 'date-fns';
+
 export class TimeAgo {
   static transform(value: string | number | Date): string {
     if (!value) {
@@ -94,6 +96,38 @@ export class TimeAgo {
       }
     } else {
       return format(date, 'MMM d, yyyy');
+    }
+  }
+
+  static secondsAgo(elapsed: number): string {
+    if (Math.round(elapsed / 1000) <= 1) {
+      return 'a second ago';
+    } else {
+      return `${Math.round(elapsed / 1000)} seconds ago`;
+    }
+  }
+
+  static minutesAgo(elapsed: number, msPerMinute: number): string {
+    if (Math.round(elapsed / msPerMinute) <= 1) {
+      return 'a minute ago';
+    } else {
+      return `${Math.round(elapsed / msPerMinute)} minutes ago`;
+    }
+  }
+
+  static hoursAgo(elapsed: number, msPerHour: number): string {
+    if (Math.round(elapsed / msPerHour) <= 1) {
+      return 'an hour ago';
+    } else {
+      return `${Math.round(elapsed / msPerHour)} hours ago`;
+    }
+  }
+
+  static monthsAgo(date: number | Date, elapsed: number, msPerDay: number): string {
+    if (Math.round(elapsed / msPerDay) <= 7) {
+      return format(date, 'eeee');
+    } else {
+      return format(date, 'MMM d');
     }
   }
 }
