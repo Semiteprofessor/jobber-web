@@ -45,4 +45,31 @@ export class TimeAgo {
     const date: Date = new Date(value);
     return format(date, 'HH:mm a');
   }
+
+  static compareDates(date1: string, date2: string): number {
+    const firstDate: string = format(new Date(date1), 'd/MM/yyyy');
+    const secondDate: string = format(new Date(date2), 'd/MM/yyyy');
+    if (firstDate > secondDate) {
+      return -1;
+    } else if (firstDate < secondDate) {
+      return 1;
+    } else {
+      return 0;
+    }
+  }
+
+  static dateInDays(date: string): string {
+    let result = '';
+    const difference: number = differenceInCalendarDays(new Date(), new Date(date));
+    const months: number = Math.floor(difference / 30);
+    if (months <= 0) {
+      const weeks: number = Math.floor(difference / 7);
+      result = weeks >= 1 ? `${weeks} week${weeks >= 2 ? 's' : ''}` : `${difference} day${difference >= 2 ? 's' : ''}`;
+    } else if (months === 1) {
+      result = `${months} month`;
+    } else {
+      result = `${months} months`;
+    }
+    return result;
+  }
 }
