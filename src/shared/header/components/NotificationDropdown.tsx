@@ -8,7 +8,7 @@ import { showErrorToast } from 'src/shared/utils/util.service';
 import { IOrderNotifcation } from 'src/features/order/interfaces/order.interface';
 import { orderBy } from 'lodash';
 import { v4 as uuidv4 } from 'uuid';
-import { TimeAgo } from 'src/shared/utils/timeago.utils';
+import { TimeAgo } from 'src/shared/utils/timeago.util';
 import { FaRegEnvelope, FaRegEnvelopeOpen } from 'react-icons/fa';
 
 const NotificationDropdown: FC<IHomeHeaderProps> = ({ setIsNotificationDropdownOpen }): ReactElement => {
@@ -74,6 +74,7 @@ const NotificationDropdown: FC<IHomeHeaderProps> = ({ setIsNotificationDropdownO
               </div>
             </div>
           ))}
+        {notifications.length === 0 && <div className="flex h-full items-center justify-center">No notifications to show</div>}
       </div>
     </div>
   );
