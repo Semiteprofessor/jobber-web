@@ -72,4 +72,28 @@ export class TimeAgo {
     }
     return result;
   }
+
+  static timeDifference(current: number | Date, date: number | Date): string {
+    const msPerMinute = 60 * 1000;
+    const msPerHour = msPerMinute * 60;
+    const msPerDay = msPerHour * 24;
+    const msPerMonth = msPerDay * 30;
+    const elapsed = current.valueOf() - date.valueOf();
+
+    if (format(current, 'yyyy') === format(date, 'yyyy')) {
+      if (elapsed < msPerMinute) {
+        return this.secondsAgo(elapsed);
+      } else if (elapsed < msPerHour) {
+        return this.minutesAgo(elapsed, msPerMinute);
+      } else if (elapsed < msPerDay) {
+        return this.hoursAgo(elapsed, msPerHour);
+      } else if (elapsed < msPerMonth) {
+        return this.monthsAgo(date, elapsed, msPerDay);
+      } else {
+        return format(date, 'MMM d');
+      }
+    } else {
+      return format(date, 'MMM d, yyyy');
+    }
+  }
 }
