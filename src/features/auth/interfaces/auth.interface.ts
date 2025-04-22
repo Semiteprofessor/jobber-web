@@ -68,3 +68,27 @@ export interface ISignInPayload {
 export interface IForgotPassword {
   email: string;
 }
+
+export interface IResetPassword {
+  [key: string]: string;
+  password: string;
+  confirmPassword: string;
+}
+
+export interface IReduxAuthPayload {
+  authInfo?: IAuthDocument;
+}
+
+export interface IReduxAddAuthUser {
+  type: string;
+  payload: IReduxAuthPayload;
+}
+
+export interface IReduxLogout {
+  type: string;
+  payload: boolean;
+}
+
+export interface IAuthResponse {
+  message: string;
+}
