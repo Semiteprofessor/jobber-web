@@ -34,3 +34,37 @@ export interface IAuthDocument {
   browserName?: string;
   deviceType?: string;
 }
+
+export interface IUseAuthSchema {
+  schema: ObjectSchema<ISignInPayload | ISignUpPayload | IResetPassword>;
+  userInfo: ISignInPayload | ISignUpPayload | IResetPassword;
+}
+
+export const AUTH_FETCH_STATUS = {
+  IDLE: "",
+  SUCCESS: "success",
+  ERROR: "error",
+};
+
+export interface ISignUpPayload {
+  [key: string]: string | null | undefined;
+  username: string;
+  password: string;
+  email: string;
+  country: string;
+  profilePicture: string;
+  browserName: string | null | undefined;
+  deviceType: string | null | undefined;
+}
+
+export interface ISignInPayload {
+  [key: string]: string | null | undefined;
+  username: string;
+  password: string;
+  browserName: string | null | undefined;
+  deviceType: string | null | undefined;
+}
+
+export interface IForgotPassword {
+  email: string;
+}
