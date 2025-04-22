@@ -16,3 +16,21 @@ export interface IAuthUser {
   browserName: string | null;
   deviceType: string | null;
 }
+
+export interface IAuthDocument {
+  id?: number;
+  profilePublicId?: string;
+  username?: string;
+  email?: string;
+  password?: string;
+  country?: string;
+  profilePicture?: string;
+  emailVerified?: number;
+  emailVerificationToken?: string;
+  createdAt?: Date;
+  updatedAt?: Date;
+  passwordResetToken?: string;
+  passwordResetExpires?: Date;
+  browserName?: string;
+  deviceType?: string;
+}
