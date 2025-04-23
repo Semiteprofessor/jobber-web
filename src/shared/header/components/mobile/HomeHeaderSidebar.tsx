@@ -201,6 +201,18 @@ const HomeHeaderSidebar: FC<IHeaderSideBarProps> = ({ setOpenSidebar }): ReactEl
               </Transition>
             </div>
           </div>
+          <div
+            onClick={(event: MouseEvent) => {
+              event.stopPropagation();
+              if (setOpenSidebar) {
+                setOpenSidebar(false);
+                onLogout();
+              }
+            }}
+            className="cursor-pointer text-base font-medium text-gray-400"
+          >
+            Logout
+          </div>
         </div>
       </div>
     </div>
