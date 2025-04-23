@@ -2,8 +2,12 @@ import React, { FC, ReactElement, useState } from 'react';
 import { IHeaderSideBarProps, ISettings } from '../../interfaces/header.interface';
 import { useAppDispatch, useAppSelector } from 'src/store/store';
 import { IReduxState } from 'src/store/store.interface';
-import { NavigateFunction, useNavigate } from 'react-router-dom';
-import { applicationLogout, lowerCase } from 'src/shared/utils/util.service';
+import { Link, NavigateFunction, useNavigate } from 'react-router-dom';
+import { applicationLogout, lowerCase, replaceSpacesWithDash } from 'src/shared/utils/util.service';
+import { updateHeader } from '../../reducers/header.reducer';
+import { updateCategoryContainer } from '../../reducers/category.reducer';
+import { socket } from 'src/sockets/socket.service';
+import { FaAngleDown, FaAngleRight, FaAngleUp } from 'react-icons/fa';
 
 const HomeHeaderSidebar: FC<IHeaderSideBarProps> = ({ setOpenSidebar }): ReactElement => {
   const authUser = useAppSelector((state: IReduxState) => state.authUser);
@@ -98,6 +102,67 @@ const HomeHeaderSidebar: FC<IHeaderSideBarProps> = ({ setOpenSidebar }): ReactEl
               <Link to="/seller_onboarding">Become a Seller</Link>
             </div>
           )}
+          {isSeller && (
+            <div
+              onClick={(event: MouseEvent) => {
+                event.stopPropagation();
+                if (setOpenSidebar) {
+                  setOpenSidebar(false);
+                  dispatch(updateHeader('sellerDashboard'));
+                  dispatch(updateCategoryContainer(true));
+                }
+              }}
+              className="cursor-pointer text-base font-medium text-gray-400"
+            >
+              <Link to={`/${lowerCase(`${authUser?.username}`)}/${seller?._id}/seller_dashboard`}>
+                <span>Switch to Selling</span>
+              </Link>
+            </div>
+          )}
+          <div className="flex w-full cursor-pointer flex-col text-base font-medium text-gray-400">
+            <span className="flex justify-between" onClick={toggleCategoriesDropdown}>
+              Browse Categories{' '}
+              {!toggleCategories ? <FaAngleDown className="mt-1 flex self-center" /> : <FaAngleUp className="mt-1 flex self-center" />}
+            </span>
+            <div className="">
+              <Transition
+                show={toggleCategories}
+                enter="transition ease-out duration-200"
+                enterFrom="opacity-0 translate-y-1"
+                enterTo="opacity-100 translate-y-0"
+                leave="transition ease-in duration-150"
+                leaveFrom="opacity-100 translate-y-0"
+                leaveTo="opacity-0 translate-y-1"
+              >
+                <ul>
+                  {categories().map((category: string) => (
+                    <li
+                      key={uuidv4()}
+                      className="flex cursor-pointer justify-between py-2 text-right hover:text-sky-400"
+                      onClick={() => {
+                        if (setOpenSidebar) {
+                          setOpenSidebar(false);
+                          dispatch(updateHeader('home'));
+                          dispatch(updateCategoryContainer(true));
+                        }
+                      }}
+                    >
+                      <span className="w-full pr-6">
+                        <Link
+                          to={`/categories/${replaceSpacesWithDash(category)}`}
+                          onClick={() => {
+                            socket.emit('getLoggedInUsers', '');
+                          }}
+                        >
+                          {category}
+                        </Link>
+                      </span>{' '}
+                      <FaAngleRight className="flex self-center" />
+                    </li>
+                  ))}
+                </ul>
+              </Transition>
+            </div>
     </div>
   );
 };
