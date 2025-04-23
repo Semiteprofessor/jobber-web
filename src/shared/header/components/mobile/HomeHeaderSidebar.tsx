@@ -1,4 +1,5 @@
 import React, { FC, ReactElement, useState } from 'react';
+import { Transition } from '@headlessui/react';
 import { IHeaderSideBarProps, ISettings } from '../../interfaces/header.interface';
 import { useAppDispatch, useAppSelector } from 'src/store/store';
 import { IReduxState } from 'src/store/store.interface';
@@ -8,6 +9,7 @@ import { updateHeader } from '../../reducers/header.reducer';
 import { updateCategoryContainer } from '../../reducers/category.reducer';
 import { socket } from 'src/sockets/socket.service';
 import { FaAngleDown, FaAngleRight, FaAngleUp } from 'react-icons/fa';
+import { v4 as uuidv4 } from 'uuid';
 
 const HomeHeaderSidebar: FC<IHeaderSideBarProps> = ({ setOpenSidebar }): ReactElement => {
   const authUser = useAppSelector((state: IReduxState) => state.authUser);
