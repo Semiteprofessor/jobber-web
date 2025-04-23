@@ -72,6 +72,32 @@ const HomeHeaderSidebar: FC<IHeaderSideBarProps> = ({ setOpenSidebar }): ReactEl
           >
             <Link to="/inbox">Inbox</Link>
           </div>
+          <div
+            onClick={(event: MouseEvent) => {
+              event.stopPropagation();
+              if (setOpenSidebar) {
+                setOpenSidebar(false);
+              }
+            }}
+            className="cursor-pointer text-base font-medium text-gray-400"
+          >
+            <Link to={`/users/${lowerCase(`${buyer?.username}`)}/${buyer?._id}/orders`}>Orders</Link>
+          </div>
+          {!isSeller && (
+            <div
+              onClick={(event: MouseEvent) => {
+                event.stopPropagation();
+                if (setOpenSidebar) {
+                  setOpenSidebar(false);
+                  dispatch(updateHeader('home'));
+                  dispatch(updateCategoryContainer(true));
+                }
+              }}
+              className="cursor-pointer text-base font-medium text-gray-400"
+            >
+              <Link to="/seller_onboarding">Become a Seller</Link>
+            </div>
+          )}
     </div>
   );
 };
