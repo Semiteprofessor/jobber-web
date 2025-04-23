@@ -15,6 +15,7 @@ import { filter, find } from 'lodash';
 import { updateNotification } from '../reducers/notification.reducer';
 import { IMessageDocument } from 'src/features/chat/interfaces/chat.interface';
 import { IOrderNotifcation } from 'src/features/order/interfaces/order.interface';
+import HomeHeaderSidebar from './mobile/HomeHeaderSidebar';
 
 const HomeHeader: FC<IHeaderModalProps> = ({ showCategotyContainer }): ReactElement => {
   const authUser = useAppSelector((state: IReduxState) => state.authUser);
@@ -131,8 +132,17 @@ const HomeHeader: FC<IHeaderModalProps> = ({ showCategotyContainer }): ReactElem
 
   return (
     <>
-    {openSidebar && <HomeHeaderSidebar />}
-      <header></header>
+      {openSidebar && <HomeHeaderSidebar setOpenSidebar={setOpenSidebar} />}
+      <header><nav className="navbar peer-checked:navbar-active relative z-[120] w-full border-b bg-white shadow-2xl shadow-gray-600/5 backdrop-blur dark:shadow-none">
+          {!logout && authUser && !authUser.emailVerified && (
+            <Banner
+              bgColor="bg-warning"
+              showLink={true}
+              linkText="Resend email"
+              text="Please verify your email before you proceed."
+              onClick={onResendEmail}
+            />
+          )}</header>
     </>
   );
 };
