@@ -16,6 +16,7 @@ import { updateNotification } from '../reducers/notification.reducer';
 import { IMessageDocument } from 'src/features/chat/interfaces/chat.interface';
 import { IOrderNotifcation } from 'src/features/order/interfaces/order.interface';
 import HomeHeaderSidebar from './mobile/HomeHeaderSidebar';
+import Banner from 'src/shared/banner/Banner';
 
 const HomeHeader: FC<IHeaderModalProps> = ({ showCategotyContainer }): ReactElement => {
   const authUser = useAppSelector((state: IReduxState) => state.authUser);
@@ -133,7 +134,8 @@ const HomeHeader: FC<IHeaderModalProps> = ({ showCategotyContainer }): ReactElem
   return (
     <>
       {openSidebar && <HomeHeaderSidebar setOpenSidebar={setOpenSidebar} />}
-      <header><nav className="navbar peer-checked:navbar-active relative z-[120] w-full border-b bg-white shadow-2xl shadow-gray-600/5 backdrop-blur dark:shadow-none">
+      <header>
+        <nav className="navbar peer-checked:navbar-active relative z-[120] w-full border-b bg-white shadow-2xl shadow-gray-600/5 backdrop-blur dark:shadow-none">
           {!logout && authUser && !authUser.emailVerified && (
             <Banner
               bgColor="bg-warning"
@@ -142,7 +144,37 @@ const HomeHeader: FC<IHeaderModalProps> = ({ showCategotyContainer }): ReactElem
               text="Please verify your email before you proceed."
               onClick={onResendEmail}
             />
-          )}</header>
+          )}<div className="m-auto px-6 xl:container md:px-12 lg:px-6">
+            <div className="flex flex-wrap items-center justify-between gap-6 md:gap-0 md:py-3 lg:py-5">
+              <div className="flex w-full gap-x-4 lg:w-6/12">
+                <div className="hidden w-full md:flex">
+                  <label htmlFor="hbr" className="peer-checked:hamburger relative z-20 -ml-4 block cursor-pointer p-6 lg:hidden">
+                    <Button
+                      className="m-auto flex h-0.5 w-5 items-center rounded transition duration-300"
+                      onClick={() => setOpenSidebar(!openSidebar)}
+                      label={
+                        <>{openSidebar ? <FaTimes className="h-6 w-6 text-sky-500" /> : <FaBars className="h-6 w-6 text-sky-500" />}</>
+                      }
+                    />
+                  </label>
+                  <div className="w-full gap-x-4 md:flex">
+                    <Link
+                      to="/"
+                      onClick={() => {
+                        dispatch(updateHeader('home'));
+                        dispatch(updateCategoryContainer(true));
+                      }}
+                      className="relative z-10 flex cursor-pointer justify-center self-center text-2xl font-semibold text-black lg:text-3xl"
+                    >
+                      Jobber
+                    </Link>
+                    <HeaderSearchInput />
+                  </div>
+                </div>
+                <MobileHeaderSearchInput setOpenSidebar={setOpenSidebar} />
+              </div>
+        </nav>
+      </header>
     </>
   );
 };
