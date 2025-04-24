@@ -5,6 +5,7 @@ import { resetPasswordSchema } from '../schemes/auth.schema';
 import { useSearchParams } from 'react-router-dom';
 import { useResetPasswordMutation } from '../services/auth.service';
 import { IResponse } from 'src/shared/shared.interface';
+import Header from 'src/shared/header/components/Header';
 
 const ResetPassword: FC = (): ReactElement => {
   const [alertMessage, setAlertMessage] = useState<string>('');
@@ -36,7 +37,16 @@ const ResetPassword: FC = (): ReactElement => {
       setAlertMessage(error?.data.message);
     }
   };
-  return <div>ResetPassword</div>;
+  return (
+    <>
+      <Header navClass="navbar peer-checked:navbar-active fixed z-20 w-full border-b border-gray-100 bg-white/90 shadow-2xl shadow-gray-600/5 backdrop-blur dark:border-gray-800 dark:bg-gray-900/80 dark:shadow-none" />
+      <div className="relative mt-24 mx-auto w-11/12 max-w-md rounded-lg bg-white md:w-2/3">
+      <div>
+        <h2>{alertMessage && <Alert  />}</h2>
+      </div>
+      </div>
+    </>
+  );
 };
 
 export default ResetPassword;
