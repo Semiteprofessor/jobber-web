@@ -63,6 +63,22 @@ const ResetPassword: FC = (): ReactElement => {
                   }}
                 />
               </div>
+              <div>
+                <label htmlFor="password" className="text-sm font-bold leading-tight tracking-normal text-gray-800">
+                  Confirm Password
+                </label>
+                <TextInput
+                  id="confirmPassword"
+                  name="confirmPassword"
+                  type="password"
+                  value={userInfo.confirmPassword}
+                  className="flex h-10 w-full items-center rounded border border-gray-300 pl-3 text-sm font-normal text-gray-600 focus:border focus:border-sky-500/50 focus:outline-none"
+                  placeholder="Enter confirm password"
+                  onChange={(event: ChangeEvent) => {
+                    setUserInfo({ ...userInfo, confirmPassword: (event.target as HTMLInputElement).value });
+                  }}
+                />
+              </div>
             </form>
           </h2>
         </div>
