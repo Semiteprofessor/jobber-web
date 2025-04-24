@@ -8,6 +8,7 @@ import { IResponse } from 'src/shared/shared.interface';
 import Header from 'src/shared/header/components/Header';
 import Alert from 'src/shared/alert/Alert';
 import TextInput from 'src/shared/inputs/TextInput';
+import Button from 'src/shared/button/Button';
 
 const ResetPassword: FC = (): ReactElement => {
   const [alertMessage, setAlertMessage] = useState<string>('');
@@ -79,6 +80,14 @@ const ResetPassword: FC = (): ReactElement => {
                   }}
                 />
               </div>
+              <Button
+                disabled={!userInfo.password || !userInfo.confirmPassword}
+                className={`text-md block w-full cursor-pointer rounded bg-sky-500 px-8 py-2 text-center font-bold text-white hover:bg-sky-400 focus:outline-none ${
+                  !userInfo.password || !userInfo.confirmPassword ? 'cursor-not-allowed' : 'cursor-pointer'
+                }`}
+                label={`${isLoading ? 'RESET PASSWORD IN PROGRESS...' : 'RESET PASSWORD'}`}
+                onClick={onResetPassword}
+              />
             </form>
           </h2>
         </div>
