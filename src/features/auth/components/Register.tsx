@@ -97,6 +97,24 @@ const RegisterModal: FC<IModalBgProps> = ({ onClose, onToggle }): ReactElement =
             />
           </div>
         </div>
+        <div className="flex w-full items-center justify-center px-5 py-5">
+          <ol className="flex w-full">
+            <li className="flex w-full items-center text-white after:inline-block after:h-1 after:w-full after:border-4 after:border-b after:border-sky-500 after:content-[''] dark:after:border-sky-500">
+              <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-sky-500 font-bold dark:bg-sky-500 lg:h-12 lg:w-12">
+                1
+              </span>
+            </li>
+            <li className="flex items-center">
+              <span
+                className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-full font-bold text-white lg:h-12 lg:w-12 ${
+                  step === 2 ? 'bg-sky-500 dark:bg-sky-500' : 'bg-sky-300/50 dark:bg-sky-300/50'
+                }`}
+              >
+                2
+              </span>
+            </li>
+          </ol>
+        </div>
       </div>
     </ModalBg>
   );
