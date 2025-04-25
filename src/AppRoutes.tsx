@@ -6,6 +6,7 @@ import ConfirmEmail from './features/auth/components/ConfirmEmail';
 import VerifyOTP from './features/auth/components/VerifyOTP';
 import GigsIndexDisplay from './features/index/gig-tabs/GigsIndexDisplay';
 import GigInfoDisplay from './features/index/gig-tabs/GigInfoDisplay';
+import Home from './features/home/components/Home';
 
 const Layout = ({ backgroundColor = '#fff', children }: { backgroundColor: string; children: ReactNode }): JSX.Element => (
   <div style={{ backgroundColor }} className="flex flex-grow">
@@ -70,6 +71,18 @@ const AppRouter: FC = () => {
           <Layout backgroundColor="#ffffff">
             <GigInfoDisplay />
           </Layout>
+        </Suspense>
+      )
+    },
+    {
+      path: '/',
+      element: (
+        <Suspense>
+          <ProtectedRoute>
+            <Layout backgroundColor="#ffffff">
+              <Home />
+            </Layout>
+          </ProtectedRoute>
         </Suspense>
       )
     }
