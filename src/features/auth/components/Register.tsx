@@ -75,7 +75,31 @@ const RegisterModal: FC<IModalBgProps> = ({ onClose, onToggle }): ReactElement =
     }
   };
 
-  return <div className="font-bold">RegisterModal</div>;
+  return (
+    <ModalBg>
+      <div className="relative top-[10%] mx-auto w-11/12 max-w-md rounded bg-white md:w-2/3">
+        <div className="relative px-5 py-5">
+          <div className="flex justify-between text-2xl font-bold text-gray-600">
+            {step > 1 && (
+              <Button
+                className="cursor-pointer rounded text-gray-400 hover:text-gray-600"
+                role="button"
+                onClick={() => setStep(step - 1)}
+                label={<FaChevronLeft className="icon icon-tabler icon-tabler-x" />}
+              />
+            )}
+            <h1 className="flex w-full justify-center">Join Jobber</h1>
+            <Button
+              className="cursor-pointer rounded text-gray-400 hover:text-gray-600"
+              role="button"
+              onClick={onClose}
+              label={<FaTimes className="icon icon-tabler icon-tabler-x" />}
+            />
+          </div>
+        </div>
+      </div>
+    </ModalBg>
+  );
 };
 
 export default RegisterModal;
