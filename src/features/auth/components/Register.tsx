@@ -207,6 +207,48 @@ const RegisterModal: FC<IModalBgProps> = ({ onClose, onToggle }): ReactElement =
                 />
               </div>
             </div>
+            <div className="relative">
+              <label htmlFor="profilePicture" className="text-sm font-bold leading-tight tracking-normal text-gray-800">
+                Profile Picture
+              </label>
+              <div
+                onMouseEnter={() => setShowImageSelect(true)}
+                onMouseLeave={() => setShowImageSelect(false)}
+                className="relative mb-5 mt-2 w-[20%] cursor-pointer"
+              >
+                {profileImage && (
+                  <img
+                    id="profilePicture"
+                    src={profileImage}
+                    alt="Profile Picture"
+                    className="left-0 top-0 h-20 w-20 rounded-full bg-white object-cover"
+                  />
+                )}
+                {!profileImage && (
+                  <div className="left-0 top-0 flex h-20 w-20 cursor-pointer justify-center rounded-full bg-[#dee1e7]"></div>
+                )}
+                {showImageSelect && (
+                  <div
+                    onClick={() => fileInputRef.current?.click()}
+                    className="absolute left-0 top-0 flex h-20 w-20 cursor-pointer justify-center rounded-full bg-[#dee1e7]"
+                  >
+                    <FaCamera className="flex self-center" />
+                  </div>
+                )}
+                <TextInput
+                  name="image"
+                  ref={fileInputRef}
+                  type="file"
+                  style={{ display: 'none' }}
+                  onClick={() => {
+                    if (fileInputRef.current) {
+                      fileInputRef.current.value = '';
+                    }
+                  }}
+                  onChange={handleFileChange}
+                />
+              </div>
+            </div>
       </div>
     </ModalBg>
   );
