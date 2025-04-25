@@ -115,6 +115,42 @@ const RegisterModal: FC<IModalBgProps> = ({ onClose, onToggle }): ReactElement =
             </li>
           </ol>
         </div>
+        <div className="px-5">{alertMessage && <Alert type="error" message={alertMessage} />}</div>
+
+        {step === 1 && (
+          <div className="relative px-5 py-5">
+            <div>
+              <label htmlFor="username" className="text-sm font-bold leading-tight tracking-normal text-gray-800">
+                Username
+              </label>
+              <TextInput
+                id="username"
+                name="username"
+                type="text"
+                value={userInfo.username}
+                className="mb-5 mt-2 flex h-10 w-full items-center rounded border border-gray-300 pl-3 text-sm font-normal text-gray-600 focus:border focus:border-sky-500/50 focus:outline-none"
+                placeholder="Enter username"
+                onChange={(event: ChangeEvent) => {
+                  setUserInfo({ ...userInfo, username: (event.target as HTMLInputElement).value });
+                }}
+              />
+            </div>
+            <div>
+              <label htmlFor="email" className="text-sm font-bold leading-tight tracking-normal text-gray-800">
+                Email
+              </label>
+              <TextInput
+                id="email"
+                name="email"
+                type="email"
+                value={userInfo.email}
+                className="mb-5 mt-2 flex h-10 w-full items-center rounded border border-gray-300 pl-3 text-sm font-normal text-gray-600 focus:border focus:border-sky-500/50 focus:outline-none"
+                placeholder="Enter email"
+                onChange={(event: ChangeEvent) => {
+                  setUserInfo({ ...userInfo, email: (event.target as HTMLInputElement).value });
+                }}
+              />
+            </div>
       </div>
     </ModalBg>
   );
