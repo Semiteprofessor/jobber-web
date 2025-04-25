@@ -249,6 +249,35 @@ const RegisterModal: FC<IModalBgProps> = ({ onClose, onToggle }): ReactElement =
                 />
               </div>
             </div>
+            <Button
+              disabled={!userInfo.country || !userInfo.profilePicture}
+              className={`text-md block w-full cursor-pointer rounded bg-sky-500 px-8 py-2 text-center font-bold text-white hover:bg-sky-400 focus:outline-none ${
+                !userInfo.country || !userInfo.profilePicture ? 'cursor-not-allowed' : 'cursor-pointer'
+              }`}
+              label={`${isLoading ? 'SIGNUP IN PROGRESS...' : 'SIGNUP'}`}
+              onClick={onRegisterUser}
+            />
+          </div>
+        )}
+
+        <hr />
+        <div className="px-5 py-4">
+          <div className="ml-2 flex w-full justify-center text-sm font-medium">
+            <div className="flex justify-center">
+              Already a memeber?{' '}
+              <p
+                onClick={() => {
+                  if (onToggle) {
+                    onToggle(true);
+                  }
+                }}
+                className="ml-2 flex cursor-pointer text-blue-600 hover:underline"
+              >
+                Sign In
+              </p>
+            </div>
+          </div>
+        </div>
       </div>
     </ModalBg>
   );
