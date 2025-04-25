@@ -186,6 +186,27 @@ const RegisterModal: FC<IModalBgProps> = ({ onClose, onToggle }): ReactElement =
             />
           </div>
         )}
+        {step === 2 && (
+          <div className="relative px-5 py-5">
+            <div className="h-24">
+              <label htmlFor="country" className="text-sm font-bold leading-tight tracking-normal text-gray-800">
+                Country
+              </label>
+              <div id="country" className="relative mb-5 mt-2">
+                <Dropdown
+                  text={country}
+                  maxHeight="200"
+                  mainClassNames="absolute bg-white z-50"
+                  showSearchInput={true}
+                  values={countriesList()}
+                  setValue={setCountry}
+                  onClick={(item: string) => {
+                    setCountry(item);
+                    setUserInfo({ ...userInfo, country: item });
+                  }}
+                />
+              </div>
+            </div>
       </div>
     </ModalBg>
   );
