@@ -12,7 +12,28 @@ export interface IProtectedRouteProps {
   children: ReactNode;
 }
 
-const ProtectedRoute = () => {
+const ProtectedRoute: FC<IProtectedRouteProps> = ({ children }): ReactElement => {
+  const authUser = useAppSelector((state: IReduxState) => state.authUser);
+  const showCategoryContainer = useAppSelector((state: IReduxState) => state.showCategoryContainer);
+  const header = useAppSelector((state: IReduxState) => state.header);
+  const [tokenIsValid, setTokenIsValid] = useState<boolean>(false);
+  const dispatch = useAppDispatch();
+  const navigate: NavigateFunction = useNavigate();
+  const { data, isError } = useCheckCurrentUserQuery();
+
+  const checkUser = useCallback(async () => {
+    if (data && data.user) {
+      setTokenIsValid(true);
+      dispatch(addAuthUser({ authInfo: data.user }));
+      saveToSessionStorage(JSON.stringify(true), JSON.stringify(authUser.username));
+    }
+
+    if (isError) {
+      setTokenIsValid(false);
+      applicationLogout(dispatch, navigate);
+    }
+  }, [data, dispatch, navigate, isError, authUser.username]);
+
   return <div>ProtectedRoute</div>;
 };
 
