@@ -151,6 +151,41 @@ const RegisterModal: FC<IModalBgProps> = ({ onClose, onToggle }): ReactElement =
                 }}
               />
             </div>
+            <div>
+              <label htmlFor="password" className="text-sm font-bold leading-tight tracking-normal text-gray-800">
+                Password
+              </label>
+              <div className="relative mb-5 mt-2">
+                <div className="absolute right-0 flex h-full cursor-pointer items-center pr-3 text-gray-600">
+                  {passwordType === 'password' ? (
+                    <FaEyeSlash onClick={() => setPasswordType('text')} className="icon icon-tabler icon-tabler-info-circle" />
+                  ) : (
+                    <FaEye onClick={() => setPasswordType('password')} className="icon icon-tabler icon-tabler-info-circle" />
+                  )}
+                </div>
+                <TextInput
+                  id="password"
+                  name="password"
+                  type={passwordType}
+                  value={userInfo.password}
+                  className="flex h-10 w-full items-center rounded border border-gray-300 pl-3 text-sm font-normal text-gray-600 focus:border focus:border-sky-500/50 focus:outline-none"
+                  placeholder="Enter password"
+                  onChange={(event: ChangeEvent) => {
+                    setUserInfo({ ...userInfo, password: (event.target as HTMLInputElement).value });
+                  }}
+                />
+              </div>
+            </div>
+            <Button
+              disabled={!userInfo.username || !userInfo.email || !userInfo.password}
+              className={`text-md block w-full cursor-pointer rounded bg-sky-500 px-8 py-2 text-center font-bold text-white hover:bg-sky-400 focus:outline-none ${
+                !userInfo.username || !userInfo.email || !userInfo.password ? 'cursor-not-allowed' : 'cursor-pointer'
+              }`}
+              label="Continue"
+              onClick={() => setStep(2)}
+            />
+          </div>
+        )}
       </div>
     </ModalBg>
   );
