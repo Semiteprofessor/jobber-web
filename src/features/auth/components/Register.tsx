@@ -7,7 +7,7 @@ import Dropdown from 'src/shared/dropdown/Dropdown';
 import { updateCategoryContainer } from 'src/shared/header/reducers/category.reducer';
 import { updateHeader } from 'src/shared/header/reducers/header.reducer';
 import TextInput from 'src/shared/inputs/TextInput';
-import { IModalBgProps } from 'src/shared/modals/interfaces/modal.interface';
+import { IModalBgProps } from 'src/shared/modals/interfaces/m';
 import ModalBg from 'src/shared/modals/ModalBg';
 import { IResponse } from 'src/shared/shared.interface';
 import { checkImage, readAsBase64 } from 'src/shared/utils/image-utils.service';
