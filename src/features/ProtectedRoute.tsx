@@ -34,7 +34,23 @@ const ProtectedRoute: FC<IProtectedRouteProps> = ({ children }): ReactElement =>
     }
   }, [data, dispatch, navigate, isError, authUser.username]);
 
-  return <div>ProtectedRoute</div>;
-};
+  useEffect(() => {
+    checkUser();
+  }, [checkUser]);
 
+  if ((data && data.user) || authUser) {
+    if (tokenIsValid) {
+      return (
+        <>
+          {header && header === 'home' && <HomeHeader showCategoryContainer={showCategoryContainer} />}
+          {children}
+        </>
+      );
+    } else {
+      return <></>;
+    }
+  } else {
+    return <>{<Navigate to="/" />}</>;
+  }
+};
 export default ProtectedRoute;
