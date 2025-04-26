@@ -1,11 +1,11 @@
-import { useState } from 'react';
-import { ISellerGig } from 'src/features/gigs/interfaces/gig.interface';
-import { replaceAmpersandAndDashWithSpace, lowerCase, categories, replaceSpacesWithDash } from '../utils/util.service';
+import { FC, ReactElement, useState } from 'react';
 import { useGetAuthGigsByCategoryQuery } from 'src/features/auth/services/auth.service';
+import { ISellerGig } from 'src/features/gigs/interfaces/gig.interface';
+import TopGigsView from 'src/shared/gigs/TopGigsView';
+import { categories, lowerCase, replaceAmpersandAndDashWithSpace, replaceSpacesWithDash } from 'src/shared/utils/util.service';
 import { v4 as uuidv4 } from 'uuid';
-import TopGigsView from './TopGigsView';
 
-const GigTabs = () => {
+const GigTabs: FC = (): ReactElement => {
   const [activeTab, setActiveTab] = useState<string>('Graphics & Design');
   const queryType = `query=${replaceAmpersandAndDashWithSpace(`${lowerCase(activeTab)}`)}`;
   const { data, isSuccess } = useGetAuthGigsByCategoryQuery({
