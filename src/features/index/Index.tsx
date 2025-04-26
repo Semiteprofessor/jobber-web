@@ -5,6 +5,7 @@ import Hero from './Hero';
 import { IHeader } from 'src/shared/header/interfaces/header.interface';
 import GigTabs from 'src/features/index/gig-tabs/GigTabs';
 import HowItWorks from './HowItWorks';
+import Categories from './Categories';
 
 const IndexHeader: LazyExoticComponent<FC<IHeader>> = lazy(() => import('src/shared/header/components/Header'));
 

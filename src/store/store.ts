@@ -1,17 +1,18 @@
+import { combineReducers, configureStore } from '@reduxjs/toolkit';
+import { setupListeners } from '@reduxjs/toolkit/query';
+import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux';
+import { Reducer } from 'redux';
 import { FLUSH, PAUSE, PERSIST, persistReducer, PURGE, REGISTER, REHYDRATE } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
-import { combineReducers, configureStore, Reducer } from '@reduxjs/toolkit';
-import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux';
-import authReducer from '../../src/features/auth/reducers/auth.reducer';
-import buyerReducer from '../../src/features/buyer/reducers/buyer.reducer';
-import sellerReducer from '../../src/features/sellers/reducers/seller.reducer';
-import categoryReducer from '../../src/shared/header/reducers/category.reducer';
-import headerReducer from '../../src/shared/header/reducers/header.reducer';
-import notificationReducer from '../../src/shared/header/reducers/notification.reducer';
+import authReducer from 'src/features/auth/reducers/auth.reducer';
+import logoutReducer from 'src/features/auth/reducers/logout.reducer';
+import buyerReducer from 'src/features/buyer/reducers/buyer.reducer';
+import sellerReducer from 'src/features/sellers/reducers/seller.reducer';
+import categoryReducer from 'src/shared/header/reducers/category.reducer';
+import headerReducer from 'src/shared/header/reducers/header.reducer';
+import notificationReducer from 'src/shared/header/reducers/notification.reducer';
 
 import { api } from './api';
-import logoutReducer from 'src/features/auth/reducers/logout.reducer';
-import { setupListeners } from '@reduxjs/toolkit/query';
 
 const persistConfig = {
   key: 'root',
