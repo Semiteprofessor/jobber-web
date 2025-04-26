@@ -1,4 +1,4 @@
-import { FC, ReactNode } from 'react';
+import { FC, ReactNode, Suspense } from 'react';
 import { RouteObject } from 'react-router-dom';
 
 const Layout = ({ backgroundColor = '#fff', children }: { backgroundColor: string; children: ReactNode }): JSX.Element => (
@@ -9,7 +9,14 @@ const Layout = ({ backgroundColor = '#fff', children }: { backgroundColor: strin
 
 const AppRouter: FC = () => {
     const routes: RouteObject[] = [
-        
+        {
+            path: '/',
+            element: (
+                <Suspense>
+                    <ResetPassword />
+                </Suspense>
+            )
+        }
     ]
   return <div>AppRouter</div>;
 };
