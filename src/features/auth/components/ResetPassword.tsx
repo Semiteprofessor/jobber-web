@@ -1,6 +1,7 @@
 import { FC, ReactElement, useState } from 'react';
 import { AUTH_FETCH_STATUS, IResetPassword } from '../interfaces/auth.interface';
-import { useAuthSchema } from '../hooks/useAuthSchema';
+import { useAuthSchema } from 'src/shared/hooks/useAuthSchema';
+import { resetPasswordSchema } from '../schemes/auth.schema';
 
 const ResetPassword: FC = (): ReactElement => {
   const [alertMessage, setAlertMessage] = useState<string>('');
@@ -9,7 +10,7 @@ const ResetPassword: FC = (): ReactElement => {
     confirmPassword: ''
   });
   const [status, setStatus] = useState<string>(AUTH_FETCH_STATUS.IDLE);
-  const [schemaValidation] = useAuthSchema({});
+  const [schemaValidation] = useAuthSchema({schema: resetPasswordSchema, userInfo});
   return <div>ResetPassword</div>;
 };
 
