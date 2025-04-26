@@ -4,6 +4,7 @@ import CircularPageLoader from 'src/shared/page-loader/CircularPageLoader';
 import Hero from './Hero';
 import { IHeader } from 'src/shared/header/interfaces/header.interface';
 import GigTabs from 'src/features/index/gig-tabs/GigTabs';
+import HowItWorks from './HowItWorks';
 
 const IndexHeader: LazyExoticComponent<FC<IHeader>> = lazy(() => import('src/shared/header/components/Header'));
 
@@ -15,6 +16,8 @@ const Index: FC = (): ReactElement => {
         <Hero />
         <GigTabs />
         <HowItWorks />
+        <hr />
+        <Categories />
       </Suspense>
     </div>
   );
