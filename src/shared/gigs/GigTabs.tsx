@@ -1,7 +1,8 @@
 import { useState } from 'react';
 import { ISellerGig } from 'src/features/gigs/interfaces/gig.interface';
-import { replaceAmpersandAndDashWithSpace, lowerCase } from '../utils/util.service';
+import { replaceAmpersandAndDashWithSpace, lowerCase, categories } from '../utils/util.service';
 import { useGetAuthGigsByCategoryQuery } from 'src/features/auth/services/auth.service';
+import { v4 as uuidv4 } from 'uuid';
 
 const GigTabs = () => {
   const [activeTab, setActiveTab] = useState<string>('Graphics & Design');
