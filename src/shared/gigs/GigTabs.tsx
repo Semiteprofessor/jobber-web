@@ -1,8 +1,9 @@
 import { useState } from 'react';
 import { ISellerGig } from 'src/features/gigs/interfaces/gig.interface';
-import { replaceAmpersandAndDashWithSpace, lowerCase, categories } from '../utils/util.service';
+import { replaceAmpersandAndDashWithSpace, lowerCase, categories, replaceSpacesWithDash } from '../utils/util.service';
 import { useGetAuthGigsByCategoryQuery } from 'src/features/auth/services/auth.service';
 import { v4 as uuidv4 } from 'uuid';
+import TopGigsView from './TopGigsView';
 
 const GigTabs = () => {
   const [activeTab, setActiveTab] = useState<string>('Graphics & Design');
@@ -37,6 +38,21 @@ const GigTabs = () => {
               </li>
             ))}
           </ul>
+        </div>
+        <div className="mt-4 h-full overflow-hidden border px-6 py-6">
+          {categoryGigs.length > 0 ? (
+            <>
+              <a
+                className="mt-10 w-[10%] rounded border border-black px-6 py-3 text-center text-sm font-bold text-black hover:bg-gray-100 focus:outline-none md:px-4 md:py-2 md:text-base"
+                href={`/search/categories/${replaceSpacesWithDash(activeTab)}`}
+              >
+                Explore
+              </a>
+              <TopGigsView gigs={categoryGigs} width="w-72" type="index" />
+            </>
+          ) : (
+            <div className="flex h-96 items-center justify-center text-lg">Information not available at the moment.</div>
+          )}
         </div>
       </div>
     </div>
