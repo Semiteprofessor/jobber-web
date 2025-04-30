@@ -34,7 +34,49 @@ const GigsIndexDisplay: FC<IGigsProps> = ({ type }): ReactElement => {
     size: `${ITEMS_PER_PAGE}`,
     type: paginationType
   });
-  return <div>GigsIndexDisplay</div>;
+
+  if (isSuccess) {
+    gigs = data?.gigs as ISellerGig[];
+    gigsCurrent.current = data?.gigs as ISellerGig[];
+    totalGigs = data.total ?? 0;
+  }
+
+  const categoryName = find(categories(), (item: string) => location.pathname.includes(replaceSpacesWithDash(`${lowerCase(`${item}`)}`)));
+  const gigCategories = categoryName ?? searchParams.get('query');
+
+  return (
+    <div className="flex w-screen flex-col">
+      <Header navClass="navbar peer-checked:navbar-active z-20 w-full border-b border-gray-100 bg-white/90 shadow-2xl shadow-gray-600/5 backdrop-blur dark:border-gray-800 dark:bg-gray-900/80 dark:shadow-none" />
+      <div>
+        {isLoading && !isSuccess ? (
+          <CircularPageLoader />
+        ) : (
+          <>
+            {!isLoading && gigs.length > 0 ? (
+              <>
+                <h3 className="mb-5 flex gap-3 text-4xl">
+                  {type === 'search' && <span className="text-black">Results for</span>}
+                  <strong className="text-black">{gigCategories}</strong>
+                </h3>
+                <div className="my-5">
+                  <div className="grid gap-x-6 pt-6 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+                    {gigs.map((gig: ISellerGig) => (
+                      <GigIndexItem key={uuidv4()} gig={gig} />
+                    ))}
+                  </div>
+                </div>
+              </>
+            ) : (
+              <PageMessage
+                header="No services found for your search"
+                body="Try a new search or get a free quote for your project from our commnunity of freelancers."
+              />
+            )}
+          </>
+        )}
+      </div>
+    </div>
+  );
 };
 
 export default GigsIndexDisplay;
