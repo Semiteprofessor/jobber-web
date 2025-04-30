@@ -1,0 +1,11 @@
+import { find, lowerCase } from 'lodash';
+import { FC, ReactElement, useRef, useState } from 'react';
+import { useLocation, useParams, useSearchParams } from 'react-router-dom';
+import { useGetAuthGigsByCategoryQuery } from 'src/features/auth/services/auth.service';
+import { IGigsProps, ISellerGig } from 'src/features/gigs/interfaces/gig.interface';
+import GigPaginate from 'src/shared/gigs/GigPaginate';
+import Header from 'src/shared/header/components/Header';
+import CircularPageLoader from 'src/shared/page-loader/CircularPageLoader';
+import PageMessage from 'src/shared/page-message/PageMessage';
+import { categories, replaceAmpersandAndDashWithSpace, replaceDashWithSpaces, replaceSpacesWithDash } from 'src/shared/utils/utils.service';
+import { v4 as uuidv4 } from 'uuid';

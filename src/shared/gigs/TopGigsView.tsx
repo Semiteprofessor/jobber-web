@@ -5,6 +5,8 @@ import { Link } from 'react-router-dom';
 import { IGigTopProps, ISellerGig } from 'src/features/gigs/interfaces/gig.interface';
 import { socket } from 'src/sockets/socket.service';
 import GigCardDisplayItem from './GigCardDisplayItem';
+import GigIndexItem from 'src/features/index/gig-tabs/GigIndexItem';
+import { replaceSpacesWithDash } from '../utils/util.service';
 
 interface IScrollProps {
   start: boolean;

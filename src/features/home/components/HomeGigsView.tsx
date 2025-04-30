@@ -1,8 +1,11 @@
 import React, { FC, ReactElement } from 'react';
+import { v4 as uuidv4 } from 'uuid';
 import { IHomeProps } from '../interfaces/home.interface';
 import { socket } from 'src/sockets/socket.service';
 import { Link } from 'react-router-dom';
 import { ISellerGig } from 'src/features/gigs/interfaces/gig.interface';
+import GigCardDisplayItem from 'src/shared/gigs/GigCardDisplayItem';
+import { replaceSpacesWithDash } from 'src/shared/utils/util.service';
 
 const HomeGigsView: FC<IHomeProps> = ({ gigs, title, subTitle, category }): ReactElement => {
   return (
@@ -24,9 +27,9 @@ const HomeGigsView: FC<IHomeProps> = ({ gigs, title, subTitle, category }): Reac
       </div>
       <div className="flex w-full flex-nowrap items-center justify-center overflow-x-hidden px-6 md:overflow-x-auto lg:overflow-x-hidden">
         <div className="grid justify-center gap-x-8 pt-3 sm:h-full sm:w-full sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
-          {/* {gigs.map((gig: ISellerGig) => (
+          {gigs.map((gig: ISellerGig) => (
             <GigCardDisplayItem key={uuidv4()} gig={gig} linkTarget={false} showEditIcon={false} />
-          ))} */}
+          ))}
         </div>
       </div>
     </div>

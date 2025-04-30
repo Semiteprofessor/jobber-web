@@ -8,8 +8,8 @@ const GigIndexItem: FC<IGigsProps> = ({ gig }): ReactElement => {
   const gigData: ISellerGig = gig as ISellerGig;
   const title: string = replaceSpacesWithDash(gigData.title);
   return (
-    <div>
-      <div>
+    <div className="rounded">
+      <div className="mb-8 flex cursor-pointer flex-col gap-2">
         <Link to={`/gig/${gigData.id}/${title}`}>
           <LazyLoadImage
             src={gigData.coverImage}
