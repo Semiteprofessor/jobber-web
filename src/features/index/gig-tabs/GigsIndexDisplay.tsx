@@ -21,6 +21,19 @@ const GigsIndexDisplay: FC<IGigsProps> = ({ type }): ReactElement => {
   const { category } = useParams<string>();
   const [searchParams] = useSearchParams({});
   const location = useLocation();
+  let gigs: ISellerGig[] = [];
+  let totalGigs = 0;
+  const updatedSearchParams: URLSearchParams = new URLSearchParams(searchParams.toString());
+  const queryType: string =
+    type === 'search'
+      ? replaceDashWithSpaces(`${updatedSearchParams}`)
+      : `query=${replaceAmpersandAndDashWithSpace(`${lowerCase(`${category}`)}`)}&${updatedSearchParams.toString()}`;
+  const { data, isSuccess, isLoading, isError } = useGetAuthGigsByCategoryQuery({
+    query: `${queryType}`,
+    from: itemFrom,
+    size: `${ITEMS_PER_PAGE}`,
+    type: paginationType
+  });
   return <div>GigsIndexDisplay</div>;
 };
 
