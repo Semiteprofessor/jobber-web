@@ -1,5 +1,6 @@
 import React, { FC, ReactElement, useRef, useState } from 'react';
 import { FaAngleLeft, FaAngleRight } from 'react-icons/fa';
+import { v4 as uuidv4 } from 'uuid';
 import { Link } from 'react-router-dom';
 import { IGigTopProps, ISellerGig } from 'src/features/gigs/interfaces/gig.interface';
 import { socket } from 'src/sockets/socket.service';
