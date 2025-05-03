@@ -6,8 +6,8 @@ import { filter } from "lodash";
 import millify from "millify";
 import { NavigateFunction } from "react-router-dom";
 import { toast } from "react-toastify";
-import { logout } from "src/features/auth/reducers/logout.reducer";
-import { authApi } from "src/features/auth/services/auth.service";
+import { logout } from "../../features/auth/reducers/logout.reducer";
+import { authApi } from "../../features/auth/services/auth.service";
 import { api } from "src/store/api";
 import { IOrderDocument } from "../../features/order/interfaces/order.interface";
 

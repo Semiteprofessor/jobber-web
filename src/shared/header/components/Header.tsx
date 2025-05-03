@@ -150,6 +150,7 @@ const Header: FC<IHeader> = ({ navClass }): ReactElement => {
                     </li>
                   </ul>
                 </div>
+                <div className="border-primary/10 -ml-1 flex w-full flex-col space-y-2 dark:border-gray-700 sm:flex-row md:w-max lg:space-y-0 lg:border-l"></div>
               </div>
             </div>
           </div>
