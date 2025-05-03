@@ -44,7 +44,7 @@ const Header: FC<IHeader> = ({ navClass }): ReactElement => {
         />
       )}
       {showModal.login && (
-        <LoginModal
+        <RegisterModal
           onClose={() =>
             setShowModal((item: IHeaderModalProps) => ({
               ...item,
@@ -150,7 +150,38 @@ const Header: FC<IHeader> = ({ navClass }): ReactElement => {
                     </li>
                   </ul>
                 </div>
-                <div className="border-primary/10 -ml-1 flex w-full flex-col space-y-2 dark:border-gray-700 sm:flex-row md:w-max lg:space-y-0 lg:border-l"></div>
+                <div className="border-primary/10 -ml-1 flex w-full flex-col space-y-2 dark:border-gray-700 sm:flex-row md:w-max lg:space-y-0 lg:border-l">
+                  <div
+                    onClick={() =>
+                      setShowModal((item: IHeaderModalProps) => ({
+                        ...item,
+                        login: true,
+                      }))
+                    }
+                    className="relative ml-auto flex h-9 items-center justify-center before:absolute
+                            before:inset-0 before:rounded-full before:transition before:duration-300
+                            hover:before:scale-105 focus:before:bg-sky-600/10 active:duration-75 active:before:scale-95
+                            dark:focus:before:bg-sky-400/10 sm:px-6"
+                  >
+                    <span className="relative text-sm font-semibold text-gray-600 dark:text-gray-300">
+                      Sign In
+                    </span>
+                  </div>
+                  <div
+                    onClick={() =>
+                      setShowModal((item: IHeaderModalProps) => ({
+                        ...item,
+                        register: true,
+                      }))
+                    }
+                    className="relative ml-auto flex h-9 items-center justify-center rounded-full bg-sky-500
+                            text-white font-bold sm:px-6 hover:bg-sky-400"
+                  >
+                    <span className="relative text-sm font-semibold text-white">
+                      Sign Up
+                    </span>
+                  </div>
+                </div>
               </div>
             </div>
           </div>

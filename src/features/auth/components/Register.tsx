@@ -1,0 +1,31 @@
+import { ChangeEvent, FC, ReactElement, useRef, useState } from "react";
+import { useDeviceData, useMobileOrientation } from "react-device-detect";
+import {
+  FaCamera,
+  FaChevronLeft,
+  FaEye,
+  FaEyeSlash,
+  FaTimes,
+} from "react-icons/fa";
+import Alert from "src/shared/alert/Alert";
+import Button from "src/shared/button/Button";
+import Dropdown from "src/shared/dropdown/Dropdown";
+import { updateCategoryContainer } from "src/shared/header/reducers/category.reducer";
+import { updateHeader } from "src/shared/header/reducers/header.reducer";
+import TextInput from "src/shared/inputs/TextInput";
+import { IModalBgProps } from "src/shared/modals/interfaces/modal.interface";
+import ModalBg from "src/shared/modals/ModalBg";
+import { IResponse } from "src/shared/shared.interface";
+import { checkImage, readAsBase64 } from "src/shared/utils/image-utils.service";
+import {
+  countriesList,
+  saveToSessionStorage,
+} from "src/shared/utils/utils.service";
+import { useAppDispatch } from "src/store/store";
+
+import { useAuthSchema } from "../hooks/useAuthSchema";
+import { ISignUpPayload } from "../interfaces/auth.interface";
+import { addAuthUser } from "../reducers/auth.reducer";
+import { updateLogout } from "../reducers/logout.reducer";
+import { registerUserSchema } from "../schemes/auth.schema";
+import { useSignUpMutation } from "../services/auth.service";
