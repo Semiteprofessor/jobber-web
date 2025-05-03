@@ -1,4 +1,11 @@
-import { fetchBaseQuery } from "@reduxjs/toolkit/query";
+import {
+  BaseQueryFn,
+  createApi,
+  FetchArgs,
+  fetchBaseQuery,
+  FetchBaseQueryError,
+} from "@reduxjs/toolkit/query";
+import { getDataFromSessionStorage } from "../shared/utils/util.service";
 
 const BASE_ENDPOINT = import.meta.env.VITE_BASE_ENDPOINT;
 
