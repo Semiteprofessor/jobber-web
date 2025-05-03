@@ -29,3 +29,13 @@ import { addAuthUser } from "../reducers/auth.reducer";
 import { updateLogout } from "../reducers/logout.reducer";
 import { registerUserSchema } from "../schemes/auth.schema";
 import { useSignUpMutation } from "../services/auth.service";
+
+const RegisterModal: FC<IModalBgProps> = ({
+  onClose,
+  onToggle,
+}): ReactElement => {
+    
+  return <div>RegisterModal</div>;
+};
+
+export default RegisterModal;
