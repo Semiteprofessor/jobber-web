@@ -26,7 +26,7 @@ const baseQueryWithReAuth: BaseQueryFn<
 > = async (args, api, extraOptions) => {
   const result = await baseQuery(args, api, extraOptions);
   if (result.error && result.error.status === 401) {
-    const loggedInUsername: string = getDataFromSessionStorage("loggedInuser");
+    const loggedInUsername: string = getDataFromSessionStorage("loggedInUser");
     await baseQuery(
       `/auth/refresh-token/${loggedInUsername}`,
       api,
@@ -41,7 +41,7 @@ export const api = createApi({
   baseQuery: baseQueryWithReAuth,
   tagTypes: [
     "Auth",
-    "Currentuser",
+    "CurrentUser",
     "Buyer",
     "Seller",
     "Chat",

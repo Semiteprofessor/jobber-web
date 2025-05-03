@@ -8,7 +8,7 @@ import { NavigateFunction } from "react-router-dom";
 import { toast } from "react-toastify";
 import { logout } from "../../features/auth/reducers/logout.reducer";
 import { authApi } from "../../features/auth/services/auth.service";
-import { api } from "src/store/api";
+import { api } from "../../store/api";
 import { IOrderDocument } from "../../features/order/interfaces/order.interface";
 
 countries.registerLocale(enLocale);
