@@ -34,7 +34,24 @@ const RegisterModal: FC<IModalBgProps> = ({
   onClose,
   onToggle,
 }): ReactElement => {
-    
+  const mobileOrientation = useMobileOrientation();
+  const deviceData = useDeviceData(window.navigator.userAgent);
+  const [step, setStep] = useState<number>(1);
+  const [alertMessage, setAlertMessage] = useState<string>("");
+  const [country, setCountry] = useState<string>("Select Country");
+  const [passwordType, setPasswordType] = useState<string>("password");
+  const [profileImage, setProfileImage] = useState<string>(
+    "https://placehold.co/330x220?text=Profile+Image"
+  );
+  const [showImageSelect, setShowImageSelect] = useState<boolean>(false);const [userInfo, setUserInfo] = useState<ISignUpPayload>({
+    username: "",
+    password: "",
+    email: "",
+    country: "",
+    profilePicture: "",
+    browserName: deviceData.browser.name,
+    deviceType: mobileOrientation.isLandscape ? "browser" : "mobile",
+  });
   return <div>RegisterModal</div>;
 };
 
