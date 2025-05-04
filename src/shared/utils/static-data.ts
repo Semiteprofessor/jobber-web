@@ -138,3 +138,74 @@ export const sliderImagesText: ISliderImagesText[] = [
     subHeader: "Your Vision, Our Innovation",
   },
 ];
+
+export const categories: ICategory[] = [
+  {
+    name: "Programming & Tech",
+    icon: create,
+  },
+  {
+    name: "Graphic & Design",
+    icon: browseImage,
+  },
+  {
+    name: "Digital Marketing",
+    icon: collaborate,
+  },
+  {
+    name: "Writing & Translation",
+    icon: contact,
+  },
+  {
+    name: "Video & Animation",
+    icon: collaborate,
+  },
+  {
+    name: "Music & Audio",
+    icon: collaborate,
+  },
+  {
+    name: "Data",
+    icon: collaborate,
+  },
+  {
+    name: "Business",
+    icon: collaborate,
+  },
+];
+
+export const PASSWORD_TYPE = {
+  TEXT: "text",
+  PASSWORD: "password",
+};
+
+export const STATIC_DATA = {
+  EMPTY: "",
+  USERNAME: "username",
+  PASSWORD: "password",
+  CONFIRM_PASSWORD: "confirmPassword",
+  EMAIL: "email",
+  COUNTRY: "country",
+  PROFILE_PICTURE: "profilePicture",
+  TITLE: "title",
+  BASIC_TITLE: "basicTitle",
+  BASIC_DESCRIPTION: "basicDescription",
+  DESCRIPTION: "description",
+  CATEGORIES: "categories",
+  SUB_CATEGORIES: "subCategories",
+  TAGS: "tags",
+  PRICE: "price",
+  EXPECTED_DELIVERY: "expectedDelivery",
+  COVER_IMAGE: "coverImage",
+  FULLNAME: "fullName",
+  ONELINER: "oneliner",
+  RESPONSE_TIME: "responseTime",
+  YEAR: "year",
+  MAJOR: "major",
+  UNIVERSITY: "university",
+  COMPANY: "company",
+  START_DATE: "startDate",
+  END_DATE: "endDate",
+  LANGUAGE: "language",
+  LEVEL: "level",
+};
