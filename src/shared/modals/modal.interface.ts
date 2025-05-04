@@ -1,8 +1,8 @@
 import { Dispatch, MouseEventHandler, ReactNode, SetStateAction } from "react";
-import { IAuthUser } from "src/features/auth/interfaces/auth.interface";
-import { IBuyerDocument } from "src/features/buyer/interfaces/buyer.interface";
-import { IMessageDocument } from "src/features/chat/interfaces/chat.interface";
-import { IOrderDocument } from "src/features/order/interfaces/order.interface";
+import { IMessageDocument } from "../../features/chat/interfaces/chat.interface";
+import { IOrderDocument } from "../../features/order/interfaces/order.interface";
+import { IBuyerDocument } from "../../features/buyer/interfaces/buyer.interface";
+import { IAuthUser } from "../../features/auth/interfaces/auth.interface";
 
 export interface IModalBgProps {
   children?: ReactNode;
