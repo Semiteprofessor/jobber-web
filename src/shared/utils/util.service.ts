@@ -185,3 +185,61 @@ export const yearsList = (maxOffset: number): string[] => {
   }
   return years;
 };
+
+export const shortenLargeNumbers = (data: number | undefined): string => {
+  if (data === undefined) {
+    return "0";
+  }
+  return millify(data, { precision: 0 });
+};
+
+export const rating = (num: number): number => {
+  if (num) {
+    return Math.round(num * 10) / 10;
+  }
+  return 0.0;
+};
+
+export const showSuccessToast = (message: string): void => {
+  toast.success(message, {
+    position: "bottom-right",
+    autoClose: 3000,
+    hideProgressBar: false,
+    closeOnClick: true,
+    pauseOnHover: false,
+    draggable: false,
+    progress: undefined,
+    theme: "colored",
+  });
+};
+
+export const showErrorToast = (message: string): void => {
+  toast.error(message, {
+    position: "bottom-right",
+    autoClose: 3000,
+    hideProgressBar: false,
+    closeOnClick: true,
+    pauseOnHover: false,
+    draggable: false,
+    progress: undefined,
+    theme: "colored",
+  });
+};
+
+export const reactQuillUtils = () => {
+  const modules = {
+    toolbar: [
+      ["bold", "italic"],
+      [{ list: "ordered" }, { list: "bullet" }],
+    ],
+  };
+  const formats: string[] = ["bold", "italic", "list", "bullet"];
+  return { modules, formats };
+};
+
+export const generateRandomNumber = (length: number): number => {
+  return (
+    Math.floor(Math.random() * (9 * Math.pow(10, length - 1))) +
+    Math.pow(10, length - 1)
+  );
+};
