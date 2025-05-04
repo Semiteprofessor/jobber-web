@@ -1,15 +1,15 @@
-import browseImage from "src/assets/browse.png";
-import collaborate from "src/assets/collaborate.png";
-import contact from "src/assets/contact.png";
-import create from "src/assets/create.png";
-import { IAuthUser } from "src/features/auth/interfaces/auth.interface";
-import { IBuyerDocument } from "src/features/buyer/interfaces/buyer.interface";
-import { ISellerGig } from "src/features/gigs/interfaces/gig.interface";
-import { ICategory } from "src/features/home/interfaces/home.interface";
-import { IRatingTypes } from "src/features/order/interfaces/review.interface";
-import { ISellerDocument } from "src/features/sellers/interfaces/seller.interface";
+import browseImage from "../../assets/browse.png";
+import collaborate from "../../assets/collaborate.png";
+import contact from "../../assets/contact.png";
+import create from "../../assets/create.png";
 
 import { ISliderImagesText } from "../shared.interface";
+import { IAuthUser } from "../../features/auth/interfaces/auth.interface";
+import { IBuyerDocument } from "../../features/buyer/interfaces/buyer.interface";
+import { ISellerDocument } from "../../features/sellers/interfaces/seller.interface";
+import { ISellerGig } from "../../features/gigs/interfaces/gig.interface";
+import { IRatingTypes } from "../../features/order/interfaces/review.interface";
+import { ICategory } from "../../features/home/interfaces/home.interface";
 
 export const initialAuthUserValues: IAuthUser = {
   profilePublicId: null,
