@@ -1,13 +1,11 @@
-
+import Header from "./shared/header/components/Header";
 
 function App() {
-
   return (
     <>
-      {/* <Error /> */}
-      Helllloooo!!!
+      <Header navClass="hdlfsflsddls" />
     </>
-  )
+  );
 }
 
-export default App
+export default App;
