@@ -4,6 +4,7 @@ import { IHeader, IHeaderModalProps } from "../interfaces/header.interface";
 import LoginModal from "../../../features/auth/components/Login";
 import { Link } from "react-router-dom";
 import { IButtonProps } from "../../shared.interface";
+import { saveToLocalStorage } from "../../utils/util.service";
 
 const Button: LazyExoticComponent<FC<IButtonProps>> = lazy(
   () => import("../../../shared/button/Button")
