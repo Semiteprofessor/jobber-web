@@ -1,8 +1,7 @@
 import { ChangeEvent, Dispatch, FormEvent, SetStateAction } from "react";
-import { ISellerGig } from "src/features/gigs/interfaces/gig.interface";
-import { IOffer } from "src/features/order/interfaces/order.interface";
-import { ISellerDocument } from "src/features/sellers/interfaces/seller.interface";
-
+import { IOffer } from "../../order/interfaces/order.interface";
+import { ISellerDocument } from "../../sellers/interfaces/seller.interface";
+import { ISellerGig } from "../../gigs/interfaces/gig.interface";
 export interface IChatWindowProps {
   chatMessages: IMessageDocument[];
   isError: boolean;

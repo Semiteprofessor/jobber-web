@@ -1,5 +1,5 @@
-import { ISellerGig } from "src/features/gigs/interfaces/gig.interface";
-import { ISellerDocument } from "src/features/sellers/interfaces/seller.interface";
+import { ISellerGig } from "../../gigs/interfaces/gig.interface";
+import { ISellerDocument } from "../../sellers/interfaces/seller.interface";
 
 export interface IHomeProps {
   gigs: ISellerGig[];
