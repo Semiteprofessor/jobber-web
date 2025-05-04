@@ -1,4 +1,4 @@
-import { IAuthUser } from "src/features/auth/interfaces/auth.interface";
+import { IAuthUser } from "../../auth/interfaces/auth.interface";
 
 export type DivElementRefType = HTMLDivElement;
 

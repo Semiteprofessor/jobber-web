@@ -1,7 +1,7 @@
 import { Dispatch, SetStateAction } from "react";
-import { ISellerGig } from "src/features/gigs/interfaces/gig.interface";
-import { IOrderDocument } from "src/features/order/interfaces/order.interface";
-import { IRatingCategories } from "src/features/order/interfaces/review.interface";
+import { ISellerGig } from "../../gigs/interfaces/gig.interface";
+import { IOrderDocument } from "../../order/interfaces/order.interface";
+import { IRatingCategories } from "../../order/interfaces/review.interface";
 
 export type SellerContextType = {
   gigs: ISellerGig[];
