@@ -2,9 +2,8 @@ import { Dispatch, SetStateAction } from "react";
 import {
   IRatingCategories,
   IReviewDocument,
-} from "src/features/order/interfaces/review.interface";
-import { ISellerDocument } from "src/features/sellers/interfaces/seller.interface";
-
+} from "../../order/interfaces/review.interface";
+import { ISellerDocument } from "../../sellers/interfaces/seller.interface";
 export interface ITagsInputProps {
   title: string;
   placeholder: string;
