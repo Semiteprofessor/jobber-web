@@ -8,8 +8,8 @@ import { NavigateFunction } from "react-router-dom";
 import { toast } from "react-toastify";
 import { logout } from "src/features/auth/reducers/logout.reducer";
 import { authApi } from "src/features/auth/services/auth.service";
-import { IOrderDocument } from "src/features/order/interfaces/order.interface";
 import { api } from "src/store/api";
+import { IOrderDocument } from "../../features/order/interfaces/order.interface";
 
 countries.registerLocale(enLocale);
 
