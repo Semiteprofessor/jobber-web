@@ -1,10 +1,13 @@
 import { FC, lazy, LazyExoticComponent, ReactElement, useState } from "react";
+import { FaBars, FaTimes } from "react-icons/fa";
 import { IHeader, IHeaderModalProps } from "../interfaces/header.interface";
 import LoginModal from "../../../features/auth/components/Login";
 import { Link } from "react-router-dom";
 import { IButtonProps } from "../../shared.interface";
 
-const Button: LazyExoticComponent<FC<IButtonProps>> = lazy(() => import("../../../shared/button/Button"))
+const Button: LazyExoticComponent<FC<IButtonProps>> = lazy(
+  () => import("../../../shared/button/Button")
+);
 
 const Header: FC<IHeader> = ({ navClass }): ReactElement => {
   const [showModal, setShowModal] = useState<IHeaderModalProps>({
@@ -109,7 +112,13 @@ const Header: FC<IHeader> = ({ navClass }): ReactElement => {
                   Jobber
                 </Link>
                 <div className="peer-checked:hamburger relative z-20 -mr-6 block cursor-pointer p-6 lg:hidden">
-                  <Button />
+                  <Button
+                    className="m-auto h-0.5 w-5 rounded transition duration-300"
+                    onClick={() => setOpenSidebar(!openSidebar)}
+                    label={
+                      <>{openSidebar ? <FaTimes className="" /> : <FaBars />}</>
+                    }
+                  />
                 </div>
               </div>
               <div></div>

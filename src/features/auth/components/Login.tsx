@@ -6,7 +6,7 @@ const LoginModal: FC<IHeaderModalProps> = ({
   onToggle,
   onTogglePassword,
 }): ReactElement => {
-  return <div>LoginModal</div>;
+  return (<ModalBg></ModalBg><div>LoginModal</div>);
 };
 
 export default LoginModal;
