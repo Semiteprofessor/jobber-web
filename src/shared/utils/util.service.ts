@@ -85,3 +85,103 @@ export const saveToSessionStorage = (data: string, username: string): void => {
   window.sessionStorage.setItem("isLoggedIn", data);
   window.sessionStorage.setItem("loggedInUser", username);
 };
+
+export const getDataFromSessionStorage = (key: string) => {
+  const data = window.sessionStorage.getItem(key) as string;
+  return JSON.parse(data);
+};
+
+export const saveToLocalStorage = (key: string, data: string): void => {
+  window.localStorage.setItem(key, data);
+};
+
+export const getDataFromLocalStorage = (key: string) => {
+  const data = window.localStorage.getItem(key) as string;
+  return JSON.parse(data);
+};
+
+export const deleteFromLocalStorage = (key: string): void => {
+  window.localStorage.removeItem(key);
+};
+
+export const applicationLogout = (
+  dispatch: Dispatch,
+  navigate: NavigateFunction
+) => {
+  const loggedInUsername: string = getDataFromSessionStorage("loggedInuser");
+  dispatch(logout({}));
+  if (loggedInUsername) {
+    dispatch(
+      authApi.endpoints.removeLoggedInUser.initiate(`${loggedInUsername}`, {
+        track: false,
+      }) as never
+    );
+  }
+  dispatch(api.util.resetApiState());
+  dispatch(authApi.endpoints.logout.initiate() as never);
+  saveToSessionStorage(JSON.stringify(false), JSON.stringify(""));
+  deleteFromLocalStorage("becomeASeller");
+  navigate("/");
+};
+
+export const isFetchBaseQueryError = (error: unknown): boolean => {
+  return (
+    typeof error === "object" &&
+    error !== null &&
+    "status" in error &&
+    "data" in error
+  );
+};
+
+export const orderTypes = (
+  status: string,
+  orders: IOrderDocument[]
+): number => {
+  const orderList: IOrderDocument[] = filter(
+    orders,
+    (order: IOrderDocument) => lowerCase(order.status) === lowerCase(status)
+  );
+  return orderList.length;
+};
+
+export const sellerOrderList = (
+  status: string,
+  orders: IOrderDocument[]
+): IOrderDocument[] => {
+  const orderList: IOrderDocument[] = filter(
+    orders,
+    (order: IOrderDocument) => lowerCase(order.status) === lowerCase(status)
+  );
+  return orderList;
+};
+
+export const degreeList = (): string[] => {
+  return [
+    "Associate",
+    "B.A.",
+    "B.Sc.",
+    "M.A.",
+    "M.B.A.",
+    "M.Sc.",
+    "J.D.",
+    "M.D.",
+    "Ph.D.",
+    "LLB",
+    "Certificate",
+    "Other",
+  ];
+};
+
+export const languageLevel = (): string[] => {
+  return ["Basic", "Conversational", "Fluent", "Native"];
+};
+
+export const yearsList = (maxOffset: number): string[] => {
+  const years: string[] = [];
+  const currentYear: number = new Date().getFullYear();
+  for (let i = 0; i <= maxOffset; i++) {
+    const year: number = currentYear - i;
+    years.push(`${year}`);
+  }
+  return years;
+};
