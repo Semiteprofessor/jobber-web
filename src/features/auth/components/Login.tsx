@@ -1,10 +1,12 @@
 import React, { FC, ReactElement } from "react";
+import { useDeviceData, useMobileOrientation } from "react-device-detect";
 import { IHeaderModalProps } from "../../../shared/header/interfaces/header.interface";
 import ModalBg from "../../../shared/modals/ModalBg";
 import Button from "../../../shared/button/Button";
 import { FaTimes } from "react-icons/fa";
+import { IModalBgProps } from "../../../shared/modals/modal.interface";
 
-const LoginModal: FC<IHeaderModalProps> = ({
+const LoginModal: FC<IModalBgProps> = ({
   onClose,
   onToggle,
   onTogglePassword,

@@ -1,11 +1,17 @@
+import { BrowserRouter } from "react-router-dom";
 import Header from "./shared/header/components/Header";
+import { FC, ReactElement } from "react";
 
-function App() {
+const App: FC = (): ReactElement => {
   return (
     <>
-      <Header navClass="hdlfsflsddls" />
+      <BrowserRouter>
+        <div className="w-screen min-h-screen flex flex-col relative">
+          <Header navClass="hdlfsflsddls" />
+        </div>
+      </BrowserRouter>
     </>
   );
-}
+};
 
 export default App;
