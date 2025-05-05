@@ -77,3 +77,48 @@ export interface IResponse {
   browserName?: string;
   deviceType?: string;
 }
+
+export interface IBannerProps {
+  bgColor: string;
+  text: string;
+  showLink: boolean;
+  linkText?: string;
+  onClick?: () => void;
+}
+
+export interface IAlertProps {
+  type: string;
+  message: string;
+}
+
+export interface IAlertTypes {
+  [key: string]: string;
+  success: string;
+  error: string;
+  warning: string;
+}
+
+export interface IBreadCrumbProps {
+  breadCrumbItems: string[];
+}
+
+export interface IDropdownProps {
+  text: string;
+  values: string[];
+  maxHeight: string;
+  mainClassNames?: string;
+  dropdownClassNames?: string;
+  showSearchInput?: boolean;
+  style?: CSSProperties;
+  setValue?: Dispatch<SetStateAction<string>>;
+  onClick?: (item: string) => void;
+}
+
+export interface IHtmlParserProps {
+  input: string;
+}
+
+export interface IPageMessageProps {
+  header: string;
+  body: string;
+}
