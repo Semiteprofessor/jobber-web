@@ -109,3 +109,32 @@ export interface ILanguageProps {
   setShowLanguageEditForm?: Dispatch<SetStateAction<boolean>>;
   setShowLanguageAddForm?: Dispatch<SetStateAction<boolean>>;
 }
+
+export interface ICertificateProps {
+  selectedField?: ICertificate;
+  certificatesFields?: ICertificate[];
+  setCertificatesFields?: Dispatch<SetStateAction<ICertificate[]>>;
+  setShowCertificateAddForm?: Dispatch<SetStateAction<boolean>>;
+  setShowCertificateEditForm?: Dispatch<SetStateAction<boolean>>;
+}
+
+export interface ISocialLinksProps {
+  socialFields?: string[];
+  type?: string;
+  setSocialFields?: Dispatch<SetStateAction<string[]>>;
+  setShowSocialLinksAddForm?: Dispatch<SetStateAction<boolean>>;
+  setShowSocialLinksEditForm?: Dispatch<SetStateAction<boolean>>;
+}
+
+export interface ISellerContext {
+  showEditIcons: boolean;
+  sellerProfile: ISellerDocument;
+  setSellerProfile?: Dispatch<SetStateAction<ISellerDocument>>;
+}
+
+export interface ILanguageEditFieldsProps {
+  type: string;
+  selectedLanguage?: ILanguage;
+  setShowLanguageEditForm?: Dispatch<SetStateAction<boolean>>;
+  setShowLanguageAddForm?: Dispatch<SetStateAction<boolean>>;
+}
