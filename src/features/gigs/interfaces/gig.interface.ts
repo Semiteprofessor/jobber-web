@@ -106,3 +106,42 @@ export interface ISellerGig {
   createdAt?: Date | string;
   sortId?: number;
 }
+
+export interface ISelectedBudget {
+  minPrice: string;
+  maxPrice: string;
+}
+
+export interface IGigViewReviewsProps {
+  showRatings: boolean;
+  reviews?: IReviewDocument[];
+  hasFetchedReviews?: boolean;
+}
+
+export interface IGigContext {
+  gig: ISellerGig;
+  seller: ISellerDocument;
+  isSuccess?: boolean;
+  isLoading?: boolean;
+}
+
+export interface IGigInfo {
+  total: number | string;
+  title: string;
+  bgColor: string;
+}
+
+export interface IGigCardItems {
+  gig: ISellerGig;
+  linkTarget: boolean;
+  showEditIcon: boolean;
+}
+
+export interface IGigTopProps {
+  gigs: ISellerGig[];
+  title?: string;
+  subTitle?: string;
+  category?: string;
+  width: string;
+  type: string;
+}
