@@ -138,3 +138,43 @@ export interface ILanguageEditFieldsProps {
   setShowLanguageEditForm?: Dispatch<SetStateAction<boolean>>;
   setShowLanguageAddForm?: Dispatch<SetStateAction<boolean>>;
 }
+
+export interface ISocialEditLinksProps {
+  type: string;
+  selectedLink?: string;
+  setShowSocialLinksAddForm?: Dispatch<SetStateAction<boolean>>;
+  setShowSocialLinksEditForm?: Dispatch<SetStateAction<boolean>>;
+}
+
+export interface ICertificateEditProps {
+  type: string;
+  selectedCertificate?: ICertificate;
+  setShowCertificateAddForm?: Dispatch<SetStateAction<boolean>>;
+  setShowCertificateEditForm?: Dispatch<SetStateAction<boolean>>;
+}
+
+export interface IExperienceEditProps {
+  type: string;
+  selectedExperience?: IExperience;
+  setShowExperienceAddForm?: Dispatch<SetStateAction<boolean>>;
+  setShowExperienceEditForm?: Dispatch<SetStateAction<boolean>>;
+}
+
+export interface IEducationEditProps {
+  type: string;
+  selectedEducation?: IEducation;
+  setShowEducationAddForm?: Dispatch<SetStateAction<boolean>>;
+  setShowEducationEditForm?: Dispatch<SetStateAction<boolean>>;
+}
+
+export interface ISkillEditProps {
+  type: string;
+  selectedSkill?: string;
+  setShowSkillEditForm?: Dispatch<SetStateAction<boolean>>;
+  setShowSkillAddForm?: Dispatch<SetStateAction<boolean>>;
+}
+
+export interface IProfileTabsProps {
+  type: string;
+  setType?: Dispatch<SetStateAction<string>>;
+}
