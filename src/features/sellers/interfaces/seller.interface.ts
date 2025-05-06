@@ -60,3 +60,52 @@ export interface IPersonalInfoProps {
   setPersonalInfo: Dispatch<SetStateAction<IPersonalInfoData>>;
   personalInfoErrors: IPersonalInfoData[];
 }
+
+export interface IReduxSeller {
+  type?: string;
+  payload: ISellerDocument;
+}
+
+export interface IProfileHeaderProps {
+  showHeaderInfo?: boolean;
+  showEditIcons: boolean;
+  sellerProfile?: ISellerDocument;
+  setSellerProfile?: Dispatch<SetStateAction<ISellerDocument>>;
+}
+
+export interface IExperienceProps {
+  selectedField?: IExperience;
+  experienceFields?: IExperience[];
+  experienceErrors?: IExperience[];
+  setExperienceFields?: Dispatch<SetStateAction<IExperience[]>>;
+  setShowExperienceAddForm?: Dispatch<SetStateAction<boolean>>;
+  setShowExperienceEditForm?: Dispatch<SetStateAction<boolean>>;
+}
+
+export interface IEducationProps {
+  selectedField?: IEducation;
+  educationFields?: IEducation[];
+  educationErrors?: IEducation[];
+  setEducationFields?: Dispatch<SetStateAction<IEducation[]>>;
+  setShowEducationAddForm?: Dispatch<SetStateAction<boolean>>;
+  setShowEducationEditForm?: Dispatch<SetStateAction<boolean>>;
+}
+
+export interface ISkillProps {
+  type?: string;
+  selectedField?: string[];
+  skillsFields?: string[];
+  skillsErrors?: string[];
+  setSkillsFields?: Dispatch<SetStateAction<string[]>>;
+  setShowSkillEditForm?: Dispatch<SetStateAction<boolean>>;
+  setShowSkillAddForm?: Dispatch<SetStateAction<boolean>>;
+}
+
+export interface ILanguageProps {
+  languageEdit?: ILanguage;
+  languageFields?: ILanguage[];
+  languagesErrors?: ILanguage[];
+  setLanguageFields?: Dispatch<SetStateAction<ILanguage[]>>;
+  setShowLanguageEditForm?: Dispatch<SetStateAction<boolean>>;
+  setShowLanguageAddForm?: Dispatch<SetStateAction<boolean>>;
+}
