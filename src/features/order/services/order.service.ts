@@ -37,3 +37,68 @@ export const ordersApi = api.injectEndpoints({
       },
       invalidatesTags: ['Order']
     }),
+    cancelOrder: build.mutation<IResponse, { paymentIntentId: string; orderId: string; body: IOrderMessage }>({
+      query({ paymentIntentId, orderId, body }) {
+        return {
+          url: `order/cancel/${orderId}`,
+          method: 'PUT',
+          body: { paymentIntentId, orderData: body }
+        };
+      },
+      invalidatesTags: ['Order']
+    }),
+    requestDeliveryDateExtension: build.mutation<IResponse, { orderId: string; body: IExtendedDelivery }>({
+      query({ orderId, body }) {
+        return {
+          url: `order/extension/${orderId}`,
+          method: 'PUT',
+          body
+        };
+      },
+      invalidatesTags: ['Order']
+    }),
+    updateDeliveryDate: build.mutation<IResponse, { orderId: string; type: string; body: IExtendedDelivery }>({
+      query({ orderId, type, body }) {
+        return {
+          url: `order/gig/${type}/${orderId}`,
+          method: 'PUT',
+          body
+        };
+      },
+      invalidatesTags: ['Order']
+    }),
+    deliverOrder: build.mutation<IResponse, { orderId: string; body: IDeliveredWork }>({
+      query({ orderId, body }) {
+        return {
+          url: `order/deliver-order/${orderId}`,
+          method: 'PUT',
+          body
+        };
+      },
+      invalidatesTags: ['Order']
+    }),
+    approveOrder: build.mutation<IResponse, { orderId: string; body: IOrderMessage }>({
+      query({ orderId, body }) {
+        return {
+          url: `order/approve-order/${orderId}`,
+          method: 'PUT',
+          body
+        };
+      },
+      invalidatesTags: ['Order']
+    })
+  })
+});
+
+export const {
+  useGetOrderByOrderIdQuery,
+  useGetOrdersBySellerIdQuery,
+  useGetOrdersByBuyerIdQuery,
+  useCreateOrderIntentMutation,
+  useCreateOrderMutation,
+  useCancelOrderMutation,
+  useRequestDeliveryDateExtensionMutation,
+  useUpdateDeliveryDateMutation,
+  useDeliverOrderMutation,
+  useApproveOrderMutation
+} = ordersApi;
