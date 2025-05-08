@@ -25,3 +25,9 @@ import { updateLogout } from '../reducers/logout.reducer';
 import { useVerifyOTPMutation } from '../services/auth.service';
 
 const IndexHeader: LazyExoticComponent<FC<IHeader>> = lazy(() => import('src/shared/header/components/Header'));
+
+const VerifyOTP: FC = (): ReactElement => {
+  return <div>VerifyOTP</div>;
+};
+
+export default VerifyOTP;
