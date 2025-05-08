@@ -1,10 +1,11 @@
 import React, { FC, ReactElement, useCallback, useEffect, useState } from 'react';
-import { useSearchParams } from 'react-router-dom';
+import { Link, useSearchParams } from 'react-router-dom';
 import { useAppDispatch } from 'src/store/store';
 import { useVerifyEmailMutation } from '../services/auth.service';
 import { AUTH_FETCH_STATUS } from '../interfaces/auth.interface';
 import { IResponse } from 'src/shared/shared.interface';
 import { addAuthUser } from '../reducers/auth.reducer';
+import Alert from 'src/shared/alert/Alert';
 
 const ConfirmEmail: FC = (): ReactElement => {
   const [alertMessage, setAlertMessage] = useState<string>('');
@@ -29,7 +30,19 @@ const ConfirmEmail: FC = (): ReactElement => {
     onVerifyEmail();
   }, [onVerifyEmail]);
 
-  return <div>ConfirmEmail</div>;
+  return (
+    <div className="container mx-auto flex flex-col items-center justify-center px-6 py-8 mt-20 lg:py-0">
+      <div className="w-[30%]">
+        <Alert type={status} message={alertMessage} />
+      </div>
+      <Link
+        to="/"
+        className="rounded bg-sky-500 px-6 py-3 mt-5 text-center text-sm font-bold text-white hover:bg-sky-400 focus:outline-none md:px-4 md:py-2 md:text-base"
+      >
+        Continue to Home
+      </Link>
+    </div>
+  );
 };
 
 export default ConfirmEmail;
