@@ -65,7 +65,15 @@ const VerifyOTP: FC = (): ReactElement => {
     }
   };
 
-  return <div>VerifyOTP</div>;
+  return (
+    <>
+      <IndexHeader navClass="navbar peer-checked:navbar-active fixed z-20 w-full border-b border-gray-100 bg-white/90 shadow-2xl shadow-gray-600/5 backdrop-blur dark:border-gray-800 dark:bg-gray-900/80 dark:shadow-none" />
+      <div className="container mx-auto flex flex-col items-center justify-center px-6 py-8 mt-32 lg:py-0">
+        <div className="md:w-[30%] font-bold border-b pb-2 sm:w-[60%]">Authentication</div>
+        <div className="md:w-[30%] flex flex-col justify-center sm:w-[60%]"></div>
+      </div>
+    </>
+  );
 };
 
 export default VerifyOTP;

@@ -3,6 +3,7 @@ import { RouteObject, useRoutes } from 'react-router-dom';
 import ResetPassword from './features/auth/components/ResetPassword';
 import AppPage from './features/AppPage';
 import ConfirmEmail from './features/auth/components/ConfirmEmail';
+import VerifyOTP from './features/auth/components/VerifyOTP';
 
 const Layout = ({ backgroundColor = '#fff', children }: { backgroundColor: string; children: ReactNode }): JSX.Element => (
   <div style={{ backgroundColor }} className="flex flex-grow">
