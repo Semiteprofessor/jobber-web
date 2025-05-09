@@ -5,14 +5,15 @@ import Header from './shared/header/components/Header';
 import { FC, ReactElement } from 'react';
 import LoginModal from './features/auth/components/Login';
 import RegisterModal from './features/auth/components/Register';
+import HeaderSearchInput from './shared/header/components/HeaderSearchInput';
 
 const App: FC = (): ReactElement => {
   return (
     <>
       <BrowserRouter>
         <div className="w-screen min-h-screen flex flex-col relative">
-          <Header navClass="hdlfsflsddls" />
-          {/* <RegisterModal /> */}
+          {/* <Header navClass="hdlfsflsddls" /> */}
+          <HeaderSearchInput />
         </div>
       </BrowserRouter>
     </>
