@@ -1,5 +1,7 @@
 import React, { ChangeEvent, FC, FormEvent, ReactElement, useState } from 'react';
+import { FaSearch } from 'react-icons/fa';
 import { createSearchParams, NavigateFunction, useNavigate } from 'react-router-dom';
+import Button from 'src/shared/button/Button';
 import TextInput from 'src/shared/inputs/TextInput';
 
 const HeaderSearchInput: FC = (): ReactElement => {
@@ -7,7 +9,7 @@ const HeaderSearchInput: FC = (): ReactElement => {
   const navigate: NavigateFunction = useNavigate();
 
   const navigateToSearchPage = (): void => {
-    const url = `/searchgigs?${createSearchParams({ query: searchTerm.trim() })}`;
+    const url = `/search/gigs?${createSearchParams({ query: searchTerm.trim() })}`;
     navigate(url);
   };
 
@@ -31,6 +33,11 @@ const HeaderSearchInput: FC = (): ReactElement => {
           }}
         />
       </form>
+      <Button
+        className="flex w-16 items-center justify-center bg-gray-900 text-white"
+        label={<FaSearch className="h-6 w-6 fill-white text-white" />}
+        onClick={navigateToSearchPage}
+      />
     </div>
   );
 };
