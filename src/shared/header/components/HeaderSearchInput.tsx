@@ -1,5 +1,6 @@
-import React, { FC, FormEvent, ReactElement, useState } from 'react';
+import React, { ChangeEvent, FC, FormEvent, ReactElement, useState } from 'react';
 import { createSearchParams, NavigateFunction, useNavigate } from 'react-router-dom';
+import TextInput from 'src/shared/inputs/TextInput';
 
 const HeaderSearchInput: FC = (): ReactElement => {
   const [searchTerm, setSearchTerm] = useState<string>('');
@@ -19,7 +20,16 @@ const HeaderSearchInput: FC = (): ReactElement => {
         }}
         className="flex w-full self-center border opacity-100"
       >
-        Text
+        <TextInput
+          type="text"
+          name="search"
+          value={searchTerm}
+          placeholder="What service are you looking for today?"
+          className="w-full truncate px-4py-[7.5px]"
+          onChange={(e: ChangeEvent) => {
+            setSearchTerm((e.target as HTMLInputElement).value);
+          }}
+        />
       </form>
     </div>
   );
