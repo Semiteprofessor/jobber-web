@@ -1,25 +1,25 @@
-import react from "@vitejs/plugin-react";
-import { defineConfig } from "vite";
-import tscongPaths from "vite-tsconfig-paths";
+import react from '@vitejs/plugin-react';
+import { defineConfig } from 'vite';
+import tscongPaths from 'vite-tsconfig-paths';
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  root: ".",
+  root: '.',
   plugins: [
     react({
-      include: "**/*.tsx",
+      include: '**/*.tsx'
     }),
     tscongPaths(),
   ],
   resolve: {
     alias: {
-      src: "/src",
-    },
+      src: '/src'
+    }
   },
   build: {
-    outDir: "./build",
+    outDir: './build'
   },
   server: {
-    port: 3000,
-  },
+    port: 3000
+  }
 });
