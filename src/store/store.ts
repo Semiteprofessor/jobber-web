@@ -1,11 +1,12 @@
+import { FLUSH, PAUSE, PERSIST, persistReducer, PURGE, REGISTER, REHYDRATE } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
-import { combineReducers } from '@reduxjs/toolkit';
+import { combineReducers, Reducer } from '@reduxjs/toolkit';
 import authReducer from '../../src/features/auth/reducers/auth.reducer';
 import buyerReducer from '../../src/features/buyer/reducers/buyer.reducer';
-import sellerReducer from '../../src/features/seller/reducers/seller.reducer';
-import categoryReducer from '../../src/features/header/reducers/category.reducer';
-import headerReducer from '../../src/features/header/reducers/header.reducer';
-import notificationReducer from '../../src/features/header/reducers/notification.reducer';
+import sellerReducer from '../../src/features/sellers/reducers/seller.reducer';
+import categoryReducer from '../../src/shared/header/reducers/category.reducer';
+import headerReducer from '../../src/shared/header/reducers/header.reducer';
+import notificationReducer from '../../src/shared/header/reducers/notification.reducer';
 
 import { api } from './api';
 import logoutReducer from 'src/features/auth/reducers/logout.reducer';
@@ -26,3 +27,12 @@ export const combineReducer = combineReducers({
   showCategoryContainer: categoryReducer,
   notification: notificationReducer
 });
+
+export const rootReducers: Reducer<ReturnType<typeof combineReducer>> = (state, action) => {
+  if (action.type === 'logout/logout') {
+    state = {} as ReturnType<typeof combineReducer>;
+  }
+  return combineReducer(state, action);
+};
+
+const persistedReducer = persistReducer(persistConfig, rootReducers);
