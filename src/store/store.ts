@@ -1,6 +1,11 @@
 import storage from 'redux-persist/lib/storage';
 import { combineReducers } from '@reduxjs/toolkit';
-import authReducer from "../../src/features/auth/reducers/auth.reducer"
+import authReducer from '../../src/features/auth/reducers/auth.reducer';
+import buyerReducer from '../../src/features/buyer/reducers/buyer.reducer';
+import sellerReducer from '../../src/features/seller/reducers/seller.reducer';
+import buyerReducer from '../../src/features/buyer/reducers/buyer.reducer';
+import buyerReducer from '../../src/features/buyer/reducers/buyer.reducer';
+import buyerReducer from '../../src/features/buyer/reducers/buyer.reducer';
 import buyerReducer from '../../src/features/buyer/reducers/buyer.reducer';
 
 import { api } from './api';
@@ -13,8 +18,12 @@ const persistConfig = {
 };
 
 export const combineReducer = combineReducers({
-    [api.reducerPath]: api.reducer,
-    authUser: authReducer,
-    logout: logoutReducer,
-    buyer: buyerReducer,
-})
+  [api.reducerPath]: api.reducer,
+  authUser: authReducer,
+  logout: logoutReducer,
+  buyer: buyerReducer,
+  seller: sellerReducer,
+  header: headerReducer,
+  showCategoryContainer: categoryReducer,
+  notification: notificationReducer,
+});
