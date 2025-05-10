@@ -4,9 +4,8 @@ import authReducer from '../../src/features/auth/reducers/auth.reducer';
 import buyerReducer from '../../src/features/buyer/reducers/buyer.reducer';
 import sellerReducer from '../../src/features/seller/reducers/seller.reducer';
 import categoryReducer from '../../src/features/header/reducers/category.reducer';
-import buyerReducer from '../../src/features/buyer/reducers/buyer.reducer';
-import buyerReducer from '../../src/features/buyer/reducers/buyer.reducer';
-import buyerReducer from '../../src/features/buyer/reducers/buyer.reducer';
+import headerReducer from '../../src/features/header/reducers/header.reducer';
+import notificationReducer from '../../src/features/header/reducers/notification.reducer';
 
 import { api } from './api';
 import logoutReducer from 'src/features/auth/reducers/logout.reducer';
@@ -25,5 +24,5 @@ export const combineReducer = combineReducers({
   seller: sellerReducer,
   header: headerReducer,
   showCategoryContainer: categoryReducer,
-  notification: notificationReducer,
+  notification: notificationReducer
 });
