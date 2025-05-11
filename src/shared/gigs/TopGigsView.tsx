@@ -31,7 +31,19 @@ const TopGigsView: FC<IGigTopProps> = ({ gigs, title, subTitle, category, width,
     }
   };
 
-  return <div>TopGigsView</div>;
+  return (
+    <div className="mx-auto my-8 flex flex-col overflow-hidden rounded-lg">
+      {title && (
+        <div>
+          <div>
+            <div>
+              <h2 className="text-base font-bold md:text-lg lg:text-2xl">{title}</h2>
+            </div>
+          </div>
+        </div>
+      )}
+    </div>
+  );
 };
 
 export default TopGigsView;

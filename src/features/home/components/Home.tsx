@@ -6,7 +6,9 @@ import { useGetSellerByUsernameQuery } from 'src/features/sellers/services/selle
 import { ISellerGig } from 'src/features/gigs/interfaces/gig.interface';
 import { ISellerDocument } from 'src/features/sellers/interfaces/seller.interface';
 import { useGetTopRatedGigsByCategoryQuery } from 'src/features/gigs/services/gigs.service';
+import { lowerCase } from 'src/shared/utils/util.service';
 import { socketService } from 'src/sockets/socket.service';
+import TopGigsView from 'src/shared/gigs/TopGigsView';
 
 const Home: FC = (): ReactElement => {
   const authUser = useAppSelector((state: IReduxState) => state.authUser);
@@ -38,7 +40,17 @@ const Home: FC = (): ReactElement => {
     <div className="m-auto px-6 w-screen relative min-h-screen xl:container md:px-12">
       <HomeSlider />
       {topGigs.length > 0 && (
-        <TopGigsView />
+        <TopGigsView
+          gigs={topGigs}
+          title="Top rated service in"
+          subTitle={`Highest rated talent for all your ${lowerCase(topGigs[0].categories)} need.`}
+          category={topGigs[0].categories}
+          width="w-72"
+          type="home"
+        />
+      )}
+      {categoryGigs.length > 0 && (
+        <HomeGigsView w gigs={categoryGigs} title="Because you viewed a gig on" subTitle="" category={categoryGigs[0].categories} />
       )}
     </div>
   );
