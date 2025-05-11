@@ -1,7 +1,9 @@
 import React, { FC, ReactElement, useRef, useState } from 'react';
+import { FaAngleLeft, FaAngleRight } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
-import { IGigTopProps } from 'src/features/gigs/interfaces/gig.interface';
+import { IGigTopProps, ISellerGig } from 'src/features/gigs/interfaces/gig.interface';
 import { socket } from 'src/sockets/socket.service';
+import GigCardDisplayItem from './GigCardDisplayItem';
 
 interface IScrollProps {
   start: boolean;
@@ -52,6 +54,31 @@ const TopGigsView: FC<IGigTopProps> = ({ gigs, title, subTitle, category, width,
           </div>
         </div>
       )}
+      <div className="m-auto flex h-96 w-full overflow-x-auto" ref={navElement}>
+        {scroll.start && gigs.length > 2 && (
+          <span
+            onClick={slideLeft}
+            className="absolute left-2 z-50 flex cursor-pointer justify-start self-center rounded-full bg-sky-400 sm:left-3 md:left-7 lg:left-0"
+          >
+            <FaAngleLeft className="text-3xl text-white sm:text-3xl md:text-4xl lg:text-4xl" />
+          </span>
+        )}
+        <div className="relative flex gap-x-8 pt-3">
+          {gigs.map((gig: ISellerGig) => (
+            <div key={uuidv4()} className={`${width}`}>
+              {type === 'home' ? <GigCardDisplayItem gig={gig} linkTarget={false} showEditIcon={false} /> : <GigIndexItem gig={gig} />}
+            </div>
+          ))}
+        </div>
+        {!scroll.end && gigs.length > 2 && (
+          <span
+            onClick={slideRight}
+            className="absolute right-2 flex max-w-4xl cursor-pointer justify-end self-center rounded-full bg-sky-400 sm:right-3 md:right-7 lg:right-0"
+          >
+            <FaAngleRight className="text-3xl text-white sm:text-3xl md:text-4xl lg:text-4xl" />
+          </span>
+        )}
+      </div>
     </div>
   );
 };
