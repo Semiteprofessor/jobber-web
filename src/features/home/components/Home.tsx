@@ -4,7 +4,8 @@ import { useAppSelector } from 'src/store/store';
 import { IReduxState } from 'src/store/store.interface';
 
 const Home: FC = (): ReactElement => {
-    const authUser = useAppSelector((state: IReduxState))
+    const authUser = useAppSelector((state: IReduxState) => state.authUser);
+    const {data, isSuccess} = useGetRandommSellerQuery('10')
   return (
     <div className="m-auto px-6 w-screen relative min-h-screen xl:container md:px-12">
       <HomeSlider />
