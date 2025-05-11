@@ -1,4 +1,4 @@
-import React, { FC, ReactElement, useEffect } from 'react';
+import { FC, ReactElement, useEffect } from 'react';
 import HomeSlider from './HomeSlider';
 import { useAppSelector } from 'src/store/store';
 import { IReduxState } from 'src/store/store.interface';
@@ -9,6 +9,7 @@ import { useGetTopRatedGigsByCategoryQuery } from 'src/features/gigs/services/gi
 import { lowerCase } from 'src/shared/utils/util.service';
 import { socketService } from 'src/sockets/socket.service';
 import TopGigsView from 'src/shared/gigs/TopGigsView';
+import HomeGigsView from './HomeGigsView';
 
 const Home: FC = (): ReactElement => {
   const authUser = useAppSelector((state: IReduxState) => state.authUser);
@@ -50,7 +51,7 @@ const Home: FC = (): ReactElement => {
         />
       )}
       {categoryGigs.length > 0 && (
-        <HomeGigsView w gigs={categoryGigs} title="Because you viewed a gig on" subTitle="" category={categoryGigs[0].categories} />
+        <HomeGigsView gigs={categoryGigs} title="Because you viewed a gig on" subTitle="" category={categoryGigs[0].categories} />
       )}
     </div>
   );
