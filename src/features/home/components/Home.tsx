@@ -6,6 +6,7 @@ import { useGetSellerByUsernameQuery } from 'src/features/sellers/services/selle
 import { ISellerGig } from 'src/features/gigs/interfaces/gig.interface';
 import { ISellerDocument } from 'src/features/sellers/interfaces/seller.interface';
 import { useGetTopRatedGigsByCategoryQuery } from 'src/features/gigs/services/gigs.service';
+import { socketService } from 'src/sockets/socket.service';
 
 const Home: FC = (): ReactElement => {
   const authUser = useAppSelector((state: IReduxState) => state.authUser);
@@ -31,12 +32,14 @@ const Home: FC = (): ReactElement => {
 
   useEffect(() => {
     socketService.setupSocketConnection();
-  })
+  }, []);
 
   return (
     <div className="m-auto px-6 w-screen relative min-h-screen xl:container md:px-12">
       <HomeSlider />
-      {topGigs}
+      {topGigs.length > 0 && (
+        <TopGigsView />
+      )}
     </div>
   );
 };
