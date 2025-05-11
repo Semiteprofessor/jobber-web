@@ -1,5 +1,7 @@
 import React, { FC, ReactElement, useRef, useState } from 'react';
+import { Link } from 'react-router-dom';
 import { IGigTopProps } from 'src/features/gigs/interfaces/gig.interface';
+import { socket } from 'src/sockets/socket.service';
 
 interface IScrollProps {
   start: boolean;
@@ -34,11 +36,19 @@ const TopGigsView: FC<IGigTopProps> = ({ gigs, title, subTitle, category, width,
   return (
     <div className="mx-auto my-8 flex flex-col overflow-hidden rounded-lg">
       {title && (
-        <div>
-          <div>
-            <div>
+        <div className="flex items-start py-6">
+          <div className="flex w-full flex-col justify-between">
+            <div className="flex gap-2">
               <h2 className="text-base font-bold md:text-lg lg:text-2xl">{title}</h2>
+              {category && (
+                <span className="flex self-center text-base font-bold cursor-pointer text-sky-500 md:text-lg lg:text-2xl hover:text-sky-400 hover:underline">
+                  <Link onClick={() => socket.emit('getLoggedInUsers', '')} to={`/categories/${replaceSpacesWithDash(category)}`}>
+                    {category}
+                  </Link>
+                </span>
+              )}
             </div>
+            <h4 className="pt-1 text-left text-sm">{subTitle}</h4>
           </div>
         </div>
       )}
