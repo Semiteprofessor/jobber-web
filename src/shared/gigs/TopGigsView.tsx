@@ -22,6 +22,15 @@ const TopGigsView: FC<IGigTopProps> = ({ gigs, title, subTitle, category, width,
     }
   };
 
+  const slideRight = (): void => {
+    if (navElement.current) {
+      const maxScrollLeft = navElement.current.scrollWidth - navElement.current.clientWidth;
+      navElement.current.scrollLeft = navElement.current.scrollLeft < maxScrollLeft ? navElement.current.scrollLeft + 1000 : maxScrollLeft;
+      const maxWidth = navElement.current.scrollLeft + navElement.current.clientWidth - 1000;
+      setScroll({ start: true, end: maxWidth === navElement.current.clientWidth });
+    }
+  };
+
   return <div>TopGigsView</div>;
 };
 
