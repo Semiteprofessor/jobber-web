@@ -206,6 +206,29 @@ const HomeHeader: FC<IHeaderModalProps> = ({ showCategotyContainer }): ReactElem
                           <NotificationDropdown setIsNotificationDropdownOpen={setIsNotificationDropdownOpen} />
                         </div>
                       </Transition>
+                    </li><li className="relative z-50 flex cursor-pointer items-center" onClick={toggleOrdersDropdown}>
+                      <Button
+                        className="px-3"
+                        label={
+                          <>
+                            <span>Orders</span>
+                          </>
+                        }
+                      />
+                      <Transition
+                        ref={orderDropdownRef}
+                        show={isOrderDropdownOpen}
+                        enter="transition ease-out duration-200"
+                        enterFrom="opacity-0 translate-y-1"
+                        enterTo="opacity-100 translate-y-0"
+                        leave="transition ease-in duration-150"
+                        leaveFrom="opacity-100 translate-y-0"
+                        leaveTo="opacity-0 translate-y-1"
+                      >
+                        <div className="absolute right-0 mt-5 w-96">
+                          <OrderDropdown buyer={buyer} setIsOrderDropdownOpen={setIsOrderDropdownOpen} />
+                        </div>
+                      </Transition>
                     </li>
         </nav>
       </header>
