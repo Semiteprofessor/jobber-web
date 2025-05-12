@@ -17,6 +17,10 @@ import { IMessageDocument } from 'src/features/chat/interfaces/chat.interface';
 import { IOrderNotifcation } from 'src/features/order/interfaces/order.interface';
 import HomeHeaderSidebar from './mobile/HomeHeaderSidebar';
 import Banner from 'src/shared/banner/Banner';
+import Button from 'src/shared/button/Button';
+import { FaBars, FaRegBell, FaTimes } from 'react-icons/fa';
+import { Link } from 'react-router-dom';
+import HeaderSearchInput from './HeaderSearchInput';
 
 const HomeHeader: FC<IHeaderModalProps> = ({ showCategotyContainer }): ReactElement => {
   const authUser = useAppSelector((state: IReduxState) => state.authUser);
@@ -172,7 +176,37 @@ const HomeHeader: FC<IHeaderModalProps> = ({ showCategotyContainer }): ReactElem
                   </div>
                 </div>
                 <MobileHeaderSearchInput setOpenSidebar={setOpenSidebar} />
-              </div>
+              </div><div className="navmenu mb-16 hidden w-full cursor-pointer flex-wrap items-center justify-end space-y-8 rounded-3xl border border-gray-100 bg-white p-6 shadow-2xl md:flex-nowrap lg:m-0 lg:flex lg:w-6/12 lg:space-y-0 lg:border-0 lg:bg-transparent lg:p-0 lg:shadow-none">
+                <div className="text-[#74767e] lg:pr-4">
+                  <ul className="flex text-base font-medium">
+                    <li className="relative z-50 flex cursor-pointer items-center">
+                      <Button
+                        className="px-4"
+                        onClick={toggleNotificationDropdown}
+                        label={
+                          <>
+                            <FaRegBell />
+                            {notification && notification.hasUnreadNotification && (
+                              <span className="absolute -top-0 right-0 mr-3 inline-flex h-[6px] w-[6px] items-center justify-center rounded-full bg-[#ff62ab]"></span>
+                            )}
+                          </>
+                        }
+                      />
+                      <Transition
+                        ref={notificationDropdownRef}
+                        show={isNotificationDropdownOpen}
+                        enter="transition ease-out duration-200"
+                        enterFrom="opacity-0 translate-y-1"
+                        enterTo="opacity-100 translate-y-0"
+                        leave="transition ease-in duration-150"
+                        leaveFrom="opacity-100 translate-y-0"
+                        leaveTo="opacity-0 translate-y-1"
+                      >
+                        <div className="absolute right-0 mt-5 w-96">
+                          <NotificationDropdown setIsNotificationDropdownOpen={setIsNotificationDropdownOpen} />
+                        </div>
+                      </Transition>
+                    </li>
         </nav>
       </header>
     </>
