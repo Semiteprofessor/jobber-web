@@ -7,7 +7,7 @@ import { useResendEmailMutation } from 'src/features/auth/services/auth.service'
 import useDetectOutsideClick from 'src/shared/hooks/useDetectOutsideClick';
 import { IResponse } from 'src/shared/shared.interface';
 import { addAuthUser } from 'src/features/auth/reducers/auth.reducer';
-import { showErrorToast, showSuccessToast } from 'src/shared/utils/util.service';
+import { replaceSpacesWithDash, showErrorToast, showSuccessToast } from 'src/shared/utils/util.service';
 import { updateHeader } from '../reducers/header.reducer';
 import { updateCategoryContainer } from '../reducers/category.reducer';
 import { socket, socketService } from 'src/sockets/socket.service';
@@ -18,9 +18,16 @@ import { IOrderNotifcation } from 'src/features/order/interfaces/order.interface
 import HomeHeaderSidebar from './mobile/HomeHeaderSidebar';
 import Banner from 'src/shared/banner/Banner';
 import Button from 'src/shared/button/Button';
-import { FaBars, FaRegBell, FaTimes } from 'react-icons/fa';
+import { FaAngleLeft, FaAngleRight, FaBars, FaRegBell, FaTimes } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
-import HeaderSearchInput from './HeaderSearchInput';
+import { v4 as uuidv4 } from 'uuid';
+import { IHomeHeaderProps } from '../interfaces/header.interface';
+import MessageDropdown from './MessageDropdown';
+import HomeHeaderSideBar from './mobile/HomeHeaderSideBar';
+import MobileHeaderSearchInput from './mobile/MobileHeaderSearchInput';
+import NotificationDropdown from './NotificationDropdown';
+import OrderDropdown from './OrderDropdown';
+import SettingsDropdown from './SettingsDropdown';
 
 const HomeHeader: FC<IHeaderModalProps> = ({ showCategotyContainer }): ReactElement => {
   const authUser = useAppSelector((state: IReduxState) => state.authUser);
