@@ -77,6 +77,20 @@ const HomeHeader: FC<IHeaderModalProps> = ({ showCategotyContainer }): ReactElem
     dispatch(updateCategoryContainer(true));
   };
 
+  const slideLeft = (): void => {
+    if (navElement.current) {
+      const maxScrollLeft = navElement.current.scrollWidth + navElement.current.clientWidth; // maximum scroll position
+      navElement.current.scrollLeft = navElement.current.scrollLeft < maxScrollLeft ? navElement.current.scrollLeft - 1000 : maxScrollLeft;
+    }
+  };
+
+  const slideRight = (): void => {
+    if (navElement.current) {
+      const maxScrollLeft = navElement.current.scrollWidth - navElement.current.clientWidth; // maximum scroll position
+      navElement.current.scrollLeft = navElement.current.scrollLeft < maxScrollLeft ? navElement.current.scrollLeft + 1000 : maxScrollLeft;
+    }
+  };
+
   return <div>HomeHeader</div>;
 };
 
