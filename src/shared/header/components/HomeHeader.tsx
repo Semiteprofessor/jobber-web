@@ -1,4 +1,4 @@
-import React, { FC, ReactElement, useRef, useState } from 'react';
+import React, { FC, ReactElement, useEffect, useRef, useState } from 'react';
 import { IHeaderModalProps } from '../interfaces/header.interface';
 import { useAppDispatch, useAppSelector } from 'src/store/store';
 import { IReduxState } from 'src/store/store.interface';
@@ -10,6 +10,11 @@ import { addAuthUser } from 'src/features/auth/reducers/auth.reducer';
 import { showErrorToast, showSuccessToast } from 'src/shared/utils/util.service';
 import { updateHeader } from '../reducers/header.reducer';
 import { updateCategoryContainer } from '../reducers/category.reducer';
+import { socket, socketService } from 'src/sockets/socket.service';
+import { filter, find } from 'lodash';
+import { updateNotification } from '../reducers/notification.reducer';
+import { IMessageDocument } from 'src/features/chat/interfaces/chat.interface';
+import { IOrderNotifcation } from 'src/features/order/interfaces/order.interface';
 
 const HomeHeader: FC<IHeaderModalProps> = ({ showCategotyContainer }): ReactElement => {
   const authUser = useAppSelector((state: IReduxState) => state.authUser);
@@ -90,6 +95,39 @@ const HomeHeader: FC<IHeaderModalProps> = ({ showCategotyContainer }): ReactElem
       navElement.current.scrollLeft = navElement.current.scrollLeft < maxScrollLeft ? navElement.current.scrollLeft + 1000 : maxScrollLeft;
     }
   };
+
+  useEffect(() => {
+    socketService.setupSocketConnection();
+    socket.emit('getLoggedInUsers', '');
+    if (isSuccess) {
+      const list: IOrderNotifcation[] = filter(
+        data.notifications,
+        (item: IOrderNotifcation) => !item.isRead && item.userTo === authUser?.username
+      );
+      dispatch(updateNotification({ hasUnreadNotification: list.length > 0 }));
+    }
+  }, [isSuccess, authUser.username, data?.notifications, dispatch]);
+
+  useEffect(() => {
+    socket.on('message received', (data: IMessageDocument) => {
+      // only for receiver
+      if (data.receiverUsername === `${authUser.username}` && !data.isRead) {
+        dispatch(updateNotification({ hasUnreadMessage: true }));
+      }
+    });
+
+    socket.on('order notification', (_, data: IOrderNotifcation) => {
+      // only for receiver
+      if (data.userTo === `${authUser.username}` && !data.isRead) {
+        dispatch(updateNotification({ hasUnreadNotification: true }));
+      }
+    });
+
+    socket.on('online', (data: string[]) => {
+      const username = find(data, (name: string) => name === authUser.username);
+      setAuthUsername(`${username}`);
+    });
+  }, [authUser.username, dispatch]);
 
   return <div>HomeHeader</div>;
 };
