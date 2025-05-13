@@ -1,6 +1,6 @@
 import React, { FC, ReactElement, useRef, useState } from 'react';
 import { IHeaderModalProps } from '../interfaces/header.interface';
-import { useAppSelector } from 'src/store/store';
+import { useAppDispatch, useAppSelector } from 'src/store/store';
 import { IReduxState } from 'src/store/store.interface';
 
 const HomeHeader: FC<IHeaderModalProps> = ({ showCategotyContainer }): ReactElement => {
@@ -16,6 +16,25 @@ const HomeHeader: FC<IHeaderModalProps> = ({ showCategotyContainer }): ReactElem
   const navElement = useRef<HTMLDivElement | null>(null);
   const [openSidebar, setOpenSidebar] = useState<boolean>(false);
   const [authUsername, setAuthUsername] = useState<string>('');
+  const dispatch = useAppDispatch();
+  const { data, isSuccess } = useGetNotificationsByIdQuery(`${authUser.username}`, { refetchOnMountOrArgChange: true });
+  const [resendEmail] = useResendEmailMutation();
+
+  const [isSettingsDropdown, setIsSettingsDropdown] = useDetectOutsideClick(settingsDropdownRef, false);
+  const [isMessageDropdownOpen, setIsMessageDropdownOpen] = useDetectOutsideClick(messageDropdownRef, false);
+  const [isNotificationDropdownOpen, setIsNotificationDropdownOpen] = useDetectOutsideClick(notificationDropdownRef, false);
+  const [isOrderDropdownOpen, setIsOrderDropdownOpen] = useDetectOutsideClick(orderDropdownRef, false);
+
+  const onResendEmail = async (): Promise<void> => {
+    try {
+      const result: IResponse = await resendEmail({ userId: authUser.id as number, email: `${authUser.email}` }).unwrap();
+      dispatch(addAuthUser({ authInfo: result.user }));
+      showSuccessToast('Email sent successfully.');
+    } catch (error) {
+      showErrorToast('Error sending email.');
+    }
+  };
+
   return <div>HomeHeader</div>;
 };
 
