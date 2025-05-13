@@ -2,6 +2,8 @@ import React, { FC, ReactElement, useRef, useState } from 'react';
 import { IHeaderModalProps } from '../interfaces/header.interface';
 import { useAppDispatch, useAppSelector } from 'src/store/store';
 import { IReduxState } from 'src/store/store.interface';
+import { useGetNotificationsByIdQuery } from 'src/features/order/services/notification.service';
+import { useResendEmailMutation } from 'src/features/auth/services/auth.service';
 
 const HomeHeader: FC<IHeaderModalProps> = ({ showCategotyContainer }): ReactElement => {
   const authUser = useAppSelector((state: IReduxState) => state.authUser);
