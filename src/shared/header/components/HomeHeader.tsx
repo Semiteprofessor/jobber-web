@@ -1,5 +1,7 @@
-import React, { FC, ReactElement } from 'react';
+import React, { FC, ReactElement, useRef, useState } from 'react';
 import { IHeaderModalProps } from '../interfaces/header.interface';
+import { useAppSelector } from 'src/store/store';
+import { IReduxState } from 'src/store/store.interface';
 
 const HomeHeader: FC<IHeaderModalProps> = ({ showCategotyContainer }): ReactElement => {
   const authUser = useAppSelector((state: IReduxState) => state.authUser);
