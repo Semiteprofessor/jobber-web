@@ -3,7 +3,7 @@ import { IHeaderSideBarProps, ISettings } from '../../interfaces/header.interfac
 import { useAppDispatch, useAppSelector } from 'src/store/store';
 import { IReduxState } from 'src/store/store.interface';
 import { NavigateFunction, useNavigate } from 'react-router-dom';
-import { lowerCase } from 'src/shared/utils/util.service';
+import { applicationLogout, lowerCase } from 'src/shared/utils/util.service';
 
 const HomeHeaderSidebar: FC<IHeaderSideBarProps> = ({ setOpenSidebar }): ReactElement => {
   const authUser = useAppSelector((state: IReduxState) => state.authUser);
@@ -20,6 +20,20 @@ const HomeHeaderSidebar: FC<IHeaderSideBarProps> = ({ setOpenSidebar }): ReactEl
     { id: 3, name: 'Profile', url: `/seller_profile/${lowerCase(`${seller?.username}`)}/${seller?._id}/edit`, show: isSeller },
     { id: 4, name: 'Settings', url: `/${lowerCase(`${seller?.username}`)}/edit`, show: true }
   ];
+  const toggleDropdown = (event: MouseEvent): void => {
+    event.stopPropagation();
+    setIsDropdownOpen(!isDropdownOpen);
+  };
+
+  const toggleCategoriesDropdown = (event: MouseEvent): void => {
+    event.stopPropagation();
+    setToggleCategories(!toggleCategories);
+  };
+
+  const onLogout = (): void => {
+    applicationLogout(dispatch, navigate);
+  };
+
   return <div>HomeHeaderSidebar</div>;
 };
 
