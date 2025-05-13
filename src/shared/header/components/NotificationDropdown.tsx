@@ -29,7 +29,51 @@ const NotificationDropdown: FC<IHomeHeaderProps> = ({ setIsNotificationDropdownO
       setNotifications(sortedNotifications);
     }
   }, [isSuccess, data?.notifications]);
-  return <div>NotificationDropdown</div>;
+  return (
+    <div className="border-grey z-20 max-h-[470px] flex flex-col justify-between rounded shadow-md border border-grey bg-white">
+      <div className="block px-4 py-2 font-medium text-center text-gray-700 border-b border-grey">Notifications</div>
+      <div className="h-96 overflow-y-scroll">
+        {notifications.length > 0 &&
+          notifications.map((data: IOrderNotifcation) => (
+            <div
+              key={uuidv4()}
+              className="border-grey max-h-[90px] border-b py-2 text-left hover:bg-gray-50"
+              onClick={() => {
+                if (setIsNotificationDropdownOpen) {
+                  setIsNotificationDropdownOpen(false);
+                }
+                navigate(`/orders/${data.orderId}/activities`);
+                markNotificationAsRead(`${data._id}`);
+              }}
+            >
+              <div className="flex px-4">
+                <div className="flex-shrink-0 mt-1">
+                  <img
+                    className="rounded-full w-11 h-11 object-cover"
+                    src={data.senderUsername === authUser?.username ? data.receiverPicture : data.senderPicture}
+                    alt=""
+                  />
+                </div>
+                <div className="w-full pl-3 pt-2">
+                  <div className="text-[13px] font-normal leading-4 flex justify-between">
+                    <div className="font-normal w-[85%]">
+                      <span className="font-bold pr-1">
+                        {data.senderUsername === authUser?.username ? data.receiverUsername : data.senderUsername}
+                      </span>
+                      {data.message}
+                    </div>
+                    {!data.isRead ? <FaRegEnvelope className="text-sky-400 mt-1" /> : <FaRegEnvelopeOpen className="text-gray-200 mt-1" />}
+                  </div>
+                  <div className="flex gap-2 text-[11px]">
+                    <span className="font-normal text-[#b5b6ba]">{TimeAgo.transform(data?.createdAt)}</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          ))}
+      </div>
+    </div>
+  );
 };
 
 export default NotificationDropdown;
