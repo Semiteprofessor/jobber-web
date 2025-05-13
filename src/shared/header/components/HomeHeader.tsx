@@ -4,6 +4,10 @@ import { useAppDispatch, useAppSelector } from 'src/store/store';
 import { IReduxState } from 'src/store/store.interface';
 import { useGetNotificationsByIdQuery } from 'src/features/order/services/notification.service';
 import { useResendEmailMutation } from 'src/features/auth/services/auth.service';
+import useDetectOutsideClick from 'src/shared/hooks/useDetectOutsideClick';
+import { IResponse } from 'src/shared/shared.interface';
+import { addAuthUser } from 'src/features/auth/reducers/auth.reducer';
+import { showErrorToast, showSuccessToast } from 'src/shared/utils/util.service';
 
 const HomeHeader: FC<IHeaderModalProps> = ({ showCategotyContainer }): ReactElement => {
   const authUser = useAppSelector((state: IReduxState) => state.authUser);
