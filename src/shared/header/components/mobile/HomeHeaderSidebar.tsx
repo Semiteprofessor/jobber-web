@@ -34,7 +34,46 @@ const HomeHeaderSidebar: FC<IHeaderSideBarProps> = ({ setOpenSidebar }): ReactEl
     applicationLogout(dispatch, navigate);
   };
 
-  return <div>HomeHeaderSidebar</div>;
+  return (
+    <div
+      className={'fixed left-0 top-0 z-[150] flex h-screen w-full bg-black/40 transition-all duration-500'}
+      onClick={() => {
+        if (setOpenSidebar) {
+          setOpenSidebar(false);
+        }
+      }}
+    >
+       <div className={'absolute left-0 top-0 z-20 flex h-screen w-[250px] flex-col items-start justify-start gap-4 bg-white p-6'}>
+        <div className="z-2 sticky top-0 flex w-full flex-col items-start justify-start gap-6 bg-white">
+          <div className="flex cursor-pointer gap-4 py-3 text-base font-semibold transition-all duration-300">
+            <img src={`${authUser?.profilePicture}`} alt="profile" className="h-10 w-10 rounded-full object-cover" />
+            <span className="text-blacks flex self-center">{authUser?.username}</span>
+          </div>
+          <div
+            onClick={() => {
+              if (setOpenSidebar) {
+                setOpenSidebar(false);
+                dispatch(updateHeader('home'));
+                dispatch(updateCategoryContainer(true));
+              }
+            }}
+            className="cursor-pointer text-base font-medium text-gray-400"
+          >
+            <Link to="/">Home</Link>
+          </div>
+          <div
+            onClick={(event: MouseEvent) => {
+              event.stopPropagation();
+              if (setOpenSidebar) {
+                setOpenSidebar(false);
+              }
+            }}
+            className="cursor-pointer text-base font-medium text-gray-400"
+          >
+            <Link to="/inbox">Inbox</Link>
+          </div>
+    </div>
+  );
 };
 
 export default HomeHeaderSidebar;
