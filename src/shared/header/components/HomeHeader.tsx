@@ -129,7 +129,12 @@ const HomeHeader: FC<IHeaderModalProps> = ({ showCategotyContainer }): ReactElem
     });
   }, [authUser.username, dispatch]);
 
-  return <div>HomeHeader</div>;
+  return (
+    <>
+    {openSidebar && <HomeHeaderSidebar />}
+      <header></header>
+    </>
+  );
 };
 
 export default HomeHeader;
