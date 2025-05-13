@@ -8,6 +8,8 @@ import useDetectOutsideClick from 'src/shared/hooks/useDetectOutsideClick';
 import { IResponse } from 'src/shared/shared.interface';
 import { addAuthUser } from 'src/features/auth/reducers/auth.reducer';
 import { showErrorToast, showSuccessToast } from 'src/shared/utils/util.service';
+import { updateHeader } from '../reducers/header.reducer';
+import { updateCategoryContainer } from '../reducers/category.reducer';
 
 const HomeHeader: FC<IHeaderModalProps> = ({ showCategotyContainer }): ReactElement => {
   const authUser = useAppSelector((state: IReduxState) => state.authUser);
@@ -39,6 +41,40 @@ const HomeHeader: FC<IHeaderModalProps> = ({ showCategotyContainer }): ReactElem
     } catch (error) {
       showErrorToast('Error sending email.');
     }
+  };
+
+  const toggleDropdown = (): void => {
+    setIsSettingsDropdown(!isSettingsDropdown);
+    setIsMessageDropdownOpen(false);
+    setIsNotificationDropdownOpen(false);
+    setIsOrderDropdownOpen(false);
+  };
+
+  const toggleMessageDropdown = (): void => {
+    setIsMessageDropdownOpen(!isMessageDropdownOpen);
+    setIsNotificationDropdownOpen(false);
+    setIsOrderDropdownOpen(false);
+    setIsSettingsDropdown(false);
+    dispatch(updateHeader('home'));
+    dispatch(updateCategoryContainer(true));
+  };
+
+  const toggleOrdersDropdown = (): void => {
+    setIsOrderDropdownOpen(!isOrderDropdownOpen);
+    setIsMessageDropdownOpen(false);
+    setIsNotificationDropdownOpen(false);
+    setIsSettingsDropdown(false);
+    dispatch(updateHeader('home'));
+    dispatch(updateCategoryContainer(true));
+  };
+
+  const toggleNotificationDropdown = (): void => {
+    setIsNotificationDropdownOpen(!isNotificationDropdownOpen);
+    setIsOrderDropdownOpen(false);
+    setIsMessageDropdownOpen(false);
+    setIsSettingsDropdown(false);
+    dispatch(updateHeader('home'));
+    dispatch(updateCategoryContainer(true));
   };
 
   return <div>HomeHeader</div>;
