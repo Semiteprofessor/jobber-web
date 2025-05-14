@@ -1,27 +1,28 @@
-import React, { FC, ReactElement, useEffect, useRef, useState } from 'react';
-import { IHeaderModalProps } from '../interfaces/header.interface';
-import { useAppDispatch, useAppSelector } from 'src/store/store';
-import { IReduxState } from 'src/store/store.interface';
-import { useGetNotificationsByIdQuery } from 'src/features/order/services/notification.service';
-import { useResendEmailMutation } from 'src/features/auth/services/auth.service';
-import useDetectOutsideClick from 'src/shared/hooks/useDetectOutsideClick';
-import { IResponse } from 'src/shared/shared.interface';
-import { addAuthUser } from 'src/features/auth/reducers/auth.reducer';
-import { replaceSpacesWithDash, showErrorToast, showSuccessToast } from 'src/shared/utils/util.service';
-import { updateHeader } from '../reducers/header.reducer';
-import { updateCategoryContainer } from '../reducers/category.reducer';
-import { socket, socketService } from 'src/sockets/socket.service';
+import { Transition } from '@headlessui/react';
 import { filter, find } from 'lodash';
-import { updateNotification } from '../reducers/notification.reducer';
+import { FC, ReactElement, useEffect, useRef, useState } from 'react';
+import { FaAngleLeft, FaAngleRight, FaBars, FaRegBell, FaRegEnvelope, FaTimes } from 'react-icons/fa';
+import { Link } from 'react-router-dom';
+import { addAuthUser } from 'src/features/auth/reducers/auth.reducer';
+import { useResendEmailMutation } from 'src/features/auth/services/auth.service';
 import { IMessageDocument } from 'src/features/chat/interfaces/chat.interface';
 import { IOrderNotifcation } from 'src/features/order/interfaces/order.interface';
-import HomeHeaderSidebar from './mobile/HomeHeaderSidebar';
+import { useGetNotificationsByIdQuery } from 'src/features/order/services/notification.service';
 import Banner from 'src/shared/banner/Banner';
 import Button from 'src/shared/button/Button';
-import { FaAngleLeft, FaAngleRight, FaBars, FaRegBell, FaTimes } from 'react-icons/fa';
-import { Link } from 'react-router-dom';
+import useDetectOutsideClick from 'src/shared/hooks/useDetectOutsideClick';
+import { IResponse } from 'src/shared/shared.interface';
+import { categories, replaceSpacesWithDash, showErrorToast, showSuccessToast } from 'src/shared/utils/util.service';
+import { socket, socketService } from 'src/sockets/socket.service';
+import { useAppDispatch, useAppSelector } from 'src/store/store';
+import { IReduxState } from 'src/store/store.interface';
 import { v4 as uuidv4 } from 'uuid';
+
 import { IHomeHeaderProps } from '../interfaces/header.interface';
+import { updateCategoryContainer } from '../reducers/category.reducer';
+import { updateHeader } from '../reducers/header.reducer';
+import { updateNotification } from '../reducers/notification.reducer';
+import HeaderSearchInput from './HeaderSearchInput';
 import MessageDropdown from './MessageDropdown';
 import HomeHeaderSideBar from './mobile/HomeHeaderSideBar';
 import MobileHeaderSearchInput from './mobile/MobileHeaderSearchInput';
@@ -29,7 +30,7 @@ import NotificationDropdown from './NotificationDropdown';
 import OrderDropdown from './OrderDropdown';
 import SettingsDropdown from './SettingsDropdown';
 
-const HomeHeader: FC<IHeaderModalProps> = ({ showCategotyContainer }): ReactElement => {
+const HomeHeader: FC<IHomeHeaderProps> = ({ showCategoryContainer }): ReactElement => {
   const authUser = useAppSelector((state: IReduxState) => state.authUser);
   const seller = useAppSelector((state: IReduxState) => state.seller);
   const logout = useAppSelector((state: IReduxState) => state.logout);
@@ -144,7 +145,7 @@ const HomeHeader: FC<IHeaderModalProps> = ({ showCategotyContainer }): ReactElem
 
   return (
     <>
-      {openSidebar && <HomeHeaderSidebar setOpenSidebar={setOpenSidebar} />}
+      {openSidebar && <HomeHeaderSideBar setOpenSidebar={setOpenSidebar} />}
       <header>
         <nav className="navbar peer-checked:navbar-active relative z-[120] w-full border-b bg-white shadow-2xl shadow-gray-600/5 backdrop-blur dark:shadow-none">
           {!logout && authUser && !authUser.emailVerified && (
@@ -213,6 +214,34 @@ const HomeHeader: FC<IHeaderModalProps> = ({ showCategotyContainer }): ReactElem
                       >
                         <div className="absolute right-0 mt-5 w-96">
                           <NotificationDropdown setIsNotificationDropdownOpen={setIsNotificationDropdownOpen} />
+                        </div>
+                      </Transition>
+                    </li>
+                    <li className="relative z-50 flex cursor-pointer items-center">
+                      <Button
+                        className="relative px-4"
+                        onClick={toggleMessageDropdown}
+                        label={
+                          <>
+                            <FaRegEnvelope />
+                            {notification && notification.hasUnreadMessage && (
+                              <span className="absolute -top-1 right-0 mr-2 inline-flex h-[6px] w-[6px] items-center justify-center rounded-full bg-[#ff62ab]"></span>
+                            )}
+                          </>
+                        }
+                      />
+                      <Transition
+                        ref={messageDropdownRef}
+                        show={isMessageDropdownOpen}
+                        enter="transition ease-out duration-200"
+                        enterFrom="opacity-0 translate-y-1"
+                        enterTo="opacity-100 translate-y-0"
+                        leave="transition ease-in duration-150"
+                        leaveFrom="opacity-100 translate-y-0"
+                        leaveTo="opacity-0 translate-y-1"
+                      >
+                        <div className="absolute right-0 mt-5 w-96">
+                          <MessageDropdown setIsMessageDropdownOpen={setIsMessageDropdownOpen} />
                         </div>
                       </Transition>
                     </li>
@@ -290,6 +319,7 @@ const HomeHeader: FC<IHeaderModalProps> = ({ showCategotyContainer }): ReactElem
               </div>
             </div>
           </div>
+
           {showCategoryContainer && (
             <div className="border-grey z-40 hidden w-full border border-x-0 border-b-0 sm:flex">
               <div className="justify-left md:justify-left container mx-auto flex px-6 lg:justify-center">
