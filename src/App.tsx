@@ -1,21 +1,24 @@
-import './index.css';
-
+import { FC, ReactElement, useEffect } from 'react';
 import { BrowserRouter } from 'react-router-dom';
-import Header from './shared/header/components/Header';
-import { FC, ReactElement } from 'react';
-import LoginModal from './features/auth/components/Login';
-import RegisterModal from './features/auth/components/Register';
-import HeaderSearchInput from './shared/header/components/HeaderSearchInput';
-import Home from './features/home/components/Home';
-import Index from './features/index/Index';
+import { ToastContainer } from 'react-toastify';
+
+import AppRouter from './AppRoutes';
+import useBeforeWindowUnload from './shared/hooks/useBeforeWindowUnload';
+import { socketService } from './sockets/socket.service';
 
 const App: FC = (): ReactElement => {
+  useBeforeWindowUnload();
+
+  useEffect(() => {
+    socketService.setupSocketConnection();
+  }, []);
+
   return (
     <>
       <BrowserRouter>
         <div className="w-screen min-h-screen flex flex-col relative">
-          {/* <Header navClass="hdlfsflsddls" /> */}
-          <Index />
+          <AppRouter />
+          <ToastContainer />
         </div>
       </BrowserRouter>
     </>

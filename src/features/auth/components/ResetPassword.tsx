@@ -1,6 +1,6 @@
 import { ChangeEvent, FC, FormEvent, ReactElement, useState } from 'react';
 import { AUTH_FETCH_STATUS, IResetPassword } from '../interfaces/auth.interface';
-import { useAuthSchema } from 'src/shared/hooks/useAuthSchema';
+import { useAuthSchema } from 'src/features/auth/hooks/useAuthSchema';
 import { resetPasswordSchema } from '../schemes/auth.schema';
 import { useSearchParams } from 'react-router-dom';
 import { useResetPasswordMutation } from '../services/auth.service';
