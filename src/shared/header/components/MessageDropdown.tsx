@@ -1,8 +1,12 @@
-import React, { FC, ReactElement, useEffect } from 'react';
+import React, { FC, ReactElement, useEffect, useState } from 'react';
 import { IHomeHeaderProps } from '../interfaces/header.interface';
 import { useAppSelector } from 'src/store/store';
 import { IReduxState } from 'src/store/store.interface';
 import { NavigateFunction, useNavigate } from 'react-router-dom';
+import { IMessageDocument } from 'src/features/chat/interfaces/chat.interface';
+import { useGetConversationListQuery, useMarkMessagesAsReadMutation } from 'src/features/chat/services/chat.service';
+import { orderBy } from 'lodash';
+import { lowerCase, showErrorToast } from 'src/shared/utils/util.service';
 
 const MessageDropdown: FC<IHomeHeaderProps> = ({ setIsMessageDropdownOpen }): ReactElement => {
   const seller = useAppSelector((state: IReduxState) => state.seller);
@@ -33,7 +37,56 @@ const MessageDropdown: FC<IHomeHeaderProps> = ({ setIsMessageDropdownOpen }): Re
     }
   };
 
-  return <div>MessageDropdown</div>;
+  return (
+    <div>
+      <div></div>
+      <div>
+        {conversations.length > 0 ? (
+          <>
+            {conversations.map((data: IMessageDocument) => (
+              <div
+                key={uuidv4()}
+                onClick={() => {
+                  selectInboxMessage(data);
+                  if (setIsMessageDropdownOpen) {
+                    setIsMessageDropdownOpen(false);
+                  }
+                }}
+                className="border-grey max-h-[90px] border-b pt-2 text-left hover:bg-gray-50 "
+              >
+                <div className="flex px-4">
+                  <div className="mt-1 flex-shrink-0">
+                    <img
+                      className="h-11 w-11 rounded-full object-cover"
+                      src={data.receiverUsername !== authUser.username ? data.receiverPicture : data.senderPicture}
+                      alt=""
+                    />
+                  </div>
+                  <div className="w-full pl-3 pt-1">
+                    <div className="flex flex-col text-sm font-normal ">
+                      <div className="font-bold leading-none flex justify-between">
+                        {data.receiverUsername !== authUser.username ? data.receiverUsername : data.senderUsername}
+                        {!data.isRead ? <FaRegEnvelope className="text-sky-400" /> : <FaRegEnvelopeOpen className="text-gray-200" />}
+                      </div>
+                      <span className="line-clamp-1 pt-1 font-normal leading-4">
+                        {data.receiverUsername === authUser?.username ? '' : 'Me: '}
+                        {data.body}
+                      </span>
+                    </div>
+                    <div className="mt-1 flex text-[11px]">
+                      {data.createdAt && <span className="font-normal text-[#b5b6ba]">{TimeAgo.transform(data.createdAt)}</span>}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </>
+        ) : (
+          <div className="flex h-full items-center justify-center">No messages to show</div>
+        )}
+      </div>
+    </div>
+  );
 };
 
 export default MessageDropdown;
