@@ -1,4 +1,4 @@
-import { useCallback, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { NavigateFunction, useNavigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from 'src/store/store';
 import { useCheckCurrentUserQuery } from './auth/services/auth.service';
@@ -8,10 +8,12 @@ import { useGetCurrentBuyerByUsernameQuery } from './buyer/services/buyer.servic
 import { addAuthUser } from './auth/reducers/auth.reducer';
 import { addBuyer } from './buyer/reducers/buyer.reducer';
 import { addSeller } from './sellers/reducers/seller.reducer';
-import { getDataFromLocalStorage, saveToSessionStorage } from 'src/shared/utils/util.service';
+import { applicationLogout, getDataFromLocalStorage, saveToSessionStorage } from 'src/shared/utils/util.service';
 import { socket } from 'src/sockets/socket.service';
 import Index from './index/Index';
 import CircularPageLoader from 'src/shared/page-loader/CircularPageLoader';
+import HomeHeader from 'src/shared/header/components/HomeHeader';
+import Home from './home/components/Home';
 
 const AppPage = () => {
   const authUser = useAppSelector((state: IReduxState) => state.authUser);
@@ -60,10 +62,23 @@ const AppPage = () => {
   }, [checkUser, logoutUser]);
 
   if (authUser) {
-    return !tokenIsValid && !authUser.id ? <Index /> : <>{isBuyerLoading && isSellerLoading ? <CircularPageLoader /> : <>
-    <HomeHeader show /></>}</>;
+    return !tokenIsValid && !authUser.id ? (
+      <Index />
+    ) : (
+      <>
+        {isBuyerLoading && isSellerLoading ? (
+          <CircularPageLoader />
+        ) : (
+          <>
+            <HomeHeader showCategoryContainer={showCategoryContainer} />
+            <Home />
+          </>
+        )}
+      </>
+    );
+  } else {
+    return <Index />;
   }
-  return <div>AppPage</div>;
 };
 
 export default AppPage;

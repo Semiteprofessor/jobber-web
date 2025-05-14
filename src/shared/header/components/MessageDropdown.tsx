@@ -6,7 +6,10 @@ import { NavigateFunction, useNavigate } from 'react-router-dom';
 import { IMessageDocument } from 'src/features/chat/interfaces/chat.interface';
 import { useGetConversationListQuery, useMarkMessagesAsReadMutation } from 'src/features/chat/services/chat.service';
 import { orderBy } from 'lodash';
+import { TimeAgo } from 'src/shared/utils/timeago.util';
 import { lowerCase, showErrorToast } from 'src/shared/utils/util.service';
+import { FaEye, FaRegEnvelope, FaRegEnvelopeOpen } from 'react-icons/fa';
+import { v4 as uuidv4 } from 'uuid';
 
 const MessageDropdown: FC<IHomeHeaderProps> = ({ setIsMessageDropdownOpen }): ReactElement => {
   const seller = useAppSelector((state: IReduxState) => state.seller);
@@ -84,6 +87,18 @@ const MessageDropdown: FC<IHomeHeaderProps> = ({ setIsMessageDropdownOpen }): Re
         ) : (
           <div className="flex h-full items-center justify-center">No messages to show</div>
         )}
+      </div>
+      <div
+        onClick={() => {
+          navigate('/inbox');
+          if (setIsMessageDropdownOpen) {
+            setIsMessageDropdownOpen(false);
+          }
+        }}
+        className="flex h-10 cursor-pointer justify-center bg-white px-4 text-sm font-medium text-sky-500"
+      >
+        <FaEye className="mr-2 h-4 w-4 self-center" />
+        <span className="self-center">View all</span>
       </div>
     </div>
   );

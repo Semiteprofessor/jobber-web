@@ -24,7 +24,7 @@ import { updateHeader } from '../reducers/header.reducer';
 import { updateNotification } from '../reducers/notification.reducer';
 import HeaderSearchInput from './HeaderSearchInput';
 import MessageDropdown from './MessageDropdown';
-import HomeHeaderSideBar from './mobile/HomeHeaderSideBar';
+import HomeHeaderSideBar from './mobile/HomeHeaderSidebar';
 import MobileHeaderSearchInput from './mobile/MobileHeaderSearchInput';
 import NotificationDropdown from './NotificationDropdown';
 import OrderDropdown from './OrderDropdown';
