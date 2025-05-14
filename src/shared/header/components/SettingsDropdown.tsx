@@ -1,8 +1,10 @@
 import React, { FC, ReactElement } from 'react';
 import { IHomeHeaderProps } from '../interfaces/header.interface';
-import { NavigateFunction, useNavigate } from 'react-router-dom';
+import { Link, NavigateFunction, useNavigate } from 'react-router-dom';
 import { useAppDispatch } from 'src/store/store';
-import { applicationLogout } from 'src/shared/utils/util.service';
+import { applicationLogout, lowerCase } from 'src/shared/utils/util.service';
+import { updateCategoryContainer } from '../reducers/category.reducer';
+import { updateHeader } from '../reducers/header.reducer';
 
 const SettingsDropdown: FC<IHomeHeaderProps> = ({ seller, authUser, buyer, type, setIsDropdownOpen }): ReactElement => {
   const navigate: NavigateFunction = useNavigate();
@@ -85,7 +87,79 @@ const SettingsDropdown: FC<IHomeHeaderProps> = ({ seller, authUser, buyer, type,
               Dashboard
             </Link>
           </li>
-        )}</div>;
+        )}
+        {buyer && buyer.isSeller && type === 'buyer' && (
+          <li>
+            <Link
+              to={`/seller_profile/${lowerCase(`${seller?.username}`)}/${seller?._id}/edit`}
+              className="block px-4 py-2 hover:text-sky-400"
+              onClick={() => {
+                if (setIsDropdownOpen) {
+                  setIsDropdownOpen(false);
+                }
+                dispatch(updateHeader('home'));
+                dispatch(updateCategoryContainer(true));
+              }}
+            >
+              Profile
+            </Link>
+          </li>
+        )}
+        <li>
+          <Link
+            to={`${lowerCase(`${buyer?.username}/edit`)}`}
+            className="block px-4 py-2 hover:text-sky-400"
+            onClick={() => {
+              if (setIsDropdownOpen) {
+                setIsDropdownOpen(false);
+              }
+              dispatch(updateHeader('home'));
+              dispatch(updateCategoryContainer(false));
+            }}
+          >
+            Settings
+          </Link>
+        </li>
+      </ul>
+        {buyer && buyer.isSeller && type === 'buyer' && (
+          <li>
+            <Link
+              to={`/seller_profile/${lowerCase(`${seller?.username}`)}/${seller?._id}/edit`}
+              className="block px-4 py-2 hover:text-sky-400"
+              onClick={() => {
+                if (setIsDropdownOpen) {
+                  setIsDropdownOpen(false);
+                }
+                dispatch(updateHeader('home'));
+                dispatch(updateCategoryContainer(true));
+              }}
+            >
+              Profile
+            </Link>
+          </li>
+        )}
+        <li>
+          <Link
+            to={`${lowerCase(`${buyer?.username}/edit`)}`}
+            className="block px-4 py-2 hover:text-sky-400"
+            onClick={() => {
+              if (setIsDropdownOpen) {
+                setIsDropdownOpen(false);
+              }
+              dispatch(updateHeader('home'));
+              dispatch(updateCategoryContainer(false));
+            }}
+          >
+            Settings
+          </Link>
+        </li>
+      </ul>
+      <div className="py-1">
+        <div onClick={() => onLogout()} className="block px-4 py-2 text-sm hover:text-sky-400">
+          Sign out
+        </div>
+      </div>
+      </div>;
 };
 
 export default SettingsDropdown;
