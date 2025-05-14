@@ -31,3 +31,35 @@ export const chatApi = api.injectEndpoints({
       },
       invalidatesTags: ['Chat']
     }),
+    updateOffer: build.mutation<IResponse, { messageId: string; type: string }>({
+      query({ messageId, type }) {
+        return {
+          url: 'message/offer',
+          method: 'PUT',
+          body: { messageId, type }
+        };
+      },
+      invalidatesTags: ['Chat']
+    }),
+    markMessagesAsRead: build.mutation<IResponse, string>({
+      query(messageId: string) {
+        return {
+          url: 'message/mark-as-read',
+          method: 'PUT',
+          body: { messageId }
+        };
+      },
+      invalidatesTags: ['Chat']
+    }),
+    markMultipleMessagesAsRead: build.mutation<IResponse, { receiverUsername: string; senderUsername: string; messageId: string }>({
+      query({ receiverUsername, senderUsername, messageId }) {
+        return {
+          url: 'message/mark-multiple-as-read',
+          method: 'PUT',
+          body: { receiverUsername, senderUsername, messageId }
+        };
+      },
+      invalidatesTags: ['Chat']
+    })
+  })
+});
