@@ -44,7 +44,22 @@ const OrderDropdown: FC<IHomeHeaderProps> = ({ buyer, setIsDropdownOpen }): Reac
               </Link>
             </div>
           ))}
+        {orders.length === 0 && <div className="flex h-full items-center justify-center">No orders to show</div>}
       </div>
+      {orders.length > 0 && (
+        <Link
+          to={`/users/${lowerCase(`${buyer?.username}`)}/${buyer?._id}/orders`}
+          className="flex h-10 cursor-pointer justify-center bg-white px-4 text-sm font-medium text-sky-500"
+          onClick={() => {
+            if (setIsDropdownOpen) {
+              setIsDropdownOpen(false);
+            }
+          }}
+        >
+          <FaEye className="mr-2 h-4 w-4 self-center" />
+          <span className="self-center">View all</span>
+        </Link>
+      )}
     </div>
   );
 };
