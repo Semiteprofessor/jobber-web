@@ -63,3 +63,14 @@ export const chatApi = api.injectEndpoints({
     })
   })
 });
+
+export const {
+  useGetConversationQuery,
+  useGetMessagesQuery,
+  useGetConversationListQuery,
+  useGetUserMessagesQuery,
+  useSaveChatMessageMutation,
+  useUpdateOfferMutation,
+  useMarkMessagesAsReadMutation,
+  useMarkMultipleMessagesAsReadMutation
+} = chatApi;
