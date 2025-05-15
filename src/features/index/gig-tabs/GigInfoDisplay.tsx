@@ -13,3 +13,17 @@ import StarRating from 'src/shared/rating/StarRating';
 import { emptyGigData } from 'src/shared/utils/static-data';
 import { rating, shortenLargeNumbers } from 'src/shared/utils/util.service';
 import { v4 as uuidv4 } from 'uuid';
+
+const GigInfoDisplay: FC = (): ReactElement => {
+  const [showRegisterModal, setShowRegisterModal] = useState<boolean>(false);
+  const { gigId } = useParams<string>();
+  const { data, isSuccess, isLoading } = useGetAuthGigByIdQuery(`${gigId}`);
+  const gig = useRef<ISellerGig>(emptyGigData);
+  if (isSuccess) {
+    gig.current = data.gig as ISellerGig;
+  }
+
+  return <div>GigInfoDisplay</div>;
+};
+
+export default GigInfoDisplay;
