@@ -39,6 +39,42 @@ const RegisterModal: FC<IModalBgProps> = ({ onClose, onToggle }): ReactElement =
     browserName: deviceData.browser.name,
     deviceType: mobileOrientation.isLandscape ? 'browser' : 'mobile'
   });
+  const fileInputRef = useRef<HTMLInputElement>(null);
+  const dispatch = useAppDispatch();
+  const [schemaValidation] = useAuthSchema({ schema: registerUserSchema, userInfo });
+  const [signUp, { isLoading }] = useSignUpMutation();
+
+  const handleFileChange = async (event: ChangeEvent): Promise<void> => {
+    const target: HTMLInputElement = event.target as HTMLInputElement;
+    if (target.files) {
+      const file: File = target.files[0];
+      const isValid = checkImage(file, 'image');
+      if (isValid) {
+        const dataImage: string | ArrayBuffer | null = await readAsBase64(file);
+        setProfileImage(`${dataImage}`);
+        setUserInfo({ ...userInfo, profilePicture: `${dataImage}` });
+      }
+      setShowImageSelect(false);
+    }
+  };
+
+  const onRegisterUser = async (): Promise<void> => {
+    try {
+      const isValid: boolean = await schemaValidation();
+      if (isValid) {
+        const result: IResponse = await signUp(userInfo).unwrap();
+        setAlertMessage('');
+        dispatch(addAuthUser({ authInfo: result.user }));
+        dispatch(updateLogout(false));
+        dispatch(updateHeader('home'));
+        dispatch(updateCategoryContainer(true));
+        saveToSessionStorage(JSON.stringify(true), JSON.stringify(result.user?.username));
+      }
+    } catch (error) {
+      setAlertMessage(error?.data.message);
+    }
+  };
+
   return <div className="font-bold">RegisterModal</div>;
 };
 

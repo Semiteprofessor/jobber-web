@@ -5,6 +5,7 @@ import AppPage from './features/AppPage';
 import ConfirmEmail from './features/auth/components/ConfirmEmail';
 import VerifyOTP from './features/auth/components/VerifyOTP';
 import GigsIndexDisplay from './features/index/gig-tabs/GigsIndexDisplay';
+import GigInfoDisplay from './features/index/gig-tabs/GigInfoDisplay';
 
 const Layout = ({ backgroundColor = '#fff', children }: { backgroundColor: string; children: ReactNode }): JSX.Element => (
   <div style={{ backgroundColor }} className="flex flex-grow">
