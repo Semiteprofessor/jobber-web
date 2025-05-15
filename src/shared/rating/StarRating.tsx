@@ -21,7 +21,21 @@ const StarRating: FC<IStarRatingProps> = ({ value, size, setReviewRating }): Rea
     }
   };
 
-  return <div>StarRating</div>;
+  return (
+    <div className="flex cursor-pointer">
+      <div className="flex relative text-orange-400">
+        {numberOfStars.map((index: number) => (
+          <Fragment key={index}>{index <= rating && <FaStar size={size} className="mr-1" />}</Fragment>
+        ))}
+
+        <div className="absolute flex text-orange-400">
+          {numberOfStars.map((index: number) => (
+            <FaRegStar className="mr-1" key={uuidv4()} size={size} onClick={() => handleClick(index)} />
+          ))}
+        </div>
+      </div>
+    </div>
+  );
 };
 
 export default StarRating;
