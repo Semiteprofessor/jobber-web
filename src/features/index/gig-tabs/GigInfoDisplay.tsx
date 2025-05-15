@@ -37,11 +37,10 @@ const GigInfoDisplay: FC = (): ReactElement => {
       )}
       <div className="flex w-screen flex-col">
         <Header navClass="navbar peer-checked:navbar-active relative z-20 w-full border-b border-gray-100 bg-white/90 shadow-2xl shadow-gray-600/5 backdrop-blur dark:border-gray-800 dark:bg-gray-900/80 dark:shadow-none" />
-      {
-      isLoading ? (
-        <CircularPageLoader />
-      ) : (
-        <div className="relative m-auto mt-8 min-h-screen w-screen px-6 xl:container md:px-12 lg:px-6">
+        {isLoading ? (
+          <CircularPageLoader />
+        ) : (
+          <div className="relative m-auto mt-8 min-h-screen w-screen px-6 xl:container md:px-12 lg:px-6">
             <main className="max-w-8xl container mx-auto mt-8">
               <h2 className="mb-4 px-4 text-xl font-bold text-[#404145] lg:text-3xl">{gig.current.title}</h2>
               <div className="mb-4 flex flex-row gap-x-2 px-4">
@@ -105,7 +104,53 @@ const GigInfoDisplay: FC = (): ReactElement => {
                   <hr className="border-grey my-3" />
                 </div>
 
-      )}</div>
+                <div className="w-full p-4 lg:w-1/3">
+                  <StickyBox>
+                    <div className="border-grey mb-8 border">
+                      <div className="flex border-b px-4 py-2">
+                        <h4 className="font-bold">${gig.current.price}</h4>
+                      </div>
+                      <ul className="mb-0 list-none px-4 py-2">
+                        <li className="flex justify-between">
+                          <div className="ml-15 flex w-full pb-3">
+                            <div className="text-base font-bold">{gig.current.basicTitle}</div>
+                          </div>
+                        </li>
+                        <li className="flex justify-between">
+                          <div className="ml-15 flex w-full pb-4">
+                            <div className="text-sm font-normal">{gig.current.basicDescription}</div>
+                          </div>
+                        </li>
+                        <li className="flex justify-between">
+                          <div className="ml-15 flex w-full pb-3">
+                            <FaRegClock className="flex self-center" />{' '}
+                            <span className="ml-3 text-sm font-semibold">{gig.current.expectedDelivery}</span>
+                          </div>
+                        </li>
+                        <li className="flex justify-between">
+                          <div className="ml-15 flex w-full py-1">
+                            <Button
+                              className={
+                                'text-md flex w-full cursor-pointer justify-between rounded bg-sky-500 px-8 py-2 font-bold text-white focus:outline-none '
+                              }
+                              onClick={() => setShowRegisterModal(true)}
+                              label={
+                                <>
+                                  <span className="w-full">Continue</span> <FaArrowRight className="flex self-center" />
+                                </>
+                              }
+                            />
+                          </div>
+                        </li>
+                      </ul>
+                    </div>
+                  </StickyBox>
+                </div>
+              </div>
+            </main>
+          </div>
+        )}
+      </div>
     </>
   );
 };
