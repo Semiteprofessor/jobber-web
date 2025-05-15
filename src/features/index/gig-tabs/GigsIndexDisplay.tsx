@@ -73,6 +73,17 @@ const GigsIndexDisplay: FC<IGigsProps> = ({ type }): ReactElement => {
               />
             )}
           </>
+        )}{' '}
+        {isError && <PageMessage header="Services issue" body="A network issue occured. Try agin later." />}
+        {gigs.length > 0 && (
+          <GigPaginate
+            gigs={gigsCurrent.current}
+            totalGigs={totalGigs}
+            showNumbers={false}
+            itemsPerPage={ITEMS_PER_PAGE}
+            setItemFrom={setItemFrom}
+            setPaginationType={setPaginationType}
+          />
         )}
       </div>
     </div>
