@@ -4,6 +4,7 @@ import ResetPassword from './features/auth/components/ResetPassword';
 import AppPage from './features/AppPage';
 import ConfirmEmail from './features/auth/components/ConfirmEmail';
 import VerifyOTP from './features/auth/components/VerifyOTP';
+import GigsIndexDisplay from './features/index/gig-tabs/GigsIndexDisplay';
 
 const Layout = ({ backgroundColor = '#fff', children }: { backgroundColor: string; children: ReactNode }): JSX.Element => (
   <div style={{ backgroundColor }} className="flex flex-grow">
@@ -38,6 +39,16 @@ const AppRouter: FC = () => {
       element: (
         <Suspense>
           <VerifyOTP />
+        </Suspense>
+      )
+    },
+    {
+      path: '/search/categories/:category',
+      element: (
+        <Suspense>
+          <Layout backgroundColor="#ffffff">
+            <GigsIndexDisplay type="categories" />
+          </Layout>
         </Suspense>
       )
     }
