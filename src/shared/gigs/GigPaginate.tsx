@@ -1,5 +1,5 @@
 import React, { FC, ReactElement } from 'react';
-import { FaArrowLeft } from 'react-icons/fa';
+import { FaArrowLeft, FaArrowRight } from 'react-icons/fa';
 import { IGigPaginateProps, ISellerGig } from 'src/features/gigs/interfaces/gig.interface';
 import { v4 as uuidv4 } from 'uuid';
 
@@ -52,6 +52,21 @@ const GigPaginate: FC<IGigPaginateProps> = ({
               {index + 1}
             </li>
           ))}
+        <div
+          className={`cursor-pointer p-3 ${
+            itemOffset === paginationCount.length ? 'cursor-not-allowed text-gray-400' : 'rounded-full border border-sky-400'
+          }`}
+          onClick={() => {
+            if (itemOffset + 1 <= paginationCount.length) {
+              itemOffset += 1;
+              setPaginationType('forward');
+              const lastItem: ISellerGig = gigs[gigs.length - 1];
+              setItemFrom(`${lastItem.sortId}`);
+            }
+          }}
+        >
+          <FaArrowRight className="flex self-center" color={`${itemOffset === paginationCount.length ? 'grey' : 'black'}`} />
+        </div>
       </ul>
     </div>
   );
