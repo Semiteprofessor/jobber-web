@@ -7,7 +7,7 @@ import GigPaginate from 'src/shared/gigs/GigPaginate';
 import Header from 'src/shared/header/components/Header';
 import CircularPageLoader from 'src/shared/page-loader/CircularPageLoader';
 import PageMessage from 'src/shared/page-message/PageMessage';
-import { categories, replaceAmpersandAndDashWithSpace, replaceDashWithSpaces, replaceSpacesWithDash } from 'src/shared/utils/utils.service';
+import { categories, replaceAmpersandAndDashWithSpace, replaceDashWithSpaces, replaceSpacesWithDash } from 'src/shared/utils/util.service';
 import { v4 as uuidv4 } from 'uuid';
 
 import GigIndexItem from './GigIndexItem';
@@ -69,12 +69,12 @@ const GigsIndexDisplay: FC<IGigsProps> = ({ type }): ReactElement => {
             ) : (
               <PageMessage
                 header="No services found for your search"
-                body="Try a new search or get a free quote for your project from our commnunity of freelancers."
+                body="Try a new search or get a free quote for your project from our community of freelancers."
               />
             )}
           </>
         )}{' '}
-        {isError && <PageMessage header="Services issue" body="A network issue occured. Try agin later." />}
+        {isError && <PageMessage header="Services issue" body="A network issue occurred. Try again later." />}
         {gigs.length > 0 && (
           <GigPaginate
             gigs={gigsCurrent.current}

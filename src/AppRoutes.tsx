@@ -51,6 +51,26 @@ const AppRouter: FC = () => {
           </Layout>
         </Suspense>
       )
+    },
+    {
+      path: '/gigs/search',
+      element: (
+        <Suspense>
+          <Layout backgroundColor="#ffffff">
+            <GigsIndexDisplay type="search" />
+          </Layout>
+        </Suspense>
+      )
+    },
+    {
+      path: '/gig/:gigId/:title',
+      element: (
+        <Suspense>
+          <Layout backgroundColor="#ffffff">
+            <GigInfoDisplay />
+          </Layout>
+        </Suspense>
+      )
     }
   ];
   return useRoutes(routes);
