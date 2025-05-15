@@ -23,7 +23,21 @@ const GigInfoDisplay: FC = (): ReactElement => {
     gig.current = data.gig as ISellerGig;
   }
 
-  return <div>GigInfoDisplay</div>;
+  return (
+    <>
+      {showRegisterModal && (
+        <Suspense>
+          <RegisterModal
+            onClose={() => setShowRegisterModal(false)}
+            onToggle={() => {
+              setShowRegisterModal(false);
+            }}
+          />
+        </Suspense>
+      )}
+      <div></div>
+    </>
+  );
 };
 
 export default GigInfoDisplay;
