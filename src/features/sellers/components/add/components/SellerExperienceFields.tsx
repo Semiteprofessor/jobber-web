@@ -4,7 +4,7 @@ import Button from 'src/shared/button/Button';
 import Dropdown from 'src/shared/dropdown/Dropdown';
 import TextAreaInput from 'src/shared/inputs/TextAreaInput';
 import TextInput from 'src/shared/inputs/TextInput';
-import { yearsList } from 'src/shared/utils/utils.service';
+import { yearsList } from 'src/shared/utils/util.service';
 
 const SellerExperienceFields: FC<IExperienceProps> = ({ experienceFields, setExperienceFields }): ReactElement => {
   const handleExperienceFieldsChange = (event: ChangeEvent, index: number): void => {
