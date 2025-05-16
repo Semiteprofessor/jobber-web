@@ -2,12 +2,12 @@ import { FC, ReactElement } from 'react';
 import { Link } from 'react-router-dom';
 import { IOrderDocument, IOrderTableProps } from 'src/features/order/interfaces/order.interface';
 import { TimeAgo } from 'src/shared/utils/timeago.util';
-import { lowerCase } from 'src/shared/utils/utils.service';
+import { lowerCase } from 'src/shared/utils/util.service';
 import { v4 as uuidv4 } from 'uuid';
 
 const BuyerTable: FC<IOrderTableProps> = ({ type, orders, orderTypes }): ReactElement => {
-  return 
-    (<div className="flex flex-col">
+  return (
+    <div className="flex flex-col">
       <div className="border-grey border border-b-0 px-3 py-3">
         <div className="text-xs font-bold uppercase sm:text-sm md:text-base">{type} orders </div>
       </div>
@@ -32,7 +32,50 @@ const BuyerTable: FC<IOrderTableProps> = ({ type, orders, orderTypes }): ReactEl
                   <th className="p-3 text-center">Status</th>
                 </tr>
               ))}
-            </thead></div>);
+            </thead>
+            <tbody className="flex-1 sm:flex-none">
+              {orders.map((order: IOrderDocument) => (
+                <tr key={uuidv4()} className="border-grey mb-2 flex flex-col flex-nowrap border-b bg-white sm:mb-0 sm:table-row ">
+                  <td className="px-3 py-3 lg:flex lg:justify-center">
+                    <img className="h-6 w-10 object-cover lg:h-8 lg:w-11" src={order.gigCoverImage} alt="Gig cover image" />
+                  </td>
+                  <td className="p-3 text-left">
+                    <div className="grid">
+                      <Link to={`/orders/${order.orderId}/activities`} className="truncate text-sm font-normal hover:text-sky-500">
+                        {order.gigBasicTitle}
+                      </Link>
+                    </div>
+                  </td>
+                  <td className="p-3 text-left lg:text-center">{TimeAgo.dayMonthYear(`${order.dateOrdered}`)}</td>
+                  <td className="p-3 text-left lg:text-center">
+                    {type === 'cancelled'
+                      ? TimeAgo.dayMonthYear(`${order.approvedAt}`)
+                      : TimeAgo.dayMonthYear(`${order.offer.newDeliveryDate}`)}
+                  </td>
+                  <td className="p-3 text-left lg:text-center">${order.price}</td>
+                  <td className="px-3 py-1 text-left lg:p-3 lg:text-center">
+                    <span
+                      className={`status rounded bg-transparent p-0 text-xs font-bold uppercase text-black sm:px-[5px] sm:py-[4px] sm:text-white ${lowerCase(
+                        order.status.replace(/ /g, '')
+                      )}`}
+                    >
+                      {order.status}
+                    </span>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </>
+        ) : (
+          <tbody>
+            <tr>
+              <td className="w-full px-4 py-2 text-sm">No {type} orders to show.</td>
+            </tr>
+          </tbody>
+        )}
+      </table>
+    </div>
+  );
 };
 
 export default BuyerTable;
