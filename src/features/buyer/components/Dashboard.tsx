@@ -82,7 +82,18 @@ const BuyerDashboard: FC = (): ReactElement => {
             </li>
           </ul>
         </div>
-</div>)
+        {type === BUYER_GIG_STATUS.ACTIVE && (
+          <BuyerTable type="active" orders={orders} orderTypes={orderTypes(BUYER_GIG_STATUS.IN_PROGRESS, orders)} />
+        )}
+        {type === BUYER_GIG_STATUS.COMPLETED && (
+          <BuyerTable type="completed" orders={orders} orderTypes={orderTypes(BUYER_GIG_STATUS.COMPLETED, orders)} />
+        )}
+        {type === BUYER_GIG_STATUS.CANCELLED && (
+          <BuyerTable type="cancelled" orders={orders} orderTypes={orderTypes(BUYER_GIG_STATUS.CANCELLED, orders)} />
+        )}
+      </div>
+    </div>
+  );
 };
 
 export default BuyerDashboard;
