@@ -49,7 +49,40 @@ const BuyerDashboard: FC = (): ReactElement => {
                   </span>
                 )}
               </a>
-            </li></div>)
+            </li>
+            <li className="inline-block py-3 uppercase" onClick={() => setType(BUYER_GIG_STATUS.COMPLETED)}>
+              <a
+                href="#activeorders"
+                className={`px-4 py-3 text-xs text-[#555555] no-underline sm:text-sm md:text-base ${
+                  type === BUYER_GIG_STATUS.COMPLETED ? 'pb-[15px] outline outline-1 outline-[#e8e8e8] sm:rounded-t-lg' : ''
+                }`}
+              >
+                Completed
+                {orderTypes(BUYER_GIG_STATUS.COMPLETED, orders) > 0 && (
+                  <span className="ml-1 rounded-[5px] bg-sky-500 px-[5px] py-[1px] text-xs font-medium text-white">
+                    {shortenLargeNumbers(orderTypes(BUYER_GIG_STATUS.COMPLETED, orders))}
+                  </span>
+                )}
+              </a>
+            </li>
+            <li className="inline-block py-3 uppercase" onClick={() => setType(BUYER_GIG_STATUS.CANCELLED)}>
+              <a
+                href="#activeorders"
+                className={`px-4 py-3 text-xs text-[#555555] no-underline sm:text-sm md:text-base ${
+                  type === BUYER_GIG_STATUS.CANCELLED ? 'pb-[15px] outline outline-1 outline-[#e8e8e8] sm:rounded-t-lg' : ''
+                }`}
+              >
+                Cancelled
+                {orderTypes(BUYER_GIG_STATUS.CANCELLED, orders) > 0 && (
+                  <span className="ml-1 rounded-[5px] bg-sky-500 px-[5px] py-[1px] text-xs font-medium text-white">
+                    {shortenLargeNumbers(orderTypes(BUYER_GIG_STATUS.CANCELLED, orders))}
+                  </span>
+                )}
+              </a>
+            </li>
+          </ul>
+        </div>
+</div>)
 };
 
 export default BuyerDashboard;
