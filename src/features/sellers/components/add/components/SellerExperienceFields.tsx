@@ -128,6 +128,41 @@ const SellerExperienceFields: FC<IExperienceProps> = ({ experienceFields, setExp
               />
             </div>
           </div>
+          <div className="mb-4 mt-2 flex items-center">
+            <TextInput
+              id="default-checkbox"
+              type="checkbox"
+              name="currentlyWorkingHere"
+              value={`${input.currentlyWorkingHere}`}
+              checked={input.currentlyWorkingHere}
+              onChange={(event: ChangeEvent) => handleExperienceFieldsChange(event, index)}
+              className="h-4 w-4 rounded border-gray-300 bg-gray-100 text-blue-600"
+            />
+            <label htmlFor="default-checkbox" className="ml-2 text-sm font-normal">
+              I am currently working here
+            </label>
+          </div>
+          <div className="flex items-center">
+            <TextAreaInput
+              className="border-grey focus:border-grey block w-full rounded border p-2.5 text-sm text-gray-900 focus:ring-blue-500"
+              name="description"
+              value={input.description}
+              rows={5}
+              onChange={(event: ChangeEvent) => handleExperienceFieldsChange(event, index)}
+              placeholder="Write description..."
+            />
+          </div>
+          <div className="mt-2">
+            {experienceFields.length > 1 && index > 0 && (
+              <Button
+                className="md:text-md h-7 rounded bg-red-500 px-6 text-center text-sm font-bold text-white hover:bg-red-400 focus:outline-none md:px-8"
+                label="Delete"
+                onClick={() => removeExperienceFields(index)}
+              />
+            )}
+          </div>
+        </div>
+      ))}
     </div>
   );
 };
