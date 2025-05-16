@@ -72,6 +72,17 @@ const SellerLanguageFields: FC<ILanguageProps> = ({ languageFields, setLanguageF
                 }}
               />
             </div>
+            <div className="mb-2">
+              {languageFields.length > 1 && index > 0 && (
+                <Button
+                  className="md:text-md h-7 rounded bg-red-500 px-6 text-center text-sm font-bold text-white hover:bg-red-400 focus:outline-none md:px-8"
+                  onClick={() => removeLanguageFields(index)}
+                  label="Delete"
+                />
+              )}
+            </div>
+          </div>
+        ))}
       </div>
     </>
   );
