@@ -64,7 +64,72 @@ const SellerExperienceFields: FC<IExperienceProps> = ({ experienceFields, setExp
     }
   };
 
-  return <div>SellerExperienceFields</div>;
+  return (
+    <div className="border-grey flex w-full flex-col border-b px-6 pb-3 pt-6">
+      <div className="flex justify-between">
+        <h2 className="pb-4 text-xl font-bold">Experience</h2>
+        <Button
+          className="md:text-md h-7 rounded bg-sky-500 px-6 text-center text-sm font-bold text-white hover:bg-sky-400 focus:outline-none md:px-8"
+          label="Add More"
+          onClick={() => addExperienceFields()}
+        />
+      </div>
+      {experienceFields?.map((input: IExperience, index: number) => (
+        <div key={index} className="mb-4">
+          <TextInput
+            className="border-grey mb-4 w-full rounded border p-2.5 text-sm font-normal text-gray-600 focus:outline-none"
+            name="title"
+            placeholder="Title (E.g: CEO)"
+            value={input.title}
+            onChange={(event: ChangeEvent) => handleExperienceFieldsChange(event, index)}
+          />
+          <TextInput
+            className="border-grey mb-4 w-full rounded border p-2.5 text-sm font-normal text-gray-600 focus:outline-none"
+            placeholder="Company name"
+            name="company"
+            value={input.company}
+            onChange={(event: ChangeEvent) => handleExperienceFieldsChange(event, index)}
+          />
+          <div className="mb-16 grid h-1/5 grid-cols-2 gap-x-2 gap-y-3">
+            <div className="relative">
+              <Dropdown
+                text={input.startDate}
+                maxHeight="300"
+                mainClassNames="absolute bg-white"
+                values={yearsList(100)}
+                onClick={(item: string) => {
+                  const data: IExperience[] = [...experienceFields];
+                  data[index]['startDate'] = `${item}`;
+                  if (setExperienceFields) {
+                    setExperienceFields(data);
+                  }
+                }}
+              />
+            </div>
+            <div
+              className="relative"
+              style={{
+                cursor: `${input.currentlyWorkingHere ? 'none' : 'pointer'}`,
+                pointerEvents: `${input.currentlyWorkingHere ? 'none' : 'auto'}`
+              }}
+            >
+              <Dropdown
+                text={input.endDate}
+                maxHeight="300"
+                mainClassNames="absolute bg-white"
+                values={yearsList(100)}
+                onClick={(item: string) => {
+                  const data: IExperience[] = [...experienceFields];
+                  data[index]['endDate'] = `${item}`;
+                  if (setExperienceFields) {
+                    setExperienceFields(data);
+                  }
+                }}
+              />
+            </div>
+          </div>
+    </div>
+  );
 };
 
 export default SellerExperienceFields;
