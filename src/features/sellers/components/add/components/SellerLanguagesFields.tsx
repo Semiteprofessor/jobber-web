@@ -2,7 +2,7 @@ import { ChangeEvent, FC, ReactElement } from 'react';
 import { ILanguage, ILanguageProps } from 'src/features/sellers/interfaces/seller.interface';
 import Button from 'src/shared/button/Button';
 import TextInput from 'src/shared/inputs/TextInput';
-import { languageLevel } from 'src/shared/utils/util.service';
+import { languageLevel } from 'src/shared/utils/utils.service';
 
 import Dropdown from '../../../../../shared/dropdown/Dropdown';
 
@@ -88,4 +88,4 @@ const SellerLanguageFields: FC<ILanguageProps> = ({ languageFields, setLanguageF
   );
 };
 
-export default SellerLanguagesFields;
+export default SellerLanguageFields;
