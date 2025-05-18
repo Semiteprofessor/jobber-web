@@ -47,6 +47,24 @@ const EditGig: FC = (): ReactElement => {
     basicTitle: state?.basicTitle,
     basicDescription: state?.basicDescription
   };
+  const [gigInfo, setGigInfo] = useState<ICreateGig>(defaultGigInfo);
+  const [subCategory, setSubCategory] = useState<string[]>(state?.subCategories);
+  const [subCategoryInput, setSubCategoryInput] = useState<string>('');
+  const [tags, setTags] = useState<string[]>(state?.tags);
+  const [tagsInput, setTagsInput] = useState<string>('');
+  const [showGigModal, setShowGigModal] = useState<IShowGigModal>({
+    image: false,
+    cancel: false
+  });
+  const reactQuillRef = useRef<ReactQuill | null>(null);
+  const fileRef = useRef<HTMLInputElement>(null);
+  const [allowedGigItemLength, setAllowedGigItemLength] = useState<IAllowedGigItem>({
+    gigTitle: `${GIG_MAX_LENGTH.gigTitle - state?.title.length}/80`,
+    basicTitle: `${GIG_MAX_LENGTH.basicTitle - state?.basicTitle.length}/40`,
+    basicDescription: `${GIG_MAX_LENGTH.basicDescription - state?.basicDescription.length}/100`,
+    descriptionCharacters: `${GIG_MAX_LENGTH.fullDescription - state?.description.length}/1200`
+  });
+  
 const EditGig = () => {
   return <div>EditGig</div>;
 };
