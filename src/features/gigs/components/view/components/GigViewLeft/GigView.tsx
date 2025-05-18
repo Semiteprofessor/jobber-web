@@ -39,7 +39,9 @@ const GigView: FC = (): ReactElement => {
     moreGigs.current = moreGigsData.gigs as ISellerGig[];
   }
 
-  return <>{isLoading ? (
+  return (
+    <>
+      {isLoading ? (
         <CircularPageLoader />
       ) : (
         <main className="max-w-8xl container mx-auto mt-8">
@@ -66,7 +68,30 @@ const GigView: FC = (): ReactElement => {
               )}
             </>
           </div>
-</>;
+          <GigContext.Provider value={{ gig: gig.current, seller: seller.current, isSuccess: isGigDataSuccess, isLoading: isGigLoading }}>
+            <div className="flex flex-wrap">
+              <div className="order-last w-full p-4 lg:order-first lg:w-2/3">
+                <GigViewLeft />
+              </div>
+
+              <div className="w-full p-4 lg:w-1/3 ">
+                <StickyBox offsetTop={10} offsetBottom={10}>
+                  <GigViewRight />
+                </StickyBox>
+              </div>
+            </div>
+          </GigContext.Provider>
+          {moreGigs.current.length > 0 ? (
+            <div className="m-auto px-6 xl:container md:px-12 lg:px-6">
+              <TopGigsView gigs={moreGigs.current} title="Recommended for you" subTitle="" width="w-60" type="home" />
+            </div>
+          ) : (
+            <></>
+          )}
+        </main>
+      )}
+    </>
+  );
 };
 
 export default GigView;
