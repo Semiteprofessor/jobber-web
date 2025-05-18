@@ -126,7 +126,43 @@ const EditGig: FC = (): ReactElement => {
     navigate(`/seller_profile/${lowerCase(`${authUser.username}/${state.sellerId}/edit`)}`);
   };
 
-  return <div>EditGig</div>;
+  return (
+    <>
+      {showGigModal.cancel && (
+        <ApprovalModal
+          approvalModalContent={approvalModalContent}
+          onClose={() => setShowGigModal({ ...showGigModal, cancel: false })}
+          onClick={onCancelEdit}
+        />
+      )} <div className="relative w-screen">
+        <Breadcrumb breadCrumbItems={['Seller', 'Edit gig']} />
+        <div className="container relative mx-auto my-5 px-2 pb-12 md:px-0">
+          {isLoading && <CircularPageLoader />}
+          <div className="border-grey left-0 top-0 z-10 mt-4 block rounded border bg-white p-6">
+            <div className="mb-6 grid md:grid-cols-5">
+              <div className="pb-2 text-base font-medium">
+                Gig title<sup className="top-[-0.3em] text-base text-red-500">*</sup>
+              </div>
+              <div className="col-span-4 md:w-11/12 lg:w-8/12">
+                <TextInput
+                  className="border-grey mb-1 w-full rounded border p-2.5 text-sm font-normal text-gray-600 focus:outline-none"
+                  type="text"
+                  name="gigTitle"
+                  value={gigInfo.title}
+                  placeholder="I will build something I'm good at."
+                  maxLength={80}
+                  onChange={(event: ChangeEvent) => {
+                    const gigTitleValue: string = (event.target as HTMLInputElement).value;
+                    setGigInfo({ ...gigInfo, title: gigTitleValue });
+                    const counter: number = GIG_MAX_LENGTH.gigTitle - gigTitleValue.length;
+                    setAllowedGigItemLength({ ...allowedGigItemLength, gigTitle: `${counter}/80` });
+                  }}
+                />
+                <span className="flex justify-end text-xs text-[#95979d]">{allowedGigItemLength.gigTitle} Characters</span>
+              </div>
+            </div>
+    </>
+  );
 };
 
 export default EditGig;
