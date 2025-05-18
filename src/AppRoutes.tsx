@@ -174,11 +174,23 @@ const AppRouter: FC = () => {
       path: '/manage_gigs/new/:sellerId',
       element: (
         <Suspense>
-          {/* <ProtectedRoute> */}
+          <ProtectedRoute>
             <Layout backgroundColor="#ffffff">
               <AddGig />
             </Layout>
-          {/* </ProtectedRoute> */}
+          </ProtectedRoute>
+        </Suspense>
+      )
+    },
+    {
+      path: '/manage_gigs/edit/:gigId',
+      element: (
+        <Suspense>
+          <ProtectedRoute>
+            <Layout backgroundColor="#ffffff">
+              <EditGig />
+            </Layout>
+          </ProtectedRoute>
         </Suspense>
       )
     }
