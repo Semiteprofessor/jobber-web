@@ -64,7 +64,7 @@ const EditGig: FC = (): ReactElement => {
     basicDescription: `${GIG_MAX_LENGTH.basicDescription - state?.basicDescription.length}/100`,
     descriptionCharacters: `${GIG_MAX_LENGTH.fullDescription - state?.description.length}/1200`
   });
-  
+
   const gigInfoRef = useRef<ICreateGig>(defaultGigInfo);
   const [approvalModalContent, setApprovalModalContent] = useState<IApprovalModalContent>();
   const navigate: NavigateFunction = useNavigate();
@@ -134,7 +134,8 @@ const EditGig: FC = (): ReactElement => {
           onClose={() => setShowGigModal({ ...showGigModal, cancel: false })}
           onClick={onCancelEdit}
         />
-      )} <div className="relative w-screen">
+      )}{' '}
+      <div className="relative w-screen">
         <Breadcrumb breadCrumbItems={['Seller', 'Edit gig']} />
         <div className="container relative mx-auto my-5 px-2 pb-12 md:px-0">
           {isLoading && <CircularPageLoader />}
@@ -354,6 +355,39 @@ const EditGig: FC = (): ReactElement => {
                 />
               </div>
             </div>
+            <div className="grid xs:grid-cols-1 md:grid-cols-5">
+              <div className="pb-2 text-base font-medium lg:mt-0"></div>
+              <div className="col-span-4 flex gap-x-4 md:w-11/12 lg:w-8/12">
+                <Button
+                  disabled={isLoading}
+                  className="rounded bg-sky-500 px-8 py-3 text-center text-sm font-bold text-white hover:bg-sky-400 focus:outline-none md:py-3 md:text-base"
+                  label="Edit Gig"
+                  onClick={onEditGig}
+                />
+                <Button
+                  disabled={isLoading}
+                  className="rounded bg-red-500 px-8 py-3 text-center text-sm font-bold text-white hover:bg-red-400 focus:outline-none md:py-3 md:text-base"
+                  label="Cancel"
+                  onClick={() => {
+                    const isEqual: boolean = equal(gigInfo, gigInfoRef.current);
+                    if (!isEqual) {
+                      setApprovalModalContent({
+                        header: 'Cancel Gig Edit',
+                        body: 'Are you sure you want to cancel?',
+                        btnText: 'Yes, Cancel',
+                        btnColor: 'bg-red-500 hover:bg-red-400'
+                      });
+                      setShowGigModal({ ...showGigModal, cancel: true });
+                    } else {
+                      onCancelEdit();
+                    }
+                  }}
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </>
   );
 };
