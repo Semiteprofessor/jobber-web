@@ -204,6 +204,36 @@ const EditGig: FC = (): ReactElement => {
                 />
                 <span className="flex justify-end text-xs text-[#95979d]">{allowedGigItemLength.basicDescription} Characters</span>
               </div>
+            </div>
+            <div className="mb-6 grid md:grid-cols-5">
+              <div className="pb-2 text-base font-medium">
+                Full description<sup className="top-[-0.3em] text-base text-red-500">*</sup>
+              </div>
+              <div className="col-span-4 md:w-11/12 lg:w-8/12">
+                <ReactQuill
+                  theme="snow"
+                  value={gigInfo.description}
+                  className="border-grey border rounded"
+                  modules={reactQuillUtils().modules}
+                  formats={reactQuillUtils().formats}
+                  ref={(element: ReactQuill | null) => {
+                    reactQuillRef.current = element;
+                    const reactQuillEditor = reactQuillRef.current?.getEditor();
+                    reactQuillEditor?.on('text-change', () => {
+                      if (reactQuillEditor.getLength() > GIG_MAX_LENGTH.fullDescription) {
+                        reactQuillEditor.deleteText(GIG_MAX_LENGTH.fullDescription, reactQuillEditor.getLength());
+                      }
+                    });
+                  }}
+                  onChange={(event: string, _, __, editor: UnprivilegedEditor) => {
+                    setGigInfo({ ...gigInfo, description: event });
+                    const counter: number = GIG_MAX_LENGTH.fullDescription - editor.getText().length;
+                    setAllowedGigItemLength({ ...allowedGigItemLength, descriptionCharacters: `${counter}/1200` });
+                  }}
+                />
+                <span className="flex justify-end text-xs text-[#95979d]">{allowedGigItemLength.descriptionCharacters} Characters</span>
+              </div>
+            </div>
     </>
   );
 };
