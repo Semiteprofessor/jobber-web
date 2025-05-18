@@ -26,6 +26,27 @@ import {
 import { useAppSelector } from 'src/store/store';
 import { IReduxState } from 'src/store/store.interface';
 
+import { useGigSchema } from '../../hooks/useGigSchema';
+import { GIG_MAX_LENGTH, IAllowedGigItem, ICreateGig, ISellerGig, IShowGigModal } from '../../interfaces/gig.interface';
+import { gigInfoSchema } from '../../schemes/gig.schema';
+import { useUpdateGigMutation } from '../../services/gigs.service';
+import TagsInput from './components/TagsInput';
+
+const EditGig: FC = (): ReactElement => {
+  const authUser = useAppSelector((state: IReduxState) => state.authUser);
+  const { state }: { state: ISellerGig } = useLocation();
+  const defaultGigInfo: ICreateGig = {
+    title: state?.title,
+    categories: state?.categories,
+    description: state?.description,
+    subCategories: state?.subCategories,
+    tags: state?.tags,
+    price: state?.price,
+    coverImage: state?.coverImage,
+    expectedDelivery: state?.expectedDelivery,
+    basicTitle: state?.basicTitle,
+    basicDescription: state?.basicDescription
+  };
 const EditGig = () => {
   return <div>EditGig</div>;
 };
