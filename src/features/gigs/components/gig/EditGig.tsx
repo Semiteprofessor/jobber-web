@@ -297,6 +297,63 @@ const EditGig: FC = (): ReactElement => {
                 />
               </div>
             </div>
+            <div className="mb-12 grid md:grid-cols-5">
+              <div className="pb-2 text-base font-medium">
+                Expected delivery<sup className="top-[-0.3em] text-base text-red-500">*</sup>
+              </div>
+              <div className="relative col-span-4 md:w-11/12 lg:w-8/12">
+                <Dropdown
+                  text={gigInfo.expectedDelivery}
+                  maxHeight="300"
+                  mainClassNames="absolute bg-white z-40"
+                  values={expectedGigDelivery()}
+                  onClick={(item: string) => {
+                    setGigInfo({ ...gigInfo, expectedDelivery: item });
+                  }}
+                />
+              </div>
+            </div>
+            <div className="mb-6 grid md:grid-cols-5">
+              <div className="mt-6 pb-2 text-base font-medium lg:mt-0">
+                Cover image<sup className="top-[-0.3em] text-base text-red-500">*</sup>
+              </div>
+              <div
+                className="relative col-span-4 cursor-pointer md:w-11/12 lg:w-8/12"
+                onMouseEnter={() => {
+                  setShowGigModal((item) => ({ ...item, image: !item.image }));
+                }}
+                onMouseLeave={() => {
+                  setShowGigModal((item) => ({ ...item, image: false }));
+                }}
+              >
+                {gigInfo.coverImage && (
+                  <img src={gigInfo.coverImage} alt="Cover Image" className="left-0 top-0 h-[220px] w-[320px] bg-white object-cover" />
+                )}
+                {!gigInfo.coverImage && (
+                  <div className="left-0 top-0 flex h-[220px] w-[320px] cursor-pointer justify-center bg-[#dee1e7]"></div>
+                )}
+                {showGigModal.image && (
+                  <div
+                    onClick={() => fileRef.current?.click()}
+                    className="absolute left-0 top-0 flex h-[220px] w-[320px] cursor-pointer justify-center bg-[#dee1e7]"
+                  >
+                    <FaCamera className="flex self-center" />
+                  </div>
+                )}
+                <TextInput
+                  name="image"
+                  ref={fileRef}
+                  type="file"
+                  style={{ display: 'none' }}
+                  onClick={() => {
+                    if (fileRef.current) {
+                      fileRef.current.value = '';
+                    }
+                  }}
+                  onChange={handleFileChange}
+                />
+              </div>
+            </div>
     </>
   );
 };
