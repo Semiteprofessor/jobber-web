@@ -173,6 +173,28 @@ const AddGig: FC = (): ReactElement => {
                 />
                 <span className="flex justify-end text-xs text-[#95979d]">{allowedGigItemLength.gigTitle} Characters</span>
               </div>
+            </div>
+            <div className="mb-6 grid md:grid-cols-5">
+              <div className="pb-2 text-base font-medium">
+                Basic title<sup className="top-[-0.3em] text-base text-red-500">*</sup>
+              </div>
+              <div className="col-span-4 md:w-11/12 lg:w-8/12">
+                <TextInput
+                  className="border-grey mb-1 w-full rounded border p-2.5 text-sm font-normal text-gray-600 focus:outline-none"
+                  placeholder="Write what exactly you'll do in short."
+                  type="text"
+                  name="basicTitle"
+                  value={gigInfo.basicTitle}
+                  maxLength={40}
+                  onChange={(event: ChangeEvent) => {
+                    const basicTitleValue: string = (event.target as HTMLInputElement).value;
+                    setGigInfo({ ...gigInfo, basicTitle: basicTitleValue });
+                    const counter: number = GIG_MAX_LENGTH.basicTitle - basicTitleValue.length;
+                    setAllowedGigItemLength({ ...allowedGigItemLength, basicTitle: `${counter}/40` });
+                  }}
+                />
+                <span className="flex justify-end text-xs text-[#95979d]">{allowedGigItemLength.basicTitle} Characters</span>
+              </div>
             </div></div>;
 };
 
