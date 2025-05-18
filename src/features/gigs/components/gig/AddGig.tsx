@@ -247,6 +247,37 @@ const AddGig: FC = (): ReactElement => {
                 <span className="flex justify-end text-xs text-[#95979d]">{allowedGigItemLength.descriptionCharacters} Characters</span>
               </div>
             </div>
+            <div className="mb-12 grid md:grid-cols-5">
+              <div className="pb-2 text-base font-medium">
+                Category<sup className="top-[-0.3em] text-base text-red-500">*</sup>
+              </div>
+              <div className="relative col-span-4 md:w-11/12 lg:w-8/12">
+                <Dropdown
+                  text={gigInfo.categories}
+                  maxHeight="300"
+                  mainClassNames="absolute bg-white"
+                  values={categories()}
+                  onClick={(item: string) => {
+                    setGigInfo({ ...gigInfo, categories: item });
+                  }}
+                />
+              </div>
+            </div>
+
+            <TagsInput
+              title="SubCategory"
+              placeholder="E.g. Website development, Mobile apps"
+              gigInfo={gigInfo}
+              setGigInfo={setGigInfo}
+              tags={subCategory}
+              itemInput={subCategoryInput}
+              itemName="subCategories"
+              counterText="Subcategories"
+              inputErrorMessage={false}
+              setItem={setSubCategory}
+              setItemInput={setSubCategoryInput}
+            />
+
 };
 
 export default AddGig;
