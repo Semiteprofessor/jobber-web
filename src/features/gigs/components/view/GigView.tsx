@@ -7,10 +7,9 @@ import TopGigsView from 'src/shared/gigs/TopGigsView';
 import CircularPageLoader from 'src/shared/page-loader/CircularPageLoader';
 import StarRating from 'src/shared/rating/StarRating';
 import { emptyGigData, emptySellerData } from 'src/shared/utils/static-data';
-import { rating } from 'src/shared/utils/utils.service';
+import { rating, shortenLargeNumbers } from 'src/shared/utils/util.service';
 
-import { shortenLargeNumbers } from '../../../../shared/utils/utils.service';
-import { GigContext } from '../../context/GigContext';
+import { GigContext } from '../../../gigs/context/GigContext';
 import { ISellerGig } from '../../interfaces/gig.interface';
 import { useGetGigByIdQuery, useGetMoreGigsLikeThisQuery } from '../../services/gigs.service';
 import GigViewLeft from './components/GigViewLeft';
