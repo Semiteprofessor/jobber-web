@@ -34,9 +34,28 @@ const GigPackage: FC = (): ReactElement => {
   };
 
 
-const GigPackage = () => {
   return (
-    <div>GigPackage</div>
+    <>{showModal && <ApprovalModal approvalModalContent={approvalModalContent} hideCancel={true} onClick={() => setShowModal(false)} />}
+      <div className="border-grey mb-8 border">
+        <div className="flex border-b px-4 py-2">
+          <h4 className="font-bold">${gig.price}</h4>
+        </div>
+        <ul className="mb-0 list-none px-4 py-2">
+          <li className="flex justify-between">
+            <div className="ml-15 flex w-full pb-3">
+              <div className="text-base font-bold">{gig.basicTitle}</div>
+            </div>
+          </li>
+          <li className="flex justify-between">
+            <div className="ml-15 flex w-full pb-4">
+              <div className="text-sm font-normal">{gig.basicDescription}</div>
+            </div>
+          </li>
+          <li className="flex justify-between">
+            <div className="ml-15 flex w-full pb-3">
+              <FaRegClock className="flex self-center" /> <span className="ml-3 text-sm font-semibold">{gig.expectedDelivery}</span>
+            </div>
+          </li></>
   )
 }
 
