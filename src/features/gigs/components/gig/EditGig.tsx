@@ -85,7 +85,47 @@ const EditGig: FC = (): ReactElement => {
     }
   };
 
-const EditGig = () => {
+  const onEditGig = async (): Promise<void> => {
+    try {
+      const editor: Quill | undefined = reactQuillRef?.current?.editor;
+      // In React, it is not recommended to mutate objects directly. It is better to update with useState method.
+      // The reason it is not recommended is because if the object is mutated directly,
+      // 1) React is not able to keep track of the change
+      // 2) There will be no re-renderng of the component.
+      // In our case, we don't care about the above reasons because we update a property, validate and send to the backend.
+      // The updated properly is not reflected in the component and we don't need to keep track of the object.
+      // We are not using the useState method inside useEffect because it causes too many rerender errors.
+      // Also, we are not updating the property inside the onChange method because editor?.getText() causes too many rerender errors.
+      // The only option we have right now is to directly mutate the gigInfo useState object.
+      gigInfo.description = editor?.getText().trim() as string;
+      const isValid: boolean = await schemaValidation();
+      if (isValid) {
+        const gig: ICreateGig = {
+          title: gigInfo.title,
+          categories: gigInfo.categories,
+          description: gigInfo.description,
+          subCategories: subCategory,
+          tags,
+          price: gigInfo.price,
+          coverImage: gigInfo.coverImage,
+          expectedDelivery: gigInfo.expectedDelivery,
+          basicTitle: gigInfo.basicTitle,
+          basicDescription: gigInfo.basicDescription
+        };
+        const response: IResponse = await updateGig({ gigId: `${gigId}`, gig }).unwrap();
+        const title: string = replaceSpacesWithDash(gig.title);
+        showSuccessToast('Updated gig successfully.');
+        navigate(`/gig/${lowerCase(`${authUser.username}`)}/${title}/${response?.gig?.sellerId}/${response?.gig?.id}/view`);
+      }
+    } catch (error) {
+      showErrorToast('Error updating gig');
+    }
+  };
+
+  const onCancelEdit = (): void => {
+    navigate(`/seller_profile/${lowerCase(`${authUser.username}/${state.sellerId}/edit`)}`);
+  };
+
   return <div>EditGig</div>;
 };
 
