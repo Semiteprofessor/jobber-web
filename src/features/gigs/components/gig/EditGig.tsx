@@ -22,7 +22,7 @@ import {
   replaceSpacesWithDash,
   showErrorToast,
   showSuccessToast
-} from 'src/shared/utils/utils.service';
+} from 'src/shared/utils/util.service';
 import { useAppSelector } from 'src/store/store';
 import { IReduxState } from 'src/store/store.interface';
 
