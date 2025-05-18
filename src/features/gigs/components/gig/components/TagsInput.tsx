@@ -17,6 +17,41 @@ const TagsInput: FC<ITagsInputProps> = (props): ReactElement => {
   const onKeyUp = (): void => {
     setIsKeyReleased(true);
   };
+
+  const onKeyDown = (event: KeyboardEvent, input: string, tagsList: string[]): void => {
+    const { key } = event;
+    const trimmedInput: string = input.trim();
+    if (!trimmedInput) {
+      return;
+    }
+
+    if (tagsList.length + 1 <= maxTagCount) {
+      if (key === ',' && trimmedInput.length && !tagsList.includes(trimmedInput)) {
+        event.preventDefault();
+        setItem((prevState: string[]) => [...prevState, trimmedInput]);
+        setItemInput('');
+        const gigInfoList: string[] = gigInfo[`${itemName}`] as string[];
+        setGigInfo({ ...gigInfo, [`${itemName}`]: [...gigInfoList, trimmedInput] });
+      }
+    }
+
+    if (key === 'Backspace' && !input.length && tagsList.length && isKeyReleased) {
+      const tagsCopy: string[] = [...tagsList];
+      const poppedTag: string = tagsCopy.pop() as string;
+      event.preventDefault();
+      setItem(tagsCopy);
+      setItemInput(poppedTag);
+      setGigInfo({ ...gigInfo, [`${itemName}`]: [...tagsCopy] });
+    }
+    setIsKeyReleased(false);
+  };
+
+  const deleteTag = (index: number): void => {
+    setItem((prevState: string[]) => prevState.filter((_, i: number) => i !== index));
+    const gigInfoList: string[] = gigInfo[`${itemName}`] as string[];
+    setGigInfo({ ...gigInfo, [`${itemName}`]: gigInfoList.filter((_, i: number) => i !== index) });
+  };
+
   return <div>TagsInput</div>;
 };
 
