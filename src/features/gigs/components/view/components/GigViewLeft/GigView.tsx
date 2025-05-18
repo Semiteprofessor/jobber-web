@@ -39,7 +39,34 @@ const GigView: FC = (): ReactElement => {
     moreGigs.current = moreGigsData.gigs as ISellerGig[];
   }
 
-  return <div>GigView</div>;
+  return <>{isLoading ? (
+        <CircularPageLoader />
+      ) : (
+        <main className="max-w-8xl container mx-auto mt-8">
+          <h2 className="mb-4 px-4 text-xl font-bold text-[#404145] lg:text-3xl">{gig.current.title}</h2>
+          <div className="mb-4 flex flex-row gap-x-2 px-4">
+            <img className="flex h-8 w-8 self-center rounded-full object-cover" src={gig.current.profilePicture} alt="" />
+            <span className="flex self-center font-extrabold">{gig.current.username}</span>
+            <>
+              {gig.current.ratingSum && gig.current.ratingsCount && gig.current.ratingSum >= 1 && gig.current.ratingsCount >= 1 ? (
+                <>
+                  <span className="flex self-center">|</span>
+                  <div className="flex w-full gap-x-1 self-center">
+                    <div className="mt-1 w-20 gap-x-2">
+                      <StarRating value={rating(gig.current.ratingSum / gig.current.ratingsCount)} size={14} />
+                    </div>
+                    <div className="ml-2 mt-[1px] flex gap-1 text-sm">
+                      <span className="text-orange-400">{rating(gig.current.ratingSum / gig.current.ratingsCount)}</span>
+                      <span className="">({shortenLargeNumbers(gig.current.ratingsCount)})</span>
+                    </div>
+                  </div>
+                </>
+              ) : (
+                <></>
+              )}
+            </>
+          </div>
+</>;
 };
 
 export default GigView;
