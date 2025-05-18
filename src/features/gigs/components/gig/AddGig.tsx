@@ -66,6 +66,28 @@ const AddGig: FC = (): ReactElement => {
     basicDescription: '100/100',
     descriptionCharacters: '1200/1200'
   });
+
+  const gigInfoRef = useRef<ICreateGig>(defaultGigInfo);
+  const [approvalModalContent, setApprovalModalContent] = useState<IApprovalModalContent>();
+  const navigate: NavigateFunction = useNavigate();
+  const dispatch = useAppDispatch();
+  const { sellerId } = useParams();
+  const [schemaValidation] = useGigSchema({ schema: gigInfoSchema, gigInfo });
+  const [createGig, { isLoading }] = useCreateGigMutation();
+
+  const handleFileChange = async (event: ChangeEvent): Promise<void> => {
+    const target: HTMLInputElement = event.target as HTMLInputElement;
+    if (target.files) {
+      const file: File = target.files[0];
+      const isValid = checkImage(file, 'image');
+      if (isValid) {
+        const dataImage: string | ArrayBuffer | null = await readAsBase64(file);
+        setGigInfo({ ...gigInfo, coverImage: `${dataImage}` });
+      }
+      setShowGigModal({ ...showGigModal, image: false });
+    }
+  };
+
   return <div>AddGig</div>;
 };
 
