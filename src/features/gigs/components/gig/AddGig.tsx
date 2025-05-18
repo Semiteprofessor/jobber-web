@@ -23,7 +23,7 @@ import {
   reactQuillUtils,
   replaceSpacesWithDash,
   showErrorToast
-} from 'src/shared/utils/utils.service';
+} from 'src/shared/utils/util.service';
 import { useAppDispatch, useAppSelector } from 'src/store/store';
 import { IReduxState } from 'src/store/store.interface';
 
