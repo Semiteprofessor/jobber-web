@@ -145,11 +145,11 @@ const AddGig: FC = (): ReactElement => {
         <Breadcrumb breadCrumbItems={['Seller', 'Create new gig']} />
         <div className="container relative mx-auto my-5 px-2 pb-12 md:px-0">
           {isLoading && <CircularPageLoader />}
-          {authUser && !authUser.emailVerified && (
+          {/* {authUser && !authUser.emailVerified && (
             <div className="absolute left-0 top-0 z-[80] flex h-full w-full justify-center bg-white/[0.8] text-sm font-bold md:text-base lg:text-xl">
               <span className="mt-40">Please verify your email.</span>
             </div>
-          )}
+          )} */}
 
           <div className="border-grey left-0 top-0 z-10 mt-4 block rounded border bg-white p-6">
             <div className="mb-6 grid md:grid-cols-5">

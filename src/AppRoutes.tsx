@@ -16,6 +16,7 @@ import Seller from './features/sellers/components/dashboard/Seller';
 import SellerDashboard from './features/sellers/components/dashboard/SellerDashboard';
 import ManageOrders from './features/sellers/components/dashboard/ManageOrders';
 import ManageEarnings from './features/sellers/components/dashboard/ManageEarnings';
+import AddGig from './features/gigs/components/gig/AddGig';
 
 const Layout = ({ backgroundColor = '#fff', children }: { backgroundColor: string; children: ReactNode }): JSX.Element => (
   <div style={{ backgroundColor }} className="flex flex-grow">
@@ -173,11 +174,11 @@ const AppRouter: FC = () => {
       path: '/manage_gigs/new/:sellerId',
       element: (
         <Suspense>
-          <ProtectedRoute>
+          {/* <ProtectedRoute> */}
             <Layout backgroundColor="#ffffff">
               <AddGig />
             </Layout>
-          </ProtectedRoute>
+          {/* </ProtectedRoute> */}
         </Suspense>
       )
     }
