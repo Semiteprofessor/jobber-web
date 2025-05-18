@@ -16,7 +16,29 @@ import { useGetGigByIdQuery, useGetMoreGigsLikeThisQuery } from '../../services/
 import GigViewLeft from './components/GigViewLeft';
 import GigViewRight from './components/GigViewRight';
 
-const GigView = () => {
+const GigView: FC = (): ReactElement => {
+  const { gigId, sellerId } = useParams<string>();
+  const { data: gigData, isSuccess: isGigDataSuccess, isLoading: isGigLoading } = useGetGigByIdQuery(`${gigId}`);
+  const { data: sellerData, isSuccess: isSellerDataSuccess, isLoading: isSellerLoading } = useGetSellerByIdQuery(`${sellerId}`);
+  const { data: moreGigsData, isSuccess: isMoreGigsSuccess, isLoading: isMoreGigsLoading } = useGetMoreGigsLikeThisQuery(`${gigId}`);
+  const gig = useRef<ISellerGig>(emptyGigData);
+  const seller = useRef<ISellerDocument>(emptySellerData);
+  const moreGigs = useRef<ISellerGig[]>([]);
+
+  const isLoading = isGigLoading && isSellerLoading && isMoreGigsLoading;
+
+  if (isGigDataSuccess) {
+    gig.current = gigData.gig as ISellerGig;
+  }
+
+  if (isSellerDataSuccess) {
+    seller.current = sellerData.seller as ISellerDocument;
+  }
+
+  if (isMoreGigsSuccess) {
+    moreGigs.current = moreGigsData.gigs as ISellerGig[];
+  }
+
   return <div>GigView</div>;
 };
 
