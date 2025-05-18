@@ -15,6 +15,7 @@ import SellerProfile from './features/sellers/components/profile/SellerProfile';
 import Seller from './features/sellers/components/dashboard/Seller';
 import SellerDashboard from './features/sellers/components/dashboard/SellerDashboard';
 import ManageOrders from './features/sellers/components/dashboard/ManageOrders';
+import ManageEarnings from './features/sellers/components/dashboard/ManageEarnings';
 
 const Layout = ({ backgroundColor = '#fff', children }: { backgroundColor: string; children: ReactNode }): JSX.Element => (
   <div style={{ backgroundColor }} className="flex flex-grow">
@@ -146,11 +147,11 @@ const AppRouter: FC = () => {
       path: '/:username/:sellerId',
       element: (
         <Suspense>
-          {/* <ProtectedRoute> */}
+          <ProtectedRoute>
             <Layout backgroundColor="#ffffff">
               <Seller />
             </Layout>
-          {/* </ProtectedRoute> */}
+          </ProtectedRoute>
         </Suspense>
       ),
       children: [
@@ -167,6 +168,18 @@ const AppRouter: FC = () => {
           element: <ManageEarnings />
         }
       ]
+    },
+    {
+      path: '/manage_gigs/new/:sellerId',
+      element: (
+        <Suspense>
+          <ProtectedRoute>
+            <Layout backgroundColor="#ffffff">
+              <AddGig />
+            </Layout>
+          </ProtectedRoute>
+        </Suspense>
+      )
     }
   ];
   return useRoutes(routes);
