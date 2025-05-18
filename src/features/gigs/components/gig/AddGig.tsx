@@ -33,7 +33,39 @@ import { gigInfoSchema } from '../../schemes/gig.schema';
 import { useCreateGigMutation } from '../../services/gigs.service';
 import TagsInput from './components/TagsInput';
 
-const AddGig = () => {
+const defaultGigInfo: ICreateGig = {
+  title: '',
+  categories: '',
+  description: '',
+  subCategories: [],
+  tags: [],
+  price: 0,
+  coverImage: 'https://placehold.co/330x220?text=Cover+Image',
+  expectedDelivery: 'Expected delivery',
+  basicTitle: '',
+  basicDescription: ''
+};
+
+const AddGig: FC = (): ReactElement => {
+  const authUser = useAppSelector((state: IReduxState) => state.authUser);
+  const seller = useAppSelector((state: IReduxState) => state.seller);
+  const [gigInfo, setGigInfo] = useState<ICreateGig>(defaultGigInfo);
+  const [subCategory, setSubCategory] = useState<string[]>([]);
+  const [subCategoryInput, setSubCategoryInput] = useState<string>('');
+  const [tags, setTags] = useState<string[]>([]);
+  const [tagsInput, setTagsInput] = useState<string>('');
+  const [showGigModal, setShowGigModal] = useState<IShowGigModal>({
+    image: false,
+    cancel: false
+  });
+  const reactQuillRef = useRef<ReactQuill | null>(null);
+  const fileRef = useRef<HTMLInputElement>(null);
+  const [allowedGigItemLength, setAllowedGigItemLength] = useState<IAllowedGigItem>({
+    gigTitle: '80/80',
+    basicTitle: '40/40',
+    basicDescription: '100/100',
+    descriptionCharacters: '1200/1200'
+  });
   return <div>AddGig</div>;
 };
 
