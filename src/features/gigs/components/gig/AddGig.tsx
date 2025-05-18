@@ -278,6 +278,38 @@ const AddGig: FC = (): ReactElement => {
               setItemInput={setSubCategoryInput}
             />
 
+            <TagsInput
+              title="Tags"
+              placeholder="Enter search terms for your gig"
+              gigInfo={gigInfo}
+              setGigInfo={setGigInfo}
+              tags={tags}
+              itemInput={tagsInput}
+              itemName="tags"
+              counterText="Tags"
+              inputErrorMessage={false}
+              setItem={setTags}
+              setItemInput={setTagsInput}
+            />
+
+            <div className="mb-6 grid md:grid-cols-5">
+              <div className="pb-2 text-base font-medium">
+                Price<sup className="top-[-0.3em] text-base text-red-500">*</sup>
+              </div>
+              <div className="col-span-4 md:w-11/12 lg:w-8/12">
+                <TextInput
+                  type="number"
+                  className="border-grey mb-1 w-full rounded border p-3.5 text-sm font-normal text-gray-600 focus:outline-none"
+                  placeholder="Enter minimum price"
+                  name="price"
+                  value={`${gigInfo.price}`}
+                  onChange={(event: ChangeEvent) => {
+                    const value: string = (event.target as HTMLInputElement).value;
+                    setGigInfo({ ...gigInfo, price: parseInt(value) > 0 ? parseInt(value) : 0 });
+                  }}
+                />
+              </div>
+            </div>
 };
 
 export default AddGig;
