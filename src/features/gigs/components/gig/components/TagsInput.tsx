@@ -52,7 +52,41 @@ const TagsInput: FC<ITagsInputProps> = (props): ReactElement => {
     setGigInfo({ ...gigInfo, [`${itemName}`]: gigInfoList.filter((_, i: number) => i !== index) });
   };
 
-  return <div>TagsInput</div>;
+  return (
+    <div className="mb-6 grid md:grid-cols-5">
+      <div className="mt-6 pb-2 text-base font-medium lg:mt-0">
+        {title}
+        <sup className="top-[-0.3em] text-base text-red-500">*</sup>
+      </div>
+      <div className="col-span-4 md:w-11/12 lg:w-8/12">
+        <div className="flex w-full flex-wrap py-[4px]">
+          {tags.map((tags: string, index: number) => (
+            <div
+              key={uuidv4()}
+              onClick={() => deleteTag(index)}
+              className="my-[2px] mr-1 flex items-center whitespace-nowrap rounded-[50px] bg-sky-500 px-4 text-sm font-bold text-white"
+            >
+              {tags}
+              <span className="flex cursor-pointer p-[6px] text-white">x</span>
+            </div>
+          ))}
+        </div>
+        <TextInput
+          type="text"
+          name={title}
+          value={itemInput}
+          className="border-grey mb-1 w-full rounded border p-2.5 text-sm font-normal text-gray-600 focus:outline-none"
+          placeholder={placeholder}
+          onChange={(event: ChangeEvent) => onChange(event)}
+          onKeyDown={(event: KeyboardEvent) => onKeyDown(event, itemInput, tags)}
+          onKeyUp={onKeyUp}
+        />
+        <span className="flex justify-end text-xs text-[#95979d]">
+          {maxTagCount - tags.length} {counterText}
+        </span>
+      </div>
+    </div>
+  );
 };
 
 export default TagsInput;
