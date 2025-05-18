@@ -132,7 +132,48 @@ const AddGig: FC = (): ReactElement => {
     navigate(`/seller_profile/${lowerCase(`${authUser.username}/${sellerId}/edit`)}`);
   };
 
-  return <div>AddGig</div>;
+  return (
+    <>
+      {showGigModal.cancel && (
+        <ApprovalModal
+          approvalModalContent={approvalModalContent}
+          onClose={() => setShowGigModal({ ...showGigModal, cancel: false })}
+          onClick={onCancelCreate}
+        />
+      )}
+      <div className="relative w-screen">
+        <Breadcrumb breadCrumbItems={['Seller', 'Create new gig']} />
+        <div className="container relative mx-auto my-5 px-2 pb-12 md:px-0">
+          {isLoading && <CircularPageLoader />}
+          {authUser && !authUser.emailVerified && (
+            <div className="absolute left-0 top-0 z-[80] flex h-full w-full justify-center bg-white/[0.8] text-sm font-bold md:text-base lg:text-xl">
+              <span className="mt-40">Please verify your email.</span>
+            </div>
+          )}
+
+          <div className="border-grey left-0 top-0 z-10 mt-4 block rounded border bg-white p-6">
+            <div className="mb-6 grid md:grid-cols-5">
+              <div className="pb-2 text-base font-medium">
+                Gig title<sup className="top-[-0.3em] text-base text-red-500">*</sup>
+              </div>
+              <div className="col-span-4 md:w-11/12 lg:w-8/12">
+                <TextInput
+                  className="border-grey mb-1 w-full rounded border p-2.5 text-sm font-normal text-gray-600 focus:outline-none"
+                  type="text"
+                  name="gigTitle"
+                  value={gigInfo.title}
+                  placeholder="I will build something I'm good at."
+                  maxLength={80}
+                  onChange={(event: ChangeEvent) => {
+                    const gigTitleValue: string = (event.target as HTMLInputElement).value;
+                    setGigInfo({ ...gigInfo, title: gigTitleValue });
+                    const counter: number = GIG_MAX_LENGTH.gigTitle - gigTitleValue.length;
+                    setAllowedGigItemLength({ ...allowedGigItemLength, gigTitle: `${counter}/80` });
+                  }}
+                />
+                <span className="flex justify-end text-xs text-[#95979d]">{allowedGigItemLength.gigTitle} Characters</span>
+              </div>
+            </div></div>;
 };
 
 export default AddGig;
