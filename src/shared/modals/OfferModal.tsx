@@ -28,7 +28,6 @@ const OfferModal: FC<IModalProps> = ({ header, gigTitle, receiver, authUser, sin
   });
   const [saveChatMessage] = useSaveChatMessageMutation();
 
-
   const sendGigOffer = async (): Promise<void> => {
     try {
       const messageBody: IMessageDocument = {
@@ -138,8 +137,21 @@ const OfferModal: FC<IModalProps> = ({ header, gigTitle, receiver, authUser, sin
                 />
               </div>
             </div>
-          </div></div>
-  )
-}
+          </div>
+          <div className="px-5 py-4">
+            <div className="ml-2 flex w-full justify-center text-sm font-medium">
+              <Button
+                className="rounded bg-sky-500 px-6 py-3 text-center text-sm font-bold text-white hover:bg-sky-400 focus:outline-none md:px-4 md:py-2 md:text-base"
+                disabled={!offer.description || !offer.price || !offer.delivery}
+                label="Send Offer"
+                onClick={sendGigOffer}
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+    </ModalBg>
+  );
+};
 
-export default OfferModal
+export default OfferModal;
