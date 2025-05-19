@@ -25,3 +25,35 @@ export const chatMessageReceived = (
     }
   });
 };
+
+export const chatListMessageReceived = (
+  username: string,
+  chatList: IMessageDocument[],
+  conversationListRef: IMessageDocument[],
+  dispatch: Dispatch<AnyAction>,
+  setChatList: Dispatch<SetStateAction<IMessageDocument[]>>
+): void => {
+  socket.on('message received', (data: IMessageDocument) => {
+    conversationListRef = cloneDeep(chatList);
+    if (
+      lowerCase(`${data.receiverUsername}`) === lowerCase(`${username}`) ||
+      lowerCase(`${data.senderUsername}`) === lowerCase(`${username}`)
+    ) {
+      const messageIndex = findIndex(chatList, ['conversationId', data.conversationId]);
+      if (messageIndex > -1) {
+        remove(conversationListRef, (chat: IMessageDocument) => chat.conversationId === data.conversationId);
+      } else {
+        remove(conversationListRef, (chat: IMessageDocument) => chat.receiverUsername === data.receiverUsername);
+      }
+      conversationListRef = [data, ...conversationListRef];
+      if (lowerCase(`${data.receiverUsername}`) === lowerCase(`${username}`)) {
+        const list: IMessageDocument[] = filter(
+          conversationListRef,
+          (item: IMessageDocument) => !item.isRead && item.receiverUsername === username
+        );
+        dispatch(updateNotification({ hasUnreadMessage: list.length > 0 }));
+      }
+      setChatList(conversationListRef);
+    }
+  });
+};
