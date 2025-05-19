@@ -3,7 +3,7 @@ import { FaRegClock } from 'react-icons/fa';
 import { createSearchParams, NavigateFunction, useNavigate } from 'react-router-dom';
 import { IOffer } from 'src/features/order/interfaces/order.interface';
 import Button from 'src/shared/button/Button';
-import { showErrorToast } from 'src/shared/utils/utils.service';
+import { showErrorToast } from 'src/shared/utils/util.service';
 
 import { IChatMessageProps } from '../../interfaces/chat.interface';
 import { useUpdateOfferMutation } from '../../services/chat.service';

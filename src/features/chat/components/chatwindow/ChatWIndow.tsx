@@ -10,7 +10,7 @@ import { updateNotification } from 'src/shared/header/reducers/notification.redu
 import TextInput from 'src/shared/inputs/TextInput';
 import OfferModal from 'src/shared/modals/OfferModal';
 import { checkFile, fileType, readAsBase64 } from 'src/shared/utils/image-utils.service';
-import { TimeAgo } from 'src/shared/utils/timeago.utils';
+import { TimeAgo } from 'src/shared/utils/timeago.util';
 import { firstLetterUppercase, showErrorToast } from 'src/shared/utils/util.service';
 import { socket, socketService } from 'src/sockets/socket.service';
 import { useAppDispatch, useAppSelector } from 'src/store/store';
