@@ -21,6 +21,7 @@ import AddGig from './features/gigs/components/gig/AddGig';
 import EditGig from './features/gigs/components/gig/EditGig';
 import GigView from './features/gigs/components/view/GigView';
 import Gigs from './features/gigs/components/gigs/Gigs';
+import Chat from './features/chat/components/Chat';
 const Layout = ({ backgroundColor = '#fff', children }) => (_jsx("div", { style: { backgroundColor }, className: "flex flex-grow", children: children }));
 const AppRouter = () => {
     const routes = [
@@ -116,32 +117,68 @@ const AppRouter = () => {
         },
         {
             path: '/inbox',
-            element: (_jsx(Suspense, { children: _jsx(ProtectedRoute, { children: _jsx(Layout, { backgroundColor: "#ffffff", children: _jsx(Chat, {}) }) }) }))
+            element: (_jsx(Suspense, { children: _jsx(Layout, { backgroundColor: "#ffffff", children: _jsx(Chat, {}) }) }))
         },
         {
             path: '/inbox/:username/:conversationId',
             element: (_jsx(Suspense, { children: _jsx(ProtectedRoute, { children: _jsx(Layout, { backgroundColor: "#ffffff", children: _jsx(Chat, {}) }) }) }))
         },
-        {
-            path: '/gig/checkout/:gigId',
-            element: (_jsx(Suspense, { children: _jsx(ProtectedRoute, { children: _jsx(Layout, { backgroundColor: "#ffffff", children: _jsx(Checkout, {}) }) }) }))
-        },
-        {
-            path: '/gig/order/requirement/:gigId',
-            element: (_jsx(Suspense, { children: _jsx(ProtectedRoute, { children: _jsx(Layout, { backgroundColor: "#ffffff", children: _jsx(Requirement, {}) }) }) }))
-        },
-        {
-            path: '/orders/:orderId/activities',
-            element: (_jsx(Suspense, { children: _jsx(ProtectedRoute, { children: _jsx(Layout, { backgroundColor: "#f5f5f5", children: _jsx(Order, {}) }) }) }))
-        },
-        {
-            path: '/:username/edit',
-            element: (_jsx(Suspense, { children: _jsx(ProtectedRoute, { children: _jsx(Layout, { backgroundColor: "#f5f5f5", children: _jsx(Settings, {}) }) }) }))
-        },
-        {
-            path: '*',
-            element: (_jsx(Suspense, { children: _jsx(Error, {}) }))
-        }
+        // {
+        //   path: '/gig/checkout/:gigId',
+        //   element: (
+        //     <Suspense>
+        //       <ProtectedRoute>
+        //         <Layout backgroundColor="#ffffff">
+        //           <Checkout />
+        //         </Layout>
+        //       </ProtectedRoute>
+        //     </Suspense>
+        //   )
+        // },
+        // {
+        //   path: '/gig/order/requirement/:gigId',
+        //   element: (
+        //     <Suspense>
+        //       <ProtectedRoute>
+        //         <Layout backgroundColor="#ffffff">
+        //           <Requirement />
+        //         </Layout>
+        //       </ProtectedRoute>
+        //     </Suspense>
+        //   )
+        // },
+        // {
+        //   path: '/orders/:orderId/activities',
+        //   element: (
+        //     <Suspense>
+        //       <ProtectedRoute>
+        //         <Layout backgroundColor="#f5f5f5">
+        //           <Order />
+        //         </Layout>
+        //       </ProtectedRoute>
+        //     </Suspense>
+        //   )
+        // },
+        // {
+        //   path: '/:username/edit',
+        //   element: (
+        //     <Suspense>
+        //       <ProtectedRoute>
+        //         <Layout backgroundColor="#f5f5f5">
+        //           <Settings />
+        //         </Layout>
+        //       </ProtectedRoute>
+        //     </Suspense>
+        //   )
+        // },
+        // {
+        //   path: '*',
+        //   element: (
+        //     <Suspense>
+        //       <Error />
+        //     </Suspense>
+        //   )
+        // }
     ];
     return useRoutes(routes);
 };

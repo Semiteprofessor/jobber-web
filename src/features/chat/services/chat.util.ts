@@ -13,7 +13,7 @@ export const chatMessageReceived = (
   chatMessages: IMessageDocument[],
   setChatMessagesData: Dispatch<SetStateAction<IMessageDocument[]>>
 ): void => {
-  socket.on('message received', (data: IMessageDocument) => {
+  socket?.on('message received', (data: IMessageDocument) => {
     chatMessages = cloneDeep(chatMessagesData);
     if (data.conversationId === conversationId) {
       chatMessages.push(data);
@@ -33,7 +33,7 @@ export const chatListMessageReceived = (
   dispatch: Dispatch<AnyAction>,
   setChatList: Dispatch<SetStateAction<IMessageDocument[]>>
 ): void => {
-  socket.on('message received', (data: IMessageDocument) => {
+  socket?.on('message received', (data: IMessageDocument) => {
     conversationListRef = cloneDeep(chatList);
     if (
       lowerCase(`${data.receiverUsername}`) === lowerCase(`${username}`) ||
@@ -65,7 +65,7 @@ export const chatListMessageUpdated = (
   dispatch: Dispatch<AnyAction>,
   setChatList: Dispatch<SetStateAction<IMessageDocument[]>>
 ): void => {
-  socket.on('message updated', (data: IMessageDocument) => {
+  socket?.on('message updated', (data: IMessageDocument) => {
     conversationListRef = cloneDeep(chatList);
     if (
       lowerCase(`${data.receiverUsername}`) === lowerCase(`${username}`) ||

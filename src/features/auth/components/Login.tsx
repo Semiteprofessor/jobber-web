@@ -1,31 +1,41 @@
-import React, { FC, ReactElement } from "react";
-import { useDeviceData, useMobileOrientation } from "react-device-detect";
-import { IHeaderModalProps } from "../../../shared/header/interfaces/header.interface";
-import ModalBg from "../../../shared/modals/ModalBg";
-import Button from "../../../shared/button/Button";
-import { FaTimes } from "react-icons/fa";
-import { IModalBgProps } from "../../../shared/modals/modal.interface";
+import { ChangeEvent, FC, ReactElement, useState } from 'react';
+import { useDeviceData, useMobileOrientation } from 'react-device-detect';
+import { FaEye, FaEyeSlash, FaTimes } from 'react-icons/fa';
+import { useNavigate } from 'react-router-dom';
+import Alert from 'src/shared/alert/Alert';
+import Button from 'src/shared/button/Button';
+import { updateCategoryContainer } from 'src/shared/header/reducers/category.reducer';
+import { updateHeader } from 'src/shared/header/reducers/header.reducer';
+import TextInput from 'src/shared/inputs/TextInput';
+import { IModalBgProps } from 'src/shared/modals/interfaces/modal.interface';
+import ModalBg from 'src/shared/modals/ModalBg';
+import { IResponse } from 'src/shared/shared.interface';
+import { saveToSessionStorage } from 'src/shared/utils/utils.service';
+import { useAppDispatch } from 'src/store/store';
 
-const LoginModal: FC<IModalBgProps> = ({
-  onClose,
-  onToggle,
-  onTogglePassword,
-}): ReactElement => {
+import { useAuthSchema } from '../hooks/useAuthSchema';
+import { ISignInPayload } from '../interfaces/auth.interface';
+import { addAuthUser } from '../reducers/auth.reducer';
+import { updateLogout } from '../reducers/logout.reducer';
+import { loginUserSchema } from '../schemes/auth.schema';
+import { useSignInMutation } from '../services/auth.service';
+
+const LoginModal: FC<IModalBgProps> = ({ onClose, onToggle, onTogglePassword }): ReactElement => {
   const mobileOrientation = useMobileOrientation();
   const deviceData = useDeviceData(window.navigator.userAgent);
-  const [alertMessage, setAlertMessage] = useState<string>("");
-  const [passwordType, setPasswordType] = useState<string>("password");
+  const [alertMessage, setAlertMessage] = useState<string>('');
+  const [passwordType, setPasswordType] = useState<string>('password');
   const [userInfo, setUserInfo] = useState<ISignInPayload>({
-    username: "",
-    password: "",
+    username: '',
+    password: '',
     browserName: deviceData.browser.name,
-    deviceType: mobileOrientation.isLandscape ? "browser" : "mobile",
+    deviceType: mobileOrientation.isLandscape ? 'browser' : 'mobile'
   });
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const [schemaValidation] = useAuthSchema({
     schema: loginUserSchema,
-    userInfo,
+    userInfo
   });
   const [signIn, { isLoading }] = useSignInMutation();
   return (

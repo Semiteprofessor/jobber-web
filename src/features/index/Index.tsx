@@ -1,4 +1,4 @@
-import React, { FC, lazy, LazyExoticComponent, ReactElement, Suspense, useEffect } from 'react';
+import { FC, lazy, LazyExoticComponent, ReactElement, Suspense, useEffect } from 'react';
 import CircularPageLoader from 'src/shared/page-loader/CircularPageLoader';
 
 import Hero from './Hero';

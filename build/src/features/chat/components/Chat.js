@@ -2,9 +2,9 @@ import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
 import { useEffect, useRef, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { useGetUserMessagesQuery } from '../services/chat.service';
-import { chatMessageReceived } from '../services/chat.utils';
+import { chatMessageReceived } from '../services/chat.util';
 import ChatList from './chatlist/ChatList';
-import ChatWindow from './chatwindow/ChatWindow';
+import ChatWindow from './chatwindow/ChatWIndow';
 const Chat = () => {
     const { conversationId } = useParams();
     const chatMessages = useRef([]);
