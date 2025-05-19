@@ -8,7 +8,7 @@ import Button from '../button/Button';
 import Dropdown from '../dropdown/Dropdown';
 import TextAreaInput from '../inputs/TextAreaInput';
 import TextInput from '../inputs/TextInput';
-import { expectedGigDelivery, showErrorToast } from '../utils/utils.service';
+import { expectedGigDelivery, showErrorToast } from '../utils/util.service';
 import { IModalProps } from './interfaces/modal.interface';
 import ModalBg from './ModalBg';
 
