@@ -5,7 +5,7 @@ import { IMessageDocument } from '../interfaces/chat.interface';
 import { useGetUserMessagesQuery } from '../services/chat.service';
 import { chatMessageReceived } from '../services/chat.util';
 import ChatList from './chatlist/ChatList';
-import ChatWindow from './chatwindow/ChatWindow';
+import ChatWindow from './chatwindow/ChatWIndow';
 
 const Chat: FC = (): ReactElement => {
   const { conversationId } = useParams<string>();
