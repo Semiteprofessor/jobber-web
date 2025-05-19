@@ -254,4 +254,4 @@ const ChatWindow: FC<IChatWindowProps> = ({ chatMessages, isLoading, setSkip }):
   );
 };
 
-export default ChatWIndow;
+export default ChatWindow;
