@@ -113,6 +113,31 @@ const LoginModal: FC<IModalBgProps> = ({ onClose, onToggle, onTogglePassword }):
               />
             </div>
           </div>
+          <div className="flex justify-end">
+            <div
+              onClick={() => {
+                if (onTogglePassword) {
+                  onTogglePassword(true);
+                }
+              }}
+              className="mb-6 ml-2 cursor-pointer text-sm text-blue-600 hover:underline dark:text-blue-500"
+            >
+              Forgot Password?
+            </div>
+          </div>
+          <div className="flex w-full items-center justify-center">
+            <Button
+              testId="submit"
+              disabled={!userInfo.username || !userInfo.password}
+              className={`text-md block w-full cursor-pointer rounded bg-sky-500 px-8 py-2 text-center font-bold text-white hover:bg-sky-400 focus:outline-none ${
+                !userInfo.username || !userInfo.password ? 'cursor-not-allowed' : 'cursor-pointer'
+              }`}
+              label={`${isLoading ? 'LOGIN IN PROGRESS...' : 'LOGIN'}`}
+              onClick={onLoginUser}
+            />
+          </div>
+        </div>
+        <hr />
     </ModalBg>
   );
 };
