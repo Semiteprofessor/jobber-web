@@ -26,7 +26,36 @@ const ChatList: FC = (): ReactElement => {
   const dispatch = useAppDispatch();
   const { data, isSuccess } = useGetConversationListQuery(`${authUser.username}`);
   const [markMultipleMessagesAsRead] = useMarkMultipleMessagesAsReadMutation();
-  return <div>ChatList</div>;
+  
+  const selectUserFromList = async (user: IMessageDocument): Promise<void> => {
+    try {
+      setSelectedUser(user);
+      const pathList: string[] = location.pathname.split('/');
+      pathList.splice(-2, 2);
+      const locationPathname: string = !pathList.join('/') ? location.pathname : pathList.join('/');
+      const chatUsername: string = (user.receiverUsername !== authUser?.username ? user.receiverUsername : user.senderUsername) as string;
+      navigate(`${locationPathname}/${lowerCase(chatUsername)}/${user.conversationId}`);
+      socket.emit('getLoggedInUsers', '');
+      if (user.receiverUsername === authUser?.username && lowerCase(`${user.senderUsername}`) === username && !user.isRead) {
+        const list: IMessageDocument[] = filter(
+          chatList,
+          (item: IMessageDocument) => !item.isRead && item.receiverUsername === authUser?.username
+        );
+        if (list.length > 0) {
+          await markMultipleMessagesAsRead({
+            receiverUsername: `${user.receiverUsername}`,
+            senderUsername: `${user.senderUsername}`,
+            messageId: `${user._id}`
+          });
+        }
+      }
+    } catch (error) {
+      if (isFetchBaseQueryError(error)) {
+        showErrorToast(error?.data?.message);
+      }
+    }
+  };
+</div>;
 };
 
 export default ChatList;
