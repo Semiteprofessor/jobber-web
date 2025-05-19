@@ -98,7 +98,47 @@ const OfferModal: FC<IModalProps> = ({ header, gigTitle, receiver, authUser, sin
                 rows={5}
                 onChange={(event: ChangeEvent) => setOffer({ ...offer, description: (event.target as HTMLInputElement).value })}
               />
-            </div></div>
+            </div>
+            <div>
+              <label htmlFor="price" className="text-sm font-bold leading-tight tracking-normal">
+                Price<sup className="top-[-0.1em] text-base text-red-500">*</sup>
+              </label>
+              <div className="relative mb-5 mt-2">
+                <TextInput
+                  id="price"
+                  name="price"
+                  type="number"
+                  value={offer.price}
+                  className="flex h-10 w-full items-center rounded border border-gray-300 pl-3 text-sm font-normal text-gray-600 focus:border focus:border-sky-500/50 focus:outline-none"
+                  placeholder="Enter custom price"
+                  onChange={(event: ChangeEvent) => {
+                    const value = (event.target as HTMLInputElement).value;
+                    setOffer({ ...offer, price: parseInt(value) > 0 ? value : '' });
+                  }}
+                />
+              </div>
+            </div>
+            <div className="mb-6">
+              <label htmlFor="country" className="text-sm font-bold leading-tight tracking-normal">
+                Delivery<sup className="top-[-0.1em] text-base text-red-500">*</sup>
+              </label>
+              <div id="country" className="relative mb-5 mt-2">
+                <Dropdown
+                  text={offer.delivery}
+                  maxHeight="200"
+                  mainClassNames="absolute bg-white z-50"
+                  showSearchInput={false}
+                  values={expectedGigDelivery()}
+                  onClick={(item: string) => {
+                    const deliveryInDays: number = parseInt(item);
+                    const newDate: Date = new Date();
+                    newDate.setDate(newDate.getDate() + deliveryInDays);
+                    setOffer({ ...offer, deliveryDate: `${newDate}`, delivery: item });
+                  }}
+                />
+              </div>
+            </div>
+          </div></div>
   )
 }
 
