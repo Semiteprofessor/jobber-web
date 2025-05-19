@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom';
 
 import { IMessageDocument } from '../interfaces/chat.interface';
 import { useGetUserMessagesQuery } from '../services/chat.service';
-import { chatMessageReceived } from '../services/chat.utils';
+import { chatMessageReceived } from '../services/chat.util';
 import ChatList from './chatlist/ChatList';
 import ChatWindow from './chatwindow/ChatWindow';
 

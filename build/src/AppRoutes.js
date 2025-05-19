@@ -11,6 +11,16 @@ import Home from './features/home/components/Home';
 import ProtectedRoute from './features/ProtectedRoute';
 import AddSeller from './features/sellers/components/add/AddSeller';
 import BuyerDashboard from './features/buyer/components/Dashboard';
+import CurrentSellerProfile from './features/sellers/components/profile/CurrentSellerProfile';
+import SellerProfile from './features/sellers/components/profile/SellerProfile';
+import Seller from './features/sellers/components/dashboard/Seller';
+import SellerDashboard from './features/sellers/components/dashboard/SellerDashboard';
+import ManageOrders from './features/sellers/components/dashboard/ManageOrders';
+import ManageEarnings from './features/sellers/components/dashboard/ManageEarnings';
+import AddGig from './features/gigs/components/gig/AddGig';
+import EditGig from './features/gigs/components/gig/EditGig';
+import GigView from './features/gigs/components/view/GigView';
+import Gigs from './features/gigs/components/gigs/Gigs';
 const Layout = ({ backgroundColor = '#fff', children }) => (_jsx("div", { style: { backgroundColor }, className: "flex flex-grow", children: children }));
 const AppRouter = () => {
     const routes = [
@@ -57,6 +67,80 @@ const AppRouter = () => {
         {
             path: '/seller_profile/:username/:sellerId/edit',
             element: (_jsx(Suspense, { children: _jsx(ProtectedRoute, { children: _jsx(Layout, { backgroundColor: "#ffffff", children: _jsx(CurrentSellerProfile, {}) }) }) }))
+        },
+        {
+            path: '/seller_profile/:username/:sellerId/view',
+            element: (_jsx(Suspense, { children: _jsx(ProtectedRoute, { children: _jsx(Layout, { backgroundColor: "#ffffff", children: _jsx(SellerProfile, {}) }) }) }))
+        },
+        {
+            path: '/:username/:sellerId',
+            element: (_jsx(Suspense, { children: _jsx(ProtectedRoute, { children: _jsx(Layout, { backgroundColor: "#ffffff", children: _jsx(Seller, {}) }) }) })),
+            children: [
+                {
+                    path: 'seller_dashboard',
+                    element: _jsx(SellerDashboard, {})
+                },
+                {
+                    path: 'manage_orders',
+                    element: _jsx(ManageOrders, {})
+                },
+                {
+                    path: 'manage_earnings',
+                    element: _jsx(ManageEarnings, {})
+                }
+            ]
+        },
+        {
+            path: '/manage_gigs/new/:sellerId',
+            element: (_jsx(Suspense, { children: _jsx(ProtectedRoute, { children: _jsx(Layout, { backgroundColor: "#ffffff", children: _jsx(AddGig, {}) }) }) }))
+        },
+        {
+            path: '/manage_gigs/edit/:gigId',
+            element: (_jsx(Suspense, { children: _jsx(ProtectedRoute, { children: _jsx(Layout, { backgroundColor: "#ffffff", children: _jsx(EditGig, {}) }) }) }))
+        },
+        {
+            path: '/gig/:username/:title/:sellerId/:gigId/view',
+            element: (_jsx(Suspense, { children: _jsx(ProtectedRoute, { children: _jsx(Layout, { backgroundColor: "#ffffff", children: _jsx(GigView, {}) }) }) }))
+        },
+        {
+            path: '/categories/:category',
+            element: (_jsx(Suspense, { children: _jsx(ProtectedRoute, { children: _jsx(Layout, { backgroundColor: "#ffffff", children: _jsx(Gigs, { type: "categories" }) }) }) }))
+        },
+        {
+            path: '/categories/:category',
+            element: (_jsx(Suspense, { children: _jsx(ProtectedRoute, { children: _jsx(Layout, { backgroundColor: "#ffffff", children: _jsx(Gigs, { type: "categories" }) }) }) }))
+        },
+        {
+            path: '/search/gigs',
+            element: (_jsx(Suspense, { children: _jsx(ProtectedRoute, { children: _jsx(Layout, { backgroundColor: "#ffffff", children: _jsx(Gigs, { type: "search" }) }) }) }))
+        },
+        {
+            path: '/inbox',
+            element: (_jsx(Suspense, { children: _jsx(ProtectedRoute, { children: _jsx(Layout, { backgroundColor: "#ffffff", children: _jsx(Chat, {}) }) }) }))
+        },
+        {
+            path: '/inbox/:username/:conversationId',
+            element: (_jsx(Suspense, { children: _jsx(ProtectedRoute, { children: _jsx(Layout, { backgroundColor: "#ffffff", children: _jsx(Chat, {}) }) }) }))
+        },
+        {
+            path: '/gig/checkout/:gigId',
+            element: (_jsx(Suspense, { children: _jsx(ProtectedRoute, { children: _jsx(Layout, { backgroundColor: "#ffffff", children: _jsx(Checkout, {}) }) }) }))
+        },
+        {
+            path: '/gig/order/requirement/:gigId',
+            element: (_jsx(Suspense, { children: _jsx(ProtectedRoute, { children: _jsx(Layout, { backgroundColor: "#ffffff", children: _jsx(Requirement, {}) }) }) }))
+        },
+        {
+            path: '/orders/:orderId/activities',
+            element: (_jsx(Suspense, { children: _jsx(ProtectedRoute, { children: _jsx(Layout, { backgroundColor: "#f5f5f5", children: _jsx(Order, {}) }) }) }))
+        },
+        {
+            path: '/:username/edit',
+            element: (_jsx(Suspense, { children: _jsx(ProtectedRoute, { children: _jsx(Layout, { backgroundColor: "#f5f5f5", children: _jsx(Settings, {}) }) }) }))
+        },
+        {
+            path: '*',
+            element: (_jsx(Suspense, { children: _jsx(Error, {}) }))
         }
     ];
     return useRoutes(routes);

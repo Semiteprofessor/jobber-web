@@ -1,0 +1,10 @@
+import { jsx as _jsx, jsxs as _jsxs, Fragment as _Fragment } from "react/jsx-runtime";
+import { useContext } from 'react';
+import { FaMapMarkerAlt, FaRegClock, FaUserAlt } from 'react-icons/fa';
+import { SellerContext } from 'src/features/sellers/context/SellerContext';
+import { TimeAgo } from 'src/shared/utils/timeago.util';
+const AboutMe = () => {
+    const { sellerProfile } = useContext(SellerContext);
+    return (_jsx(_Fragment, { children: sellerProfile ? (_jsxs("div", { className: "border-grey border bg-white mt-6", children: [_jsx("div", { className: "mb-1 flex justify-between border-b", children: _jsx("h4", { className: "flex py-2.5 pl-3.5 text-sm font-bold text-[#161c2d] md:text-base", children: "ABOUT ME" }) }), _jsxs("ul", { className: "mb-0 list-none pt-1.5", children: [_jsxs("li", { className: "flex justify-between text-sm md:text-base mb-2", children: [_jsxs("div", { className: "col-span-3 ml-3 flex pb-3", children: [_jsx(FaMapMarkerAlt, { className: "mr-2 mt-1" }), _jsx("div", { className: "mr-3 font-bold", children: "From" })] }), _jsx("div", { className: "mr-4", children: sellerProfile.country })] }), _jsxs("li", { className: "flex justify-between text-sm md:text-base mb-2", children: [_jsxs("div", { className: "col-span-3 ml-3 flex pb-3", children: [_jsx(FaUserAlt, { className: "mr-2 mt-1" }), _jsx("div", { className: "mr-3 font-bold", children: "Member since" })] }), _jsx("div", { className: "mr-4", children: TimeAgo.formatDateToMonthAndYear(`${sellerProfile.createdAt}`) })] }), _jsxs("li", { className: "flex justify-between text-sm md:text-base mb-2", children: [_jsxs("div", { className: "col-span-3 ml-3 flex pb-3", children: [_jsx(FaRegClock, { className: "mr-2 mt-1" }), _jsx("div", { className: "mr-3 font-bold", children: "Avg. Response Time" })] }), _jsxs("div", { className: "mr-4", children: [sellerProfile.responseTime, " hour", sellerProfile.responseTime === 1 ? '' : 's'] })] })] })] })) : (_jsx(_Fragment, {})) }));
+};
+export default AboutMe;

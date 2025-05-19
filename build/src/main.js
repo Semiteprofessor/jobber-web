@@ -6,8 +6,8 @@ import ReactDOM from 'react-dom/client';
 import { Provider } from 'react-redux';
 import { persistStore } from 'redux-persist';
 import { PersistGate } from 'redux-persist/integration/react';
-import App from './App.tsx';
-import { store } from './store/store.ts';
+import App from './App';
+import { store } from './store/store';
 const persistor = persistStore(store);
 init({
     serviceName: 'Jobber Client App',
