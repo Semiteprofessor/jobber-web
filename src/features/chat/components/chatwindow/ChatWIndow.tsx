@@ -31,7 +31,44 @@ const MESSAGE_STATUS = {
 };
 const NOT_EXISTING_ID = '649db27404c0c7b7d4b112ec';
 
-const ChatWIndow = () => {
+const ChatWindow: FC<IChatWindowProps> = ({ chatMessages, isLoading, setSkip }): ReactElement => {
+  const seller = useAppSelector((state: IReduxState) => state.seller);
+  const authUser = useAppSelector((state: IReduxState) => state.authUser);
+  const fileRef = useRef<HTMLInputElement>(null);
+  const scrollRef = useChatScrollToBottom([]);
+  const { username } = useParams<string>();
+  const receiverUsername = useRef<string>(MESSAGE_STATUS.EMPTY);
+  const receiverRef = useRef<IBuyerDocument>();
+  const singleMessageRef = useRef<IMessageDocument>();
+  const [showImagePreview, setShowImagePreview] = useState<boolean>(MESSAGE_STATUS.IS_LOADING);
+  const [displayCustomOffer, setDisplayCustomOffer] = useState<boolean>(MESSAGE_STATUS.IS_LOADING);
+  const [selectedFile, setSelectedFile] = useState<File | null>(null);
+  const [isUploadingFile, setIsUploadingFile] = useState<boolean>(MESSAGE_STATUS.IS_LOADING);
+  const [message, setMessage] = useState<string>(MESSAGE_STATUS.EMPTY);
+  const dispatch = useAppDispatch();
+  const { data: buyerData, isSuccess: isBuyerSuccess } = useGetBuyerByUsernameQuery(`${firstLetterUppercase(`${username}`)}`);
+  const { data } = useGetGigByIdQuery(singleMessageRef.current ? `${singleMessageRef.current?.gigId}` : NOT_EXISTING_ID);
+  const [saveChatMessage] = useSaveChatMessageMutation();
+
+  if (isBuyerSuccess) {
+    receiverRef.current = buyerData.buyer;
+  }
+
+  if (chatMessages.length) {
+    singleMessageRef.current = chatMessages[chatMessages.length - 1];
+  }
+
+  const handleFileChange = (event: ChangeEvent): void => {
+    const target: HTMLInputElement = event.target as HTMLInputElement;
+    if (target.files) {
+      const file: File = target.files[0];
+      if (!checkFile(file)) {
+        setSelectedFile(file);
+        setShowImagePreview(MESSAGE_STATUS.LOADING);
+      }
+    }
+  };
+
   return <div>ChatWIndow</div>;
 };
 
