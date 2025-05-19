@@ -118,6 +118,19 @@ const ChatWindow: FC<IChatWindowProps> = ({ chatMessages, isLoading, setSkip }):
     }
   };
 
+  useEffect(() => {
+    const list: IMessageDocument[] = filter(chatMessages, (item: IMessageDocument) => !item.isRead && item.receiverUsername === username);
+    dispatch(updateNotification({ hasUnreadMessage: list.length > 0 }));
+  }, [chatMessages, dispatch, username]);
+
+  useEffect(() => {
+    socketService.setupSocketConnection();
+    socket.emit('getLoggedInUsers', '');
+    socket.on('online', (data: string[]) => {
+      receiverUsername.current = find(data, (name: string) => name === receiverRef?.current?.username) as string;
+    });
+  }, []);
+
   return <div>ChatWIndow</div>;
 };
 
