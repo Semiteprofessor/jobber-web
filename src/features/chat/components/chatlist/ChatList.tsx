@@ -55,6 +55,21 @@ const ChatList: FC = (): ReactElement => {
       }
     }
   };
+  useEffect(() => {
+    if (isSuccess) {
+      const sortedConversations: IMessageDocument[] = orderBy(data.conversations, ['createdAt'], ['desc']) as IMessageDocument[];
+      setChatList(sortedConversations);
+      if (!sortedConversations.length) {
+        dispatch(updateNotification({ hasUnreadMessage: false }));
+      }
+    }
+  }, [isSuccess, username, data?.conversations, dispatch]);
+
+  useEffect(() => {
+    chatListMessageReceived(`${authUser.username}`, chatList, conversationsListRef.current, dispatch, setChatList);
+    chatListMessageUpdated(`${authUser.username}`, chatList, conversationsListRef.current, dispatch, setChatList);
+  }, [authUser.username, conversationId, chatList, dispatch]);
+
 </div>;
 };
 
