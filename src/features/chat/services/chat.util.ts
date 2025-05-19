@@ -57,3 +57,32 @@ export const chatListMessageReceived = (
     }
   });
 };
+
+export const chatListMessageUpdated = (
+  username: string,
+  chatList: IMessageDocument[],
+  conversationListRef: IMessageDocument[],
+  dispatch: Dispatch<AnyAction>,
+  setChatList: Dispatch<SetStateAction<IMessageDocument[]>>
+): void => {
+  socket.on('message updated', (data: IMessageDocument) => {
+    conversationListRef = cloneDeep(chatList);
+    if (
+      lowerCase(`${data.receiverUsername}`) === lowerCase(`${username}`) ||
+      lowerCase(`${data.senderUsername}`) === lowerCase(`${username}`)
+    ) {
+      const messageIndex = findIndex(chatList, ['conversationId', data.conversationId]);
+      if (messageIndex > -1) {
+        conversationListRef.splice(messageIndex, 1, data);
+      }
+      if (lowerCase(`${data.receiverUsername}`) === lowerCase(`${username}`)) {
+        const list: IMessageDocument[] = filter(
+          conversationListRef,
+          (item: IMessageDocument) => !item.isRead && item.receiverUsername === username
+        );
+        dispatch(updateNotification({ hasUnreadMessage: list.length > 0 }));
+      }
+      setChatList(conversationListRef);
+    }
+  });
+};
