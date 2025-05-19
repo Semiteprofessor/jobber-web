@@ -138,6 +138,24 @@ const LoginModal: FC<IModalBgProps> = ({ onClose, onToggle, onTogglePassword }):
           </div>
         </div>
         <hr />
+        <div className="px-5 py-4">
+          <div className="ml-2 flex w-full justify-center text-sm font-medium">
+            <div className="flex justify-center">
+              Not yet a memeber?{' '}
+              <p
+                onClick={() => {
+                  if (onToggle) {
+                    onToggle(true);
+                  }
+                }}
+                className="ml-2 flex cursor-pointer text-blue-600 hover:underline"
+              >
+                Join Now
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
     </ModalBg>
   );
 };
