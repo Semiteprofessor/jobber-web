@@ -29,7 +29,41 @@ const OfferModal: FC<IModalProps> = ({ header, gigTitle, receiver, authUser, sin
   const [saveChatMessage] = useSaveChatMessageMutation();
 
 
-const OfferModal = () => {
+  const sendGigOffer = async (): Promise<void> => {
+    try {
+      const messageBody: IMessageDocument = {
+        conversationId: `${singleMessage?.conversationId}`,
+        hasConversationId: true,
+        body: "Here's your custom offer",
+        gigId: singleMessage?.gigId,
+        sellerId: singleMessage?.sellerId,
+        buyerId: singleMessage?.buyerId,
+        senderUsername: `${authUser?.username}`,
+        senderPicture: `${authUser?.profilePicture}`,
+        receiverUsername: receiver?.username,
+        receiverPicture: receiver?.profilePicture,
+        isRead: false,
+        hasOffer: true,
+        offer: {
+          gigTitle: `${gigTitle}`,
+          price: parseInt(offer.price),
+          description: offer.description,
+          deliveryInDays: parseInt(offer.delivery),
+          oldDeliveryDate: offer.deliveryDate,
+          newDeliveryDate: offer.deliveryDate,
+          accepted: false,
+          cancelled: false
+        }
+      };
+      await saveChatMessage(messageBody).unwrap();
+      if (cancelBtnHandler) {
+        cancelBtnHandler();
+      }
+    } catch (error) {
+      showErrorToast('Error sending gig offer.');
+    }
+  };
+
   return (
     <div>OfferModal</div>
   )
