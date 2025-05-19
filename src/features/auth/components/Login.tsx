@@ -10,7 +10,7 @@ import TextInput from 'src/shared/inputs/TextInput';
 import { IModalBgProps } from 'src/shared/modals/interfaces/modal.interface';
 import ModalBg from 'src/shared/modals/ModalBg';
 import { IResponse } from 'src/shared/shared.interface';
-import { saveToSessionStorage } from 'src/shared/utils/utils.service';
+import { saveToSessionStorage } from 'src/shared/utils/util.service';
 import { useAppDispatch } from 'src/store/store';
 
 import { useAuthSchema } from '../hooks/useAuthSchema';
@@ -33,11 +33,30 @@ const LoginModal: FC<IModalBgProps> = ({ onClose, onToggle, onTogglePassword }):
   });
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
-  const [schemaValidation] = useAuthSchema({
-    schema: loginUserSchema,
-    userInfo
-  });
+  const [schemaValidation] = useAuthSchema({ schema: loginUserSchema, userInfo });
   const [signIn, { isLoading }] = useSignInMutation();
+
+  const onLoginUser = async (): Promise<void> => {
+    try {
+      const isValid: boolean = await schemaValidation();
+      if (isValid) {
+        const result: IResponse = await signIn(userInfo).unwrap();
+        if (result && (result.browserName || result.deviceType)) {
+          navigate('/verify_otp');
+        } else {
+          setAlertMessage('');
+          dispatch(addAuthUser({ authInfo: result.user }));
+          dispatch(updateLogout(false));
+          dispatch(updateHeader('home'));
+          dispatch(updateCategoryContainer(true));
+          saveToSessionStorage(JSON.stringify(true), JSON.stringify(result.user?.username));
+        }
+      }
+    } catch (error) {
+      setAlertMessage(error?.data.message);
+    }
+  };
+
   return (
     <ModalBg>
       <div className="relative top-[20%] mx-auto w-11/12 max-w-md rounded-lg bg-white md:w-2/3">
