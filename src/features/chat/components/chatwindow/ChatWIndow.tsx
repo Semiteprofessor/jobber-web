@@ -131,7 +131,35 @@ const ChatWindow: FC<IChatWindowProps> = ({ chatMessages, isLoading, setSkip }):
     });
   }, []);
 
-  return <div>ChatWIndow</div>;
+  return <>
+      {!isLoading && displayCustomOffer && (
+        <OfferModal
+          header="Create Custom Offer"
+          gigTitle={data && data?.gig?.title ? data?.gig?.title : ''}
+          singleMessage={singleMessageRef?.current}
+          receiver={receiverRef?.current}
+          authUser={authUser}
+          cancelBtnHandler={() => setDisplayCustomOffer(MESSAGE_STATUS.IS_LOADING)}
+        />
+      )}
+      {!isLoading && (
+        <div className="flex min-h-full w-full flex-col">
+          <div className="border-grey flex w-full flex-col border-b px-5 py-0.5 ">
+            {receiverUsername.current === receiverRef?.current?.username ? (
+              <>
+                <div className="text-lg font-semibold">{firstLetterUppercase(`${username}`)}</div>
+                <div className="flex gap-1 pb-1 text-xs font-normal">
+                  Online
+                  <span className="flex h-2.5 w-2.5 self-center rounded-full border-2 border-white bg-green-400"></span>
+                </div>
+              </>
+            ) : (
+              <>
+                <div className="py-2.5 text-lg font-semibold">{firstLetterUppercase(`${username}`)}</div>
+                <span className="py-2.5s text-xs font-normal"></span>
+              </>
+            )}
+          </div></>;
 };
 
 export default ChatWIndow;
