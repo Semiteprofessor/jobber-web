@@ -131,7 +131,8 @@ const ChatWindow: FC<IChatWindowProps> = ({ chatMessages, isLoading, setSkip }):
     });
   }, []);
 
-  return <>
+  return (
+    <>
       {!isLoading && displayCustomOffer && (
         <OfferModal
           header="Create Custom Offer"
@@ -183,7 +184,74 @@ const ChatWindow: FC<IChatWindowProps> = ({ chatMessages, isLoading, setSkip }):
                 </div>
               ))}
             </div>
-          </div></>;
+          </div>
+          <div className="relative z-10 flex flex-col">
+            {showImagePreview && (
+              <ChatImagePreview
+                image={URL.createObjectURL(selectedFile as File)}
+                file={selectedFile as File}
+                isLoading={isUploadingFile}
+                message={message}
+                handleChange={setChatMessage}
+                onSubmit={sendMessage}
+                onRemoveImage={() => {
+                  setSelectedFile(null);
+                  setShowImagePreview(MESSAGE_STATUS.IS_LOADING);
+                }}
+              />
+            )}
+            {!showImagePreview && (
+              <div className="bottom-0 left-0 right-0 z-0 h-28 px-4 ">
+                <form onSubmit={sendMessage} className="mb-1 w-full">
+                  <TextInput
+                    type="text"
+                    name="message"
+                    value={message}
+                    className="border-grey mb-1 w-full rounded border p-3.5 text-sm font-normal text-gray-600 focus:outline-none"
+                    placeholder="Enter your message..."
+                    onChange={(event: ChangeEvent) => setMessage((event.target as HTMLInputElement).value)}
+                  />
+                </form>
+                <div className="flex cursor-pointer flex-row justify-between">
+                  <div className="flex gap-4">
+                    {!showImagePreview && <FaPaperclip className="mt-1 self-center" onClick={() => fileRef?.current?.click()} />}
+                    {!showImagePreview && singleMessageRef.current && singleMessageRef.current.sellerId === seller?._id && (
+                      <Button
+                        className="rounded bg-sky-500 px-6 py-3 text-center text-sm font-bold text-white hover:bg-sky-400 focus:outline-none md:px-4 md:py-2 md:text-base"
+                        disabled={false}
+                        label="Add Offer"
+                        onClick={() => setDisplayCustomOffer(MESSAGE_STATUS.LOADING)}
+                      />
+                    )}
+                    <TextInput
+                      name="chatFile"
+                      ref={fileRef}
+                      type="file"
+                      style={{ display: 'none' }}
+                      onClick={() => {
+                        if (fileRef.current) {
+                          fileRef.current.value = '';
+                        }
+                      }}
+                      onChange={handleFileChange}
+                    />
+                  </div>
+                  <div className="flex gap-4">
+                    <Button
+                      className="rounded bg-sky-500 px-6 py-3 text-center text-sm font-bold text-white hover:bg-sky-400 focus:outline-none md:px-4 md:py-2 md:text-base"
+                      disabled={false}
+                      label={<FaPaperPlane className="self-center" />}
+                      onClick={sendMessage}
+                    />
+                  </div>
+                </div>
+              </div>
+            )}
+          </div>
+        </div>
+      )}
+    </>
+  );
 };
 
 export default ChatWIndow;
