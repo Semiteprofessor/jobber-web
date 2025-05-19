@@ -1,4 +1,4 @@
-import React, { FC, ReactElement, useEffect, useState } from 'react';
+import { FC, ReactElement, useEffect, useState } from 'react';
 import { ISliderState } from '../interfaces/home.interface';
 import { sliderImages, sliderImagesText } from 'src/shared/utils/static-data';
 import { ISliderImagesText } from 'src/shared/shared.interface';

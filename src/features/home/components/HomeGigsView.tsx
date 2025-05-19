@@ -1,4 +1,4 @@
-import React, { FC, ReactElement } from 'react';
+import { FC, ReactElement } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import { IHomeProps } from '../interfaces/home.interface';
 import { socket } from 'src/sockets/socket.service';

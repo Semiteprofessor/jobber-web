@@ -1,4 +1,4 @@
-import React, { FC, ReactElement, RefObject, useEffect, useRef, useState } from 'react';
+import { FC, ReactElement, RefObject, useEffect, useRef, useState } from 'react';
 import { createSearchParams, NavigateFunction, useNavigate } from 'react-router-dom';
 import Typed from 'typed.js';
 
