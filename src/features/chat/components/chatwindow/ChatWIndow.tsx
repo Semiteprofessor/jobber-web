@@ -69,6 +69,55 @@ const ChatWindow: FC<IChatWindowProps> = ({ chatMessages, isLoading, setSkip }):
     }
   };
 
+  const setChatMessage = (event: ChangeEvent): void => {
+    setMessage((event.target as HTMLInputElement).value);
+  };
+
+  const sendMessage = async (event: FormEvent): Promise<void> => {
+    event.preventDefault();
+    if (setSkip) {
+      setSkip(true);
+    }
+
+    if (!message && !selectedFile) {
+      return;
+    }
+    try {
+      setIsUploadingFile(MESSAGE_STATUS.LOADING);
+      const messageBody: IMessageDocument = {
+        conversationId: singleMessageRef?.current?.conversationId,
+        hasConversationId: true,
+        body: message,
+        gigId: singleMessageRef?.current?.gigId,
+        sellerId: singleMessageRef?.current?.sellerId,
+        buyerId: singleMessageRef?.current?.buyerId,
+        senderUsername: `${authUser?.username}`,
+        senderPicture: `${authUser?.profilePicture}`,
+        receiverUsername: receiverRef?.current?.username,
+        receiverPicture: receiverRef?.current?.profilePicture,
+        isRead: false,
+        hasOffer: false
+      };
+      if (selectedFile) {
+        const dataImage: string | ArrayBuffer | null = await readAsBase64(selectedFile);
+        messageBody.file = dataImage as string;
+        messageBody.body = messageBody.body ? messageBody.body : '1 file sent';
+        messageBody.fileType = fileType(selectedFile);
+        messageBody.fileName = selectedFile.name;
+        messageBody.fileSize = `${selectedFile.size}`;
+      }
+      await saveChatMessage(messageBody).unwrap();
+      setSelectedFile(null);
+      setShowImagePreview(MESSAGE_STATUS.IS_LOADING);
+      setMessage(MESSAGE_STATUS.EMPTY);
+      setIsUploadingFile(MESSAGE_STATUS.IS_LOADING);
+    } catch (error) {
+      setMessage(MESSAGE_STATUS.EMPTY);
+      setIsUploadingFile(MESSAGE_STATUS.IS_LOADING);
+      showErrorToast('Error sending message.');
+    }
+  };
+
   return <div>ChatWIndow</div>;
 };
 
