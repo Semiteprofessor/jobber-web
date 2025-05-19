@@ -34,7 +34,46 @@ const ChatOffer: FC<IChatMessageProps> = ({ message, seller, gig }): ReactElemen
     }
   };
 
-  return <div>ChatOffer</div>;
+  return (
+    <div className="z-1 border-grey mt-2 flex h-72 max-w-xl flex-col overflow-hidden rounded border">
+      <div className="w-full">
+        <div className="border-grey flex flex-row justify-between border-b bg-[#fafafa] p-4 text-sm font-bold md:text-base">
+          <span className="">{message.offer?.gigTitle}</span>
+          <span>${message.offer?.price}</span>
+        </div>
+        <div className="border-grey h-28 max-h-28 overflow-y-scroll border-b px-4 py-3">{messageOffer.description}</div>
+        <div className="border-grey flex flex-row gap-x-2 border-b px-4 py-3 text-sm font-bold md:text-base">
+          <FaRegClock className="self-center" /> {messageOffer.deliveryInDays} Day
+          {parseInt(`${messageOffer.deliveryInDays}`) > 1 ? 's' : ''} Delivery
+        </div>
+        <div className="relative top-[5%] mr-3 flex flex-row justify-end gap-4">
+          <Button
+            className={`rounded px-6 py-3 text-center text-sm font-bold text-white focus:outline-none md:px-4 md:py-2 md:text-base ${
+              messageOffer.accepted || messageOffer.cancelled
+                ? 'cursor-not-allowed bg-red-200 hover:bg-red-200'
+                : 'bg-red-500 hover:bg-red-400'
+            }`}
+            disabled={messageOffer.accepted || messageOffer.cancelled}
+            label="Cancel Offer"
+            onClick={() => updateBuyerOffer(`${message._id}`, 'cancelled', messageOffer)}
+          />
+
+          {seller && seller._id !== message.sellerId && (
+            <Button
+              className={`rounded px-6 py-3 text-center text-sm font-bold text-white focus:outline-none md:px-4 md:py-2 md:text-base ${
+                messageOffer.accepted || messageOffer.cancelled
+                  ? 'cursor-not-allowed bg-sky-200 hover:bg-sky-200'
+                  : 'bg-sky-500 hover:bg-sky-400'
+              }`}
+              disabled={messageOffer.accepted || messageOffer.cancelled}
+              label="Accept Offer"
+              onClick={() => updateBuyerOffer(`${message._id}`, 'accepted', messageOffer)}
+            />
+          )}
+        </div>
+      </div>
+    </div>
+  );
 };
 
 export default ChatOffer;
