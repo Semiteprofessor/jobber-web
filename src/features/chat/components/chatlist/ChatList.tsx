@@ -4,7 +4,7 @@ import { FaCheck, FaCheckDouble, FaCircle } from 'react-icons/fa';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 import { Location, NavigateFunction, useLocation, useNavigate, useParams } from 'react-router-dom';
 import { updateNotification } from 'src/shared/header/reducers/notification.reducer';
-import { TimeAgo } from 'src/shared/utils/timeago.util';
+import { TimeAgo } from 'src/shared/utils/timeago.utils';
 import { isFetchBaseQueryError, lowerCase, showErrorToast } from 'src/shared/utils/utils.service';
 import { socket } from 'src/sockets/socket.service';
 import { useAppDispatch, useAppSelector } from 'src/store/store';
@@ -26,7 +26,7 @@ const ChatList: FC = (): ReactElement => {
   const dispatch = useAppDispatch();
   const { data, isSuccess } = useGetConversationListQuery(`${authUser.username}`);
   const [markMultipleMessagesAsRead] = useMarkMultipleMessagesAsReadMutation();
-  
+
   const selectUserFromList = async (user: IMessageDocument): Promise<void> => {
     try {
       setSelectedUser(user);
@@ -55,6 +55,7 @@ const ChatList: FC = (): ReactElement => {
       }
     }
   };
+
   useEffect(() => {
     if (isSuccess) {
       const sortedConversations: IMessageDocument[] = orderBy(data.conversations, ['createdAt'], ['desc']) as IMessageDocument[];
@@ -70,7 +71,58 @@ const ChatList: FC = (): ReactElement => {
     chatListMessageUpdated(`${authUser.username}`, chatList, conversationsListRef.current, dispatch, setChatList);
   }, [authUser.username, conversationId, chatList, dispatch]);
 
-</div>;
+  return (
+    <>
+      <div className="border-grey truncate border-b px-5 py-3 text-base font-medium">
+        <h2 className="w-6/12 truncate text-sm md:text-base lg:text-lg">All Conversations</h2>
+      </div>
+      <div className="absolute h-full w-full overflow-scroll pb-14">
+        {chatList.map((data: IMessageDocument, index: number) => (
+          <div
+            key={uuidv4()}
+            onClick={() => selectUserFromList(data)}
+            className={`flex w-full cursor-pointer items-center space-x-4 px-5 py-4 hover:bg-gray-50 ${
+              index !== chatList.length - 1 ? 'border-grey border-b' : ''
+            } ${!data.isRead ? 'bg-[#f5fbff]' : ''} ${data.conversationId === conversationId ? 'bg-[#f5fbff]' : ''}`}
+          >
+            <LazyLoadImage
+              src={data.receiverUsername !== authUser?.username ? data.receiverPicture : data.senderPicture}
+              alt="profile image"
+              className="h-10 w-10 object-cover rounded-full"
+              placeholderSrc="https://placehold.co/330x220?text=Profile+Image"
+              effect="blur"
+              wrapperClassName="h-10 w-10 object-cover rounded-full"
+            />
+            <div className="w-full text-sm dark:text-white">
+              <div className="flex justify-between pb-1 font-bold text-[#777d74]">
+                <span className={`${selectedUser && !data.body ? 'flex items-center' : ''}`}>
+                  {data.receiverUsername !== authUser?.username ? data.receiverUsername : data.senderUsername}
+                </span>
+                {data.createdAt && <span className="font-normal">{TimeAgo.transform(`${data.createdAt}`)}</span>}
+              </div>
+              <div className="flex justify-between text-[#777d74]">
+                <span>
+                  {data.receiverUsername === authUser.username ? '' : 'Me: '}
+                  {data.body}
+                </span>
+                {!data.isRead ? (
+                  <>
+                    {data.receiverUsername === authUser.username ? (
+                      <FaCircle className="mt-2 text-sky-500" size={8} />
+                    ) : (
+                      <FaCheck className="mt-2" size={8} />
+                    )}
+                  </>
+                ) : (
+                  <FaCheckDouble className="mt-2 text-sky-500" size={8} />
+                )}
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </>
+  );
 };
 
 export default ChatList;
