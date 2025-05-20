@@ -5,7 +5,7 @@ import Alert from 'src/shared/alert/Alert';
 import Button from 'src/shared/button/Button';
 import TextInput from 'src/shared/inputs/TextInput';
 import { PASSWORD_TYPE } from 'src/shared/utils/static-data';
-import { applicationLogout, isFetchBaseQueryError, showErrorToast } from 'src/shared/utils/utils.service';
+import { applicationLogout, isFetchBaseQueryError, showErrorToast } from 'src/shared/utils/util.service';
 import { useAppDispatch } from 'src/store/store';
 
 import { useChangePasswordMutation } from '../services/settings.service';
